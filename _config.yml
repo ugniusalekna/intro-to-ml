@@ -1,0 +1,31 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+title: Introductory ML Course
+author: ugniusalekna
+logo: logo.png
+
+execute:
+  execute_notebooks: force
+
+latex:
+  latex_documents:
+    targetname: book.tex
+
+repository:
+  url: https://github.com/ugniusalekna/intro-to-ml
+  path_to_book: content
+  branch: master
+
+html:
+  use_issues_button: true
+  use_repository_button: true
+
+parse:
+  myst_extended_syntax: true
+  myst_enable_extensions:
+    - amsmath
+
+sphinx:
+  config:
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
