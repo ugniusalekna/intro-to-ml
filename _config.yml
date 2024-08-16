@@ -67,7 +67,7 @@ execute:
 launch_buttons:
   colab_url: https://colab.research.google.com
 
-html_baseurl: /intro-to-ml/docs/
+html_baseurl: /intro-to-ml/
 repository:
   url: https://github.com/ugniusalekna/intro-to-ml
   path_to_book: ""

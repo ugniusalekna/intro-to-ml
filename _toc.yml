@@ -12,6 +12,6 @@
 format: jb-book
 root: README  # or the first chapter of your book
 chapters:
-  - file: notebooks/chapter1
-  - file: notebooks/chapter2
+  - file: chapter1
+  - file: chapter2
   # Add more sections as needed
