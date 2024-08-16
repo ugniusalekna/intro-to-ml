@@ -1,5 +1,6 @@
 _build/
 build_deploy.sh
+_templates/
 
 **/.ipynb_checkpoints
 
