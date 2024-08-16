@@ -385,6 +385,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masininio-mokymosi-uzdaviniu-tipai">Mašininio mokymosi uždavinių tipai</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagrindiniai-masininio-mokymosi-issukiai">Pagrindiniai mašininio mokymosi iššūkiai</a></li>
 </ul>
             </nav>
         </div>
@@ -403,7 +404,7 @@ document.write(`
 <section id="greita-istorija">
 <h3>Greita istorija<a class="headerlink" href="#greita-istorija" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Mašininio mokymosi (MM, angl. <em>Machine Learning, ML</em>) sąvoka pirmą kartą paminėta dar 1959 m., IBM tyrėjo Arthur Samuel –   vieno iš dirbtinio intelekto (DI, angl. <em>Artificial Intelligence, AI</em>) srities pradininkų. MM dėl to dažnai vadinamas DI mokslo šaka, apimančia įvairios intelektinės veiklos, kaip mokymosi, suvokimo, loginio mąstymo ir problemų sprendimo aspektus.</p></li>
+<li><p>Mašininio mokymosi (MM, angl. Machine Learning) sąvoka pirmą kartą paminėta dar 1959 m., IBM tyrėjo Arthur Samuel –   vieno iš dirbtinio intelekto (DI, angl. Artificial Intelligence) srities pradininkų. MM dėl to dažnai vadinamas DI mokslo šaka, apimančia įvairios intelektinės veiklos, kaip mokymosi, suvokimo, loginio mąstymo ir problemų sprendimo aspektus.</p></li>
 <li><p>Nuo to laiko, MM tapo savarankiška tarpdisciplinine sritimi. Joje daugiausia dėmesio skiriama mokymosi procesų automatizavimui panaudojant <em>tikimybių teorijos</em>, <em>statistikos</em>, <em>optimizavimo</em>, <em>informacijos teorijos</em> ir <em>algoritmų teorijos</em> rezultatus.</p></li>
 <li><p>Dabar MM dažnai laikoma <em>informatikos</em> mokslų disciplina.</p></li>
 </ul>
@@ -415,7 +416,7 @@ document.write(`
 <section id="mokymasis-is-duomenu">
 <h3>Mokymasis iš duomenų<a class="headerlink" href="#mokymasis-is-duomenu" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>MM kontekste mokymosi sąvoka sutapatinama su <em>mokymosi iš duomenų</em> (angl. <em>learning from data</em>) sąvoka.</p></li>
+<li><p>MM kontekste mokymosi sąvoka sutapatinama su <em>mokymosi iš duomenų</em> (angl. learning from data) sąvoka.</p></li>
 <li><p>Mokymusi iš duomenų galima pavadinti procesą, kurio metu duomenyse esanti informacija “suvirškinama” ištraukiant esminius požymius bei, galiausiai, paverčiama rezultatais ar išvadomis.</p></li>
 </ul>
 <section id="pavyzdziai-realaus-mokymosi-is-duomenu">
@@ -519,17 +520,115 @@ Neprižiūrimo mokymosi metu modelis mokosi iš duomenų, kuriuose nėra nurodyt
 </div>
 <hr style="border: none; height: 2px; background-color: black;">
 </li>
-<li><p><strong>Stiprinamasis mokymasis (angl. reinforcement learning)</strong><br />
-Stiprinamojo mokymosi metu modelis, vadinamas agentu (angl. agent), mokosi priimti sprendimus atlikdamas veiksmus (angl. policies) ir gaudamas atgalinį ryšį iš aplinkos (angl. environment) – atlygius (angl. rewards) arba bausmes (angl. penalties). Šis metodas naudojamas situacijose, kur reikia nuolat priimti sprendimus siekiant optimizuoti galutinį rezultatą.</p>
+<li><p><strong>Skatinamasis mokymasis (angl. reinforcement learning)</strong><br />
+Skatinamojo mokymosi metu modelis, vadinamas agentu (angl. agent), mokosi priimti sprendimus atlikdamas veiksmus (angl. policies) ir gaudamas atgalinį ryšį iš aplinkos (angl. environment) – atlygius (angl. rewards) arba bausmes (angl. penalties). Šis metodas naudojamas situacijose, kur reikia nuolat priimti sprendimus siekiant optimizuoti galutinį rezultatą.</p>
 <hr style="border: none; height: 2px; background-color: black;">
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/reinforcement_learning.png" alt="Reinforcement Learning" width="65%">
-<p><strong>1.5 pav., Stiprinamojo mokymosi pavyzdys</strong></p>
+<p><strong>1.5 pav., Skatinamojo mokymosi pavyzdys</strong></p>
 </div>
 <hr style="border: none; height: 2px; background-color: black;">
 </li>
 </ol>
 </section>
+</section>
+<section id="pagrindiniai-masininio-mokymosi-issukiai">
+<h2>Pagrindiniai mašininio mokymosi iššūkiai<a class="headerlink" href="#pagrindiniai-masininio-mokymosi-issukiai" title="Link to this heading">#</a></h2>
+<p>Trumpai tariant, mokymosi procesas susideda iš modelio (algoritmo) parinkimo ir jo apmokymo ant tam tikrų duomenų, taigi, pagrindiniai ir paprasčiausi iššūkiai kurie gali kilti – pasirinktas blogas algoritmas, arba prasti turimi duomenys.</p>
+<ol class="arabic simple">
+<li><p><strong>Nepakankamas mokymosi duomenų kiekis</strong><br />
+MM algoritmai efektyviai veikia tik tada, kai turi pakankamai duomenų; mažai duomenų lemia mažą modelio tikslumą.</p></li>
+<li><p><strong>Nereprezentatyvūs duomenys</strong><br />
+Turėti vien daug duomenų neužtenka; šį iššūkį galime panagrinėti pavyzdžiu.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="c1"># Get the data</span>
+<span class="n">lifesat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://github.com/ageron/data/raw/main/lifesat/lifesat.csv&quot;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">lifesat</span><span class="p">[[</span><span class="s2">&quot;GDP per capita (USD)&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">lifesat</span><span class="p">[[</span><span class="s2">&quot;Life satisfaction&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Select a linear model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+
+<span class="c1"># Train the model</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Visualize predictions</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model predictions&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">23500</span><span class="p">,</span> <span class="mi">65000</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;GDP per capita (USD)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Life satisfaction&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01da8967b53f157b0610d70685009f7ebb3ab69046c2b630143e2b544c60c742.png" src="../_images/01da8967b53f157b0610d70685009f7ebb3ab69046c2b630143e2b544c60c742.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_countries</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;South Africa&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">20000</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">),</span>
+    <span class="s2">&quot;Colombia&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">6000</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">),</span>
+    <span class="s2">&quot;Brazil&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">18000</span><span class="p">,</span> <span class="mf">7.8</span><span class="p">),</span>
+    <span class="s2">&quot;Mexico&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">24000</span><span class="p">,</span> <span class="mf">7.4</span><span class="p">),</span>
+    <span class="s2">&quot;Chile&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">30000</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">),</span>
+    <span class="s2">&quot;Norway&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">51000</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">),</span>
+    <span class="s2">&quot;Switzerland&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">62000</span><span class="p">,</span> <span class="mf">5.7</span><span class="p">),</span>
+    <span class="s2">&quot;Ireland&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">81000</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">),</span>
+    <span class="s2">&quot;Luxembourg&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">92000</span><span class="p">,</span> <span class="mf">4.7</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">missing_countries_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span>
+    <span class="n">missing_countries</span><span class="p">,</span> 
+    <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> 
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GDP per capita (USD)&#39;</span><span class="p">,</span> <span class="s1">&#39;Life satisfaction&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">missing_countries_df</span> <span class="o">=</span> <span class="n">missing_countries_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;Country&#39;</span><span class="p">})</span>
+
+<span class="n">lifesat_updated</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">lifesat</span><span class="p">,</span> <span class="n">missing_countries_df</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_new</span> <span class="o">=</span> <span class="n">lifesat_updated</span><span class="p">[[</span><span class="s2">&quot;GDP per capita (USD)&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y_new</span> <span class="o">=</span> <span class="n">lifesat_updated</span><span class="p">[[</span><span class="s2">&quot;Life satisfaction&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Select and train the new model</span>
+<span class="n">model_new</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model_new</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">)</span>
+
+<span class="c1"># Visualize again</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_new</span><span class="p">,</span> <span class="n">model_new</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_new</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;New model predictions&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_new</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_new</span><span class="p">),</span> <span class="s1">&#39;c:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Old model predictions&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">115000</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;GDP per capita (USD)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Life satisfaction&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b3ca0cc2b56f1f174a9a3f916ac23fbd26ed977fc3f07ad8a9823e6a00b1aa22.png" src="../_images/b3ca0cc2b56f1f174a9a3f916ac23fbd26ed977fc3f07ad8a9823e6a00b1aa22.png" />
+</div>
+</div>
 </section>
 </section>
 
@@ -610,6 +709,7 @@ Stiprinamojo mokymosi metu modelis, vadinamas agentu (angl. agent), mokosi priim
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masininio-mokymosi-uzdaviniu-tipai">Mašininio mokymosi uždavinių tipai</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagrindiniai-masininio-mokymosi-issukiai">Pagrindiniai mašininio mokymosi iššūkiai</a></li>
 </ul>
   </nav></div>
 
