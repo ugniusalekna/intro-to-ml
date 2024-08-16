@@ -1,0 +1,10 @@
+_build/
+
+**/.ipynb_checkpoints
+
+*.tmp
+*.log
+
+__pycache__/
+*.pyc
+*.pyo

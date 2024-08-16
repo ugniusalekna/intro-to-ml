@@ -3,19 +3,14 @@
 
 title: Introductory ML Course
 author: ugniusalekna
-logo: logo.png
 
 execute:
   execute_notebooks: force
 
-latex:
-  latex_documents:
-    targetname: book.tex
-
 repository:
   url: https://github.com/ugniusalekna/intro-to-ml
-  path_to_book: content/
-  branch: master
+  path_to_book: notebooks/
+  branch: main
 
 html:
   use_issues_button: true
