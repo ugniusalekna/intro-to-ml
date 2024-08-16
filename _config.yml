@@ -62,7 +62,7 @@ title: Introductory ML Course
 author: ugniusalekna
 
 execute:
-  execute_notebooks: inline
+  execute_notebooks: 'off'
 
 launch_buttons:
   colab_url: https://colab.research.google.com
