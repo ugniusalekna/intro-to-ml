@@ -1,4 +1,5 @@
 _build/
+build_deploy.sh
 
 **/.ipynb_checkpoints
 

@@ -18,41 +18,66 @@
 #   use_repository_button: true
 
 
-# Jupyter Book Configuration
+# # Jupyter Book Configuration
+# title: "Introductory ML Course"
+# author: "ugniusalekna"
+
+# # Base URL for GitHub Pages
+# baseurl: "/intro-to-ml"  # Make sure this matches your repository name
+
+# # Launch buttons
+# launch_buttons:
+#   notebook_interface: "jupyterlab"  # Interface for running notebooks
+#   colab_url: "https://colab.research.google.com"
+#   binderhub_url: "https://mybinder.org"
+#   jupyterhub_url: ""
+#   thebe: false  # Set to true if you want Thebe to be enabled for interactive notebooks
+
+# # HTML Theme Options
+# html:
+#   # favicon: "path/to/favicon.ico"
+#   theme:
+#     name: "sphinx_book_theme"
+#     options:
+#       path_to_docs: "docs"
+#       repository_url: "https://github.com/ugniusalekna/intro-to-ml"
+#       repository_branch: "main"
+#       use_issues_button: true
+#       use_repository_button: true
+#       use_download_button: true
+#       home_page_in_toc: true
+
+# # Extra configuration
+# extra_navbar:
+#   - name: "Home"
+#     url: "README.html"
+
+# # Table of contents
+# toc:
+#   - file: notebooks/chapter1
+#   - file: notebooks/chapter2
+
+
 title: "Introductory ML Course"
-author: "ugniusalekna"
+author: ugniusalekna
+baseurl: /intro-to-ml
 
-# Base URL for GitHub Pages
-baseurl: "/intro-to-ml"  # Make sure this matches your repository name
+execute:
+  execute_notebooks: 'off'
 
-# Launch buttons
 launch_buttons:
-  notebook_interface: "jupyterlab"  # Interface for running notebooks
-  colab_url: "https://colab.research.google.com"
-  binderhub_url: "https://mybinder.org"
-  jupyterhub_url: ""
-  thebe: false  # Set to true if you want Thebe to be enabled for interactive notebooks
+  colab_url: https://colab.research.google.com
 
-# HTML Theme Options
-html:
-  # favicon: "path/to/favicon.ico"
-  theme:
-    name: "sphinx_book_theme"
-    options:
-      path_to_docs: "docs"
-      repository_url: "https://github.com/ugniusalekna/intro-to-ml"
-      repository_branch: "main"
-      use_issues_button: true
-      use_repository_button: true
-      use_download_button: true
-      home_page_in_toc: true
+repository:
+  repository_url: https://github.com/ugniusalekna/intro-to-ml
+  path_to_book: ""
+  branch: main
 
-# Extra configuration
-extra_navbar:
-  - name: "Home"
-    url: "README.html"
+parse:
+  myst_extended_syntax: true
+  myst_enable_extensions:
+    - amsmath
 
-# Table of contents
-toc:
-  - file: notebooks/chapter1
-  - file: notebooks/chapter2
+sphinx:
+  config:
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
