@@ -58,9 +58,8 @@
 #   - file: notebooks/chapter2
 
 
-title: "Introductory ML Course"
+title: Introductory ML Course
 author: ugniusalekna
-baseurl: /intro-to-ml/docs
 
 execute:
   execute_notebooks: 'off'
@@ -69,7 +68,7 @@ launch_buttons:
   colab_url: https://colab.research.google.com
 
 repository:
-  repository_url: https://github.com/ugniusalekna/intro-to-ml
+  url: https://github.com/ugniusalekna/intro-to-ml
   path_to_book: ""
   branch: main
 
