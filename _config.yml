@@ -1,6 +1,6 @@
 title: Introductory ML Course
 author: ugniusalekna
-baseurl: "/intro-to-ml/"
+baseurl: "/intro-to-ml"
 
 execute:
   execute_notebooks: 'off'
