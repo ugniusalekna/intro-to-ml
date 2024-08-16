@@ -6,3 +6,4 @@ root: README
 sections:
   - file: notebooks/chapter1
   - file: notebooks/chapter2
+  - file: notebooks/chapter3

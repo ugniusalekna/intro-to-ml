@@ -1,0 +1,2076 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Problem 1. Classification &#8212; Introductory ML Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/chapter3';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Section 1" href="chapter2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introductory ML Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    Introductory ML Course for NMA 2024
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">Content with notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter2.html">Section 1</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Problem 1. Classification</a></li>
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ugniusalekna/intro-to-ml/blob/main/notebooks/chapter3.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/chapter3.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Problem 1. Classification</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Problem 1. Classification</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-necessary-libraries">Importing Necessary Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">Task Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-the-data">Reading the Data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1">Task 1.</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-accuracy-using-cross-validation">Calculating Accuracy using Cross-Validation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-different-scaling-methods">Comparing Different Scaling Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-on-the-test-set">Evaluating on the Test Set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-data">Visualizing the Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-in-3d">Plotting in 3D</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-principal-component-analysis">Using Principal Component Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-pca-on-the-test-set">Evaluating PCA on the Test Set</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-in-2d">Plotting in 2D</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2">Task 2.</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-basis-function-expansion">Linear Basis Function Expansion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#legendre-polynomials">Legendre Polynomials</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basis-expansion">Basis Expansion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-and-training-the-model">Defining and Training the Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Evaluating on the Test Set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-results">Visualizing the Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-decision-boundary">Calculating the Decision Boundary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Plotting in 3D</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Using Principal Component Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Plotting in 2D</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="problem-1-classification">
+<h1>Problem 1. Classification<a class="headerlink" href="#problem-1-classification" title="Link to this heading">#</a></h1>
+<section id="importing-necessary-libraries">
+<h2>Importing Necessary Libraries<a class="headerlink" href="#importing-necessary-libraries" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">legendre</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">,</span> <span class="n">maxabs_scale</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span>
+    <span class="n">RocCurveDisplay</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">auc</span><span class="p">,</span> <span class="n">PrecisionRecallDisplay</span><span class="p">,</span> <span class="n">precision_recall_curve</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.covariance</span> <span class="kn">import</span> <span class="n">EmpiricalCovariance</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-description">
+<h2>Task Description<a class="headerlink" href="#task-description" title="Link to this heading">#</a></h2>
+<p>File “ClassificationData.csv” contains a sample of $\mathbb{R}^3$ features arranged in columns together with the corresponding ${0, 1}$ class labels.</p>
+<ol class="arabic simple">
+<li><p>Train a standard logistic regression classifier on this data. Use a 10-fold cross-validation to evaluate the classification accuracy (its mean and standard
+deviation). Visualize the classification results: include the feature points, the classification boundary, and the classification accuracy measures.</p></li>
+<li><p>Improve the classification performance by using a linear expansion of the logit function, which defines the classification boundary, in the multidimensional Legendre polynomial basis. In the expansion, include the terms from 0 to $n_i$ for each dimension $i$, where $n_i$ are hyperparameters to be found by using a 10-fold cross-validation.</p></li>
+</ol>
+</section>
+<section id="reading-the-data">
+<h2>Reading the Data<a class="headerlink" href="#reading-the-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/content/ClassificationData.csv&#39;</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-653f2422-ec8a-4d1e-940d-5d88fda94052" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>400.000000</td>
+      <td>400.000000</td>
+      <td>400.000000</td>
+      <td>400.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>-0.066281</td>
+      <td>3.125635</td>
+      <td>-2.257026</td>
+      <td>0.500000</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.907127</td>
+      <td>1.560480</td>
+      <td>1.673638</td>
+      <td>0.500626</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>-5.897088</td>
+      <td>-0.551227</td>
+      <td>-6.135461</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>-1.048089</td>
+      <td>1.916310</td>
+      <td>-3.563290</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.025672</td>
+      <td>3.031510</td>
+      <td>-2.244807</td>
+      <td>0.500000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1.078587</td>
+      <td>4.337292</td>
+      <td>-1.082833</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>5.926831</td>
+      <td>7.827742</td>
+      <td>2.726541</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-653f2422-ec8a-4d1e-940d-5d88fda94052')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-653f2422-ec8a-4d1e-940d-5d88fda94052 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-653f2422-ec8a-4d1e-940d-5d88fda94052');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-9feabcd5-17ce-4236-99df-504d9f63a0d1">
+  <button class="colab-df-quickchart" onclick="quickchart('df-9feabcd5-17ce-4236-99df-504d9f63a0d1')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-9feabcd5-17ce-4236-99df-504d9f63a0d1 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+    </div>
+  </div>
+</div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">dataset.describe()</span></code> gives a well-rounded description of the dataset’s feature and target values. <code class="docutils literal notranslate"><span class="pre">count</span></code> is used to check whether our dataset is free of empty values. In this case, <code class="docutils literal notranslate"><span class="pre">count</span></code> for each feature matches the number of entries (=400), indicating, that the dataset does not have any missing values.</p>
+<p>The features seem to be of the same order of magnitude, (which might reduce the need for scaling). The features exhibit a symmetric distribution (each with different means and deviations), possibly resembling the Gaussian one.</p>
+<p><code class="docutils literal notranslate"><span class="pre">mean</span></code> of the categorical target variable shows, that the dataset is balanced.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gaussian_curve</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+  <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">((</span><span class="n">t</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">plot_histograms</span><span class="p">(</span><span class="n">feature_matrix</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+  <span class="n">N</span> <span class="o">=</span> <span class="n">feature_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+  <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">plot_size</span><span class="p">,</span> <span class="n">plot_size</span><span class="p">))</span>
+  <span class="n">mus</span><span class="p">,</span> <span class="n">sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">feature_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">feature_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">feature_matrix</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">feature_matrix</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]),</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">feature_matrix</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Histogram&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">gaussian_curve</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mus</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigmas</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Gauss Distribution&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Feature </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1"> Distribution&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Values&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+  <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_histograms</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e58fdf6171ae68824618f2374c69709fe4a5dc9412b2e7cc43300c06283e1bc1.png" src="../_images/e58fdf6171ae68824618f2374c69709fe4a5dc9412b2e7cc43300c06283e1bc1.png" />
+</div>
+</div>
+<p>After plotting the Probability Mass Function (PMF) for each feature using histograms, it appears that the distributions of the features are similar to a Gaussian distribution. To confirm this observation, further analysis is needed (such as calculating curtosis, skewness or employing statistical tests), which is out-of-scope for this project. For reference, a Gaussian curve (matched to the respective means and standard deviations) is plotted on each histogram.</p>
+<p>Since logistic regression model does not assume the normality of data (differently from linear regression), the analysis of data’s distribution has no impact on the model, applied in this project.</p>
+</section>
+</section>
+<section id="task-1">
+<h1>Task 1.<a class="headerlink" href="#task-1" title="Link to this heading">#</a></h1>
+<section id="calculating-accuracy-using-cross-validation">
+<h2>Calculating Accuracy using Cross-Validation<a class="headerlink" href="#calculating-accuracy-using-cross-validation" title="Link to this heading">#</a></h2>
+<section id="comparing-different-scaling-methods">
+<h3>Comparing Different Scaling Methods<a class="headerlink" href="#comparing-different-scaling-methods" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">pipeline_std</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())])</span>
+<span class="n">pipeline_minmax</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The dataset is split into train and test sets using a <code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">:</span> <span class="pre">1</span></code> ratio. <code class="docutils literal notranslate"><span class="pre">random_state</span></code> parameter is used for reproducibility; <code class="docutils literal notranslate"><span class="pre">stratify</span></code> is used to ensure that train and test sets contain the same proportion of each class.</p>
+<p>Two <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> objects are created to compare scaling effects on the classifier - one for standard scaling, and other for min-max scaling. The Pipelines are then trained using cross-validation technique, with 10 folds. <code class="docutils literal notranslate"><span class="pre">KFolds</span></code> object is used to specify the number of folds.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_accuracy_measures</span><span class="p">(</span><span class="n">accuracies</span><span class="p">,</span> <span class="n">processing_method</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Classification Accuracy without Scaling:&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">processing_method</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span>\
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Classification Accuracy using </span><span class="si">{</span><span class="n">processing_method</span><span class="si">}</span><span class="s1">:&#39;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Average Accuracy: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">accuracies</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> %&#39;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Standard Deviation: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">accuracies</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> %</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">k_folds</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">accuracies</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">(),</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k_folds</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+<span class="n">print_accuracy_measures</span><span class="p">(</span><span class="n">accuracies</span><span class="p">,</span> <span class="n">processing_method</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="n">accuracies_std</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pipeline_std</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k_folds</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+<span class="n">print_accuracy_measures</span><span class="p">(</span><span class="n">accuracies_std</span><span class="p">,</span> <span class="n">processing_method</span><span class="o">=</span><span class="s1">&#39;Standard Scaler&#39;</span><span class="p">)</span>
+
+<span class="n">accuracies_minmax</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pipeline_minmax</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k_folds</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+<span class="n">print_accuracy_measures</span><span class="p">(</span><span class="n">accuracies_minmax</span><span class="p">,</span> <span class="n">processing_method</span><span class="o">=</span><span class="s1">&#39;MinMax Scaler&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Classification Accuracy without Scaling:
+  Average Accuracy: 83.12 %
+  Standard Deviation: 7.02 %
+
+Classification Accuracy using Standard Scaler:
+  Average Accuracy: 83.44 %
+  Standard Deviation: 6.41 %
+
+Classification Accuracy using MinMax Scaler:
+  Average Accuracy: 83.44 %
+  Standard Deviation: 6.10 %
+</pre></div>
+</div>
+</div>
+</div>
+<p>The results indicate that feature scaling slightly improves the model’s classification accuracy and its standard deviation.</p>
+<ul class="simple">
+<li><p>The use of <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> increases the average accuracy by $0.32 %$ and reduces the standard deviation by $0.61 %$, indicating a slight improvement.</p></li>
+<li><p>With <code class="docutils literal notranslate"><span class="pre">MinMaxScaler</span></code>, the mean accuracy is the same as with <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code>, but the deviation is further reduced by $0.31 %$, suggesting, that this scaling methods offers the best performance among the three.</p></li>
+</ul>
+<p>Given these results, I’ve decided to include the <code class="docutils literal notranslate"><span class="pre">MinMaxScaler</span></code> into the model’s pipeline, since it does improve the performance by a small amount.</p>
+<p>With mean classification accuracy of $83.44 %$ and standard deviation of $6.10 %$, the model performs well, but may be potentially improved. Given that logistic regression is a linear model, these results might indicate difficulties in achieving linear separability of the dataset. The complexity of the data may be visualized using a scatter plot.</p>
+</section>
+</section>
+<section id="evaluating-on-the-test-set">
+<h2>Evaluating on the Test Set<a class="headerlink" href="#evaluating-on-the-test-set" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_test_measures</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+  <span class="n">conf_matrix</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+  <span class="n">acc_score</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+  <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Confusion Matrix:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">conf_matrix</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s2">&quot;fancy_grid&quot;</span><span class="p">,</span> <span class="n">showindex</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;True:0&quot;</span><span class="p">,</span> <span class="s2">&quot;True:1&quot;</span><span class="p">],</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Pred:0&quot;</span><span class="p">,</span> <span class="s2">&quot;Pred:1&quot;</span><span class="p">]))</span>
+
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Accuracy Score: </span><span class="si">{</span><span class="n">acc_score</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> %</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Report of Main Classification Metrics:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After validating the logistic regression classifier using cross-validation and obtaining the mean accuracy of $83.44 %$ and its standard deviation of $6.10 %$, the model can be evaluated on the test set. <em>Confusion matrix</em>, <em>accuracy score</em> and <em>classification metrics report</em> are used to evaluate the model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline_minmax</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="n">print_test_measures</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Confusion Matrix:
+
+╒════════╤══════════╤══════════╕
+│        │   Pred:0 │   Pred:1 │
+╞════════╪══════════╪══════════╡
+│ True:0 │       35 │        5 │
+├────────┼──────────┼──────────┤
+│ True:1 │        7 │       33 │
+╘════════╧══════════╧══════════╛
+
+Accuracy Score: 85.00 %
+
+Report of Main Classification Metrics:
+
+              precision    recall  f1-score   support
+
+           0       0.83      0.88      0.85        40
+           1       0.87      0.82      0.85        40
+
+    accuracy                           0.85        80
+   macro avg       0.85      0.85      0.85        80
+weighted avg       0.85      0.85      0.85        80
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>A relatively low number of false positives and false negatives in the confusion matrix indicate a balanced performance in classifying both classes.</p></li>
+<li><p>An accuracy score of $85.00 %$ indicates, that the model did not overfit to train data, and can retain good accuracy rate in the test set as well.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">f1-score</span></code> of <code class="docutils literal notranslate"><span class="pre">0.85</span></code> for both classes indicates a good balance between the precision and recall metrics.</p></li>
+</ul>
+</section>
+<section id="visualizing-the-data">
+<h2>Visualizing the Data<a class="headerlink" href="#visualizing-the-data" title="Link to this heading">#</a></h2>
+<section id="plotting-in-3d">
+<h3>Plotting in 3D<a class="headerlink" href="#plotting-in-3d" title="Link to this heading">#</a></h3>
+<p>Since the dataset contains $\mathbb{R}^3$ feature samples, the feature points along with a decision boundary can be visualized using a 3D plot. <code class="docutils literal notranslate"><span class="pre">plot_3d_scatter()</span></code> function is created to display the results. The decision boundary is a plane, defined by</p>
+<p>\begin{equation}
+\beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 = 0,
+\end{equation}</p>
+<p>where $(x_1, x_2, x_3)$ is the feature vector, $\beta_0$ is the intercept, and $(\beta_1, \beta_2, \beta_3)$ are the coefficients. The decision boundary is plotted by using the coefficients and the intercept of the trained logistic regression model and expressing the linear function as an explicit $x_3 = f(x_1, x_2)$ function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_3d_scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">):</span>
+    <span class="n">scaler</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;scaler&#39;</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+  <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">plot_settings</span><span class="p">)</span>
+  <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">plot_size</span><span class="p">,</span> <span class="n">plot_size</span><span class="p">))</span>
+  <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.05</span><span class="p">)</span>
+
+  <span class="n">x1_min</span><span class="p">,</span> <span class="n">x1_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+  <span class="n">x2_min</span><span class="p">,</span> <span class="n">x2_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">setting</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plot_settings</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Class 0&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Class 1&#39;</span><span class="p">)</span>
+
+    <span class="n">intercept</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">)</span> <span class="k">else</span> <span class="n">clf</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">coefs</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">)</span> <span class="k">else</span> <span class="n">clf</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x1_min</span><span class="p">,</span> <span class="n">x1_max</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x2_min</span><span class="p">,</span> <span class="n">x2_max</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+    <span class="n">x3</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span> <span class="n">intercept</span> <span class="o">-</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">x2</span><span class="p">)</span> <span class="o">/</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">azim</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Projection </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Feature 1&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Feature 2&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Feature 3&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+  <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The feature points along with the decision boundary can then be plotted using <code class="docutils literal notranslate"><span class="pre">plot_settings</span></code> - a list of (<code class="docutils literal notranslate"><span class="pre">elev</span></code>, <code class="docutils literal notranslate"><span class="pre">azim</span></code>) parameters for controlling the view of the 3D plot. <code class="docutils literal notranslate"><span class="pre">elev</span></code> controls the angle along the $(x, y)$ plane, and <code class="docutils literal notranslate"><span class="pre">azim</span></code> - the rotation angle along $z$ axis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_settings</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span>
+  <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">140</span><span class="p">),</span>
+  <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">plot_3d_scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Train-Set Visualization&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/83f75e92987207a14eb796d01c4b8970de787a4483f47849161f1f86958202c4.png" src="../_images/83f75e92987207a14eb796d01c4b8970de787a4483f47849161f1f86958202c4.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_3d_scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Test-Set Visualization&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/dd332e49cb8772ea1a587d448633b9e6b9a4db18be6949b470a0309737948ba6.png" src="../_images/dd332e49cb8772ea1a587d448633b9e6b9a4db18be6949b470a0309737948ba6.png" />
+</div>
+</div>
+<p>The first two projections display the expected results - the decision boundary is a hyperplane, dividing the space into two subspaces, one for each class. The feature points seem relatively clustered - this indicates, that a linear model may not be the most suitable classificator.</p>
+<p>However, interesting observation can be made from the 3rd projection. The feature points appear to be layed out on a manifold, which indicates, that:</p>
+<ol class="arabic simple">
+<li><p>Correlation between the features may be exhibited $\implies$ One of the features may be redundant;</p></li>
+<li><p>Data may be projected on a lower-dimensional plane without much loss of the information.</p></li>
+</ol>
+<p>To examine the 1st observation, a <em>covariance matrix</em> is calculated for the train set samples.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">emp_cov</span> <span class="o">=</span> <span class="n">EmpiricalCovariance</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">cov_matrix</span> <span class="o">=</span> <span class="n">emp_cov</span><span class="o">.</span><span class="n">covariance_</span>
+<span class="n">cov_matrix_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cov_matrix</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Variable 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Variable 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Variable 3&#39;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Variable 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Variable 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Variable 3&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Covariance Matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">cov_matrix_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Covariance Matrix:
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-9ee54ae6-321b-464f-b4d0-f804a54a4bc8" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Variable 1</th>
+      <th>Variable 2</th>
+      <th>Variable 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Variable 1</th>
+      <td>3.641398</td>
+      <td>0.180174</td>
+      <td>2.447455</td>
+    </tr>
+    <tr>
+      <th>Variable 2</th>
+      <td>0.180174</td>
+      <td>2.418132</td>
+      <td>-1.582475</td>
+    </tr>
+    <tr>
+      <th>Variable 3</th>
+      <td>2.447455</td>
+      <td>-1.582475</td>
+      <td>2.849591</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-9ee54ae6-321b-464f-b4d0-f804a54a4bc8')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-9ee54ae6-321b-464f-b4d0-f804a54a4bc8 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-9ee54ae6-321b-464f-b4d0-f804a54a4bc8');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-e3dd1cea-e2d2-4756-ba6c-d62604d11d1b">
+  <button class="colab-df-quickchart" onclick="quickchart('df-e3dd1cea-e2d2-4756-ba6c-d62604d11d1b')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-e3dd1cea-e2d2-4756-ba6c-d62604d11d1b button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+    </div>
+  </div>
+</div></div>
+</div>
+<p>A strong inverse correlation can be seen between variables 2 and 3, and even stronger correlation is seen between variables 1 and 3. This implies, multicollinearity in the dataset. A dimensionality reduction technique can be employed and data can be transformed onto a lower dimension without much loss of the information.</p>
+</section>
+<section id="using-principal-component-analysis">
+<h3>Using Principal Component Analysis<a class="headerlink" href="#using-principal-component-analysis" title="Link to this heading">#</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> is constructed for performing <em>Principal Component Analysis (PCA)</em> on the given data. <code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code> is chosen to ensure the consistency across the project.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_pca</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;decomposition&#39;</span><span class="p">,</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span> <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())])</span>
+
+<span class="n">k_folds</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">accuracies_pca</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pipeline_pca</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k_folds</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+<span class="n">print_accuracy_measures</span><span class="p">(</span><span class="n">accuracies_pca</span><span class="p">,</span> <span class="n">processing_method</span><span class="o">=</span><span class="s1">&#39;Min-Max Scaler and PCA&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Classification Accuracy using Min-Max Scaler and PCA:
+  Average Accuracy: 83.44 %
+  Standard Deviation: 6.10 %
+</pre></div>
+</div>
+</div>
+</div>
+<p>After performing PCA, average classification accuracy is $83.44 %$ and its standard deviation is $6.10 %$. As a reminder, these were the results of a classifier using all the features:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Classification</span> <span class="n">Accuracy</span> <span class="n">using</span> <span class="n">MinMax</span> <span class="n">Scaler</span><span class="p">:</span>
+  <span class="n">Average</span> <span class="n">Accuracy</span><span class="p">:</span> <span class="mf">83.44</span> <span class="o">%</span>
+  <span class="n">Standard</span> <span class="n">Deviation</span><span class="p">:</span> <span class="mf">6.10</span> <span class="o">%</span>
+</pre></div>
+</div>
+<p>This suggests, that PCA effectively reduces dimensionality without a significant loss of information, maintaining the classifier’s performance.</p>
+</section>
+<section id="evaluating-pca-on-the-test-set">
+<h3>Evaluating PCA on the Test Set<a class="headerlink" href="#evaluating-pca-on-the-test-set" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">classifier_pca</span> <span class="o">=</span> <span class="n">pipeline_pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred_pca</span> <span class="o">=</span> <span class="n">classifier_pca</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">print_test_measures</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_pca</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Confusion Matrix:
+
+╒════════╤══════════╤══════════╕
+│        │   Pred:0 │   Pred:1 │
+╞════════╪══════════╪══════════╡
+│ True:0 │       35 │        5 │
+├────────┼──────────┼──────────┤
+│ True:1 │        7 │       33 │
+╘════════╧══════════╧══════════╛
+
+Accuracy Score: 85.00 %
+
+Report of Main Classification Metrics:
+
+              precision    recall  f1-score   support
+
+           0       0.83      0.88      0.85        40
+           1       0.87      0.82      0.85        40
+
+    accuracy                           0.85        80
+   macro avg       0.85      0.85      0.85        80
+weighted avg       0.85      0.85      0.85        80
+</pre></div>
+</div>
+</div>
+</div>
+<p>The test outcomes, obtained after performing PCA, indicate, that the model’s performance remains unchanged after dimensionality reduction. The classification metrics remain the same.</p>
+</section>
+<section id="plotting-in-2d">
+<h3>Plotting in 2D<a class="headerlink" href="#plotting-in-2d" title="Link to this heading">#</a></h3>
+<p>Now, once the data is transformed onto a lower dimension, a more intuitive way of visualizing the classification problem is possible. <code class="docutils literal notranslate"><span class="pre">plot_2d_scatter()</span></code> function is created to display a 2-dimensional scatter plot. The decision boundary is now a line, defined by</p>
+<p>\begin{equation}
+\beta_0 + \beta_1 \tilde{x_1} + \beta_2 \tilde{x_2} = 0,
+\end{equation}</p>
+<p>where $(\tilde{x_1}, \tilde{x_2})$ is the new feature vector, $\beta_0$ is the intercept, and $(\beta_1, \beta_2)$ are the coefficients. The decision boundary is plotted by expressing the $x_2$ variable from the linear equation, using the coefficients and the intercept of a trained logistic regression model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_2d_scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">):</span>
+    <span class="n">scaler</span><span class="p">,</span> <span class="n">pca</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;scaler&#39;</span><span class="p">],</span> <span class="n">clf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;decomposition&#39;</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+
+  <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">plot_size</span><span class="p">,</span> <span class="n">plot_size</span><span class="p">))</span>
+  <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+  <span class="n">intercept</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">)</span> <span class="k">else</span> <span class="n">clf</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">coefs</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">)</span> <span class="k">else</span> <span class="n">clf</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+  <span class="n">x1_min</span><span class="p">,</span> <span class="n">x1_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.1</span>
+  <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x1_min</span><span class="p">,</span> <span class="n">x1_max</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+  <span class="n">x2</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span> <span class="n">intercept</span> <span class="o">-</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x1</span><span class="p">)</span> <span class="o">/</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+  <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Decision Boundary&#39;</span><span class="p">)</span>
+
+  <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x2</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x2</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+  <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Class 0&#39;</span><span class="p">)</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Class 1&#39;</span><span class="p">)</span>
+
+  <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;PCA Feature 1&#39;</span><span class="p">)</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;PCA Feature 2&#39;</span><span class="p">)</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+  <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d_scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">pipeline_pca</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Train-Set Visualization with PCA&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/bf3bf9e021c0bb618983d83a0b64c965047a2ec38cdd248ebe832cd8dd48383a.png" src="../_images/bf3bf9e021c0bb618983d83a0b64c965047a2ec38cdd248ebe832cd8dd48383a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d_scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">pipeline_pca</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Test-Set Visualization with PCA&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/8dbd5a4eb58cdecdb38d56e4e38c20e0aee979e7a2dbc305168934d04ea5c8ba.png" src="../_images/8dbd5a4eb58cdecdb38d56e4e38c20e0aee979e7a2dbc305168934d04ea5c8ba.png" />
+</div>
+</div>
+<p>In the plots for both the train and test sets, the linear decision boundary, separating the classes, is more intuitive and easier to visualize. The boundary shows a good (decent) separation between the classes. The data seems to be non-linear, there is some overlap in the middle of the plot, hence, the classificator is not able to capture every detail of the complex distribution. The test set plot shows, that the classificator did not overfit to the training data and is able to generalize well to unseen data.</p>
+</section>
+</section>
+</section>
+<section id="task-2">
+<h1>Task 2.<a class="headerlink" href="#task-2" title="Link to this heading">#</a></h1>
+<p>Right now, the best performing model is a <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> model with <code class="docutils literal notranslate"><span class="pre">MinMaxScaler</span></code>, achieving mean classification accuracy of $83.44 %$ and standard deviation of $6.10 %$. To further improve the classification performance, basis expansion technique can be employed.</p>
+<section id="linear-basis-function-expansion">
+<h2>Linear Basis Function Expansion<a class="headerlink" href="#linear-basis-function-expansion" title="Link to this heading">#</a></h2>
+<p>Basis function expansion is a way to capture non-linear relationships in the data, by expanding the feature space. It involves representing the original data in terms of basis functions.</p>
+<section id="legendre-polynomials">
+<h3>Legendre Polynomials<a class="headerlink" href="#legendre-polynomials" title="Link to this heading">#</a></h3>
+<p>For this task, a <em>Legendre Polynomial Basis</em> is selected. Legendre polynomials is a complete and orthogonal system of polynomials, defined over the interval $[-1, 1]$. Orthogonality helps in avoiding multicollinearity in the expanded feature space.</p>
+<p>One of the ways of defining the Legendre polynomials is with a <em>recursive Bonnet’s formula</em>:</p>
+<p>\begin{equation}
+(n+1)P_{n+1}(x) = (2n+1)xP_{n}(x) - nP_{n-1}(x),
+\end{equation}</p>
+<p>with $P_{0}(x)=1$ and $P_{1}(x)=x$.
+Using the formula, first few Legendre polynomials can be calculated:</p>
+<blockquote>
+<div><p>$P_{2}(x)=\frac{1}{2}(3x^2-1)$;</p>
+</div></blockquote>
+<blockquote>
+<div><p>$P_{3}(x)=\frac{1}{2}(5x^3-3x)$;</p>
+</div></blockquote>
+<blockquote>
+<div><p>$P_{4}(x)=\frac{1}{8}(35x^4-30x^2+3)$;</p>
+</div></blockquote>
+<blockquote>
+<div><p>$P_{5}(x)=\frac{1}{8}(63x^5-70x^3+15x)$.</p>
+</div></blockquote>
+</section>
+<section id="logistic-regression">
+<h3>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Link to this heading">#</a></h3>
+<p>The logistic regression model for this task is of the form</p>
+<p>\begin{equation}
+p(y=1 | x_1, x_2, x_3) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3)}},
+\end{equation}</p>
+<p>where $x_1, x_2, x_3$ are the input features, $\beta_0$ is the intercept, and $\beta_1, \beta_2, \beta_3$ are the model’s coefficients. The model can also be expressed in terms of a <em>logit</em> function, which is an inverse of a sigmoid function:</p>
+<p>\begin{equation}
+\text{logit}(p(y=1 | x_1, x_2, x_3)) = \ln \left( \frac{p(y=1 | x_1, x_2, x_3)}{1-p(y=1 | x_1, x_2, x_3)} \right) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3.
+\end{equation}</p>
+<p>The $\text{logit}$ function defines the classification boundary, expressed as a linear function of the parameters. The boundary is defined on a hyperplane, where the probability ratio is equal to 1, i.e. the $\text{logit}$ function is equal to $0$, $\implies$ $ \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 = 0.$ The latter equation is an expression of the classification boundary.</p>
+</section>
+<section id="basis-expansion">
+<h3>Basis Expansion<a class="headerlink" href="#basis-expansion" title="Link to this heading">#</a></h3>
+<p>Having the Legendre polynomials introduced, a basis expansion can then be defined as a transformation of a feature $x_{i}, i=1,2,3$:</p>
+<p>\begin{equation}
+\phi(x_i)=[ P_{0}(x_i), P_{1}(x_i), P_{2}(x_i), …, P_{n_i}(x_i) ],
+\end{equation}</p>
+<p>where $P_{k}(x_i)$ is the $k$-th Legendre polynomial evaluated at $x_i$ and $n_{i}$ are hyperparameters, to be found using cross-validation, $i=1,2,3$. This transformation expands the dimension of our input data from $\mathbb{R}^3$ to $ \mathbb{R}^{(n_1+1)+(n_2+1)+(n_3+1)}$.</p>
+<p>Once the parameter space is transformed, the logistic regression model will now take a linear combination of the transformed features. The $\text{logit}$ function in the expanded space will be</p>
+<p>\begin{equation}
+\text{logit}[p(y=1 | \phi(x_1), \phi(x_2), \phi(x_3))] = \tilde{\beta_0} + \tilde{\beta_1} \phi(x_1) + \tilde{\beta_2}  \phi(x_2) + \tilde{\beta_3}  \phi(x_3) = \tilde{\beta_0} + \sum_{i=1}^3 \sum_{j=0}^{n_i}\gamma_{ij}P_{j}(x_i), \tag{1}
+\end{equation}</p>
+<p>where $\tilde{\beta_0}$ is the intercept, $\tilde{\beta_i} = (\gamma_{i0}, …, \gamma_{in_i})^T, i=1,2,3$, are the coefficients of the transformed model.</p>
+<p>By expanding the feature space using Legendre polynomials, the logistic regression model can capture more complex data, because polynomial expansion allow for modeling non-linear relation between the original features and the target variable.</p>
+</section>
+</section>
+<section id="defining-and-training-the-model">
+<h2>Defining and Training the Model<a class="headerlink" href="#defining-and-training-the-model" title="Link to this heading">#</a></h2>
+<p>To implement the Basis Expansion in <em>Python</em>, <code class="docutils literal notranslate"><span class="pre">LegendreFeatures</span></code> class is created, for transforming the input features. First, it rescales them to the interval $[-1, 1]$ as the Legendre polynomials are defined on it. Then, for each feature, it evaluates the polynomials up until a given degree $n_i$.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LegendreFeatures</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">degrees</span> <span class="o">=</span> <span class="n">degrees</span>
+
+  <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+
+    <span class="n">features</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+      <span class="n">feature</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+      <span class="n">scaled_feature</span> <span class="o">=</span> <span class="n">maxabs_scale</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>  <span class="c1"># Scaling to interval [-1, 1]</span>
+      <span class="k">for</span> <span class="n">deg</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">degrees</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="n">legendre</span><span class="p">(</span><span class="n">deg</span><span class="p">)</span>
+        <span class="n">transformed_feature</span> <span class="o">=</span> <span class="n">P</span><span class="p">(</span><span class="n">scaled_feature</span><span class="p">)</span>
+        <span class="n">features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">transformed_feature</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The best set of degrees $n_i, i=1,2,3$, is selected by performing grid-search and validating the model with a 10-fold cross-validation. The parameter grid consists of all possible triplets of degrees from 0 to 5.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">degree_range</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span>
+
+<span class="n">param_grid_poly</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;polynomial__degrees&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">d3</span><span class="p">]</span> <span class="k">for</span> <span class="n">d1</span> <span class="ow">in</span> <span class="n">degree_range</span> <span class="k">for</span> <span class="n">d2</span> <span class="ow">in</span> <span class="n">degree_range</span> <span class="k">for</span> <span class="n">d3</span> <span class="ow">in</span> <span class="n">degree_range</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">pipeline_poly</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;polynomial&#39;</span><span class="p">,</span> <span class="n">LegendreFeatures</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())])</span>
+<span class="n">k_folds</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">grid_search_poly</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_poly</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid_poly</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k_folds</span><span class="p">)</span>
+
+<span class="n">grid_search_poly</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">best_degrees_poly</span> <span class="o">=</span> <span class="n">grid_search_poly</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s1">&#39;polynomial__degrees&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Best Legendre Polynomial Basis Expansion Degrees: </span><span class="si">{</span><span class="n">best_degrees_poly</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best Legendre Polynomial Basis Expansion Degrees: [3, 0, 1]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Once the grid-search is finished, the optimal Legendre polynomial basis expansion degrees are obtained: <code class="docutils literal notranslate"><span class="pre">[3,</span> <span class="pre">0,</span> <span class="pre">1]</span></code>. The first feature $x_1$ is transformed to $[P_0(x_1), P_1(x_1), P_2(x_1), P_3(x_1)]$, the second feature $x_2$ is transformed to $[P_0(x_2)]$, and the third feature $x_3$ is transformed to $[(P_0(x_3), P_1(x_3)]$ for the best model results.</p>
+</section>
+<section id="id1">
+<h2>Evaluating on the Test Set<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">classifier_poly</span> <span class="o">=</span> <span class="n">grid_search_poly</span><span class="o">.</span><span class="n">best_estimator_</span>
+
+<span class="n">accuracies_poly</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">classifier_poly</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k_folds</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+<span class="n">print_accuracy_measures</span><span class="p">(</span><span class="n">accuracies_poly</span><span class="p">,</span> <span class="n">processing_method</span><span class="o">=</span><span class="s1">&#39;Basis Expansion&#39;</span><span class="p">)</span>
+
+<span class="n">y_pred_poly</span> <span class="o">=</span> <span class="n">classifier_poly</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">print_test_measures</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_poly</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Classification Accuracy using Basis Expansion:
+  Average Accuracy: 91.25 %
+  Standard Deviation: 4.80 %
+
+Confusion Matrix:
+
+╒════════╤══════════╤══════════╕
+│        │   Pred:0 │   Pred:1 │
+╞════════╪══════════╪══════════╡
+│ True:0 │       39 │        1 │
+├────────┼──────────┼──────────┤
+│ True:1 │        3 │       37 │
+╘════════╧══════════╧══════════╛
+
+Accuracy Score: 95.00 %
+
+Report of Main Classification Metrics:
+
+              precision    recall  f1-score   support
+
+           0       0.93      0.97      0.95        40
+           1       0.97      0.93      0.95        40
+
+    accuracy                           0.95        80
+   macro avg       0.95      0.95      0.95        80
+weighted avg       0.95      0.95      0.95        80
+</pre></div>
+</div>
+</div>
+</div>
+<p>After performing cross-validation using 10 folds, we obtain significant improvements! The average accuracy of the model increased from $83.44 %$ to $91.25 %$, and standard deviation decreased from $6.10 %$ to $4.80 %$. Both metrics demonstrate a performance growth in the train set.</p>
+<p>The test set results are great as well, with an accuracy score of $95.00 %$. The model seems to generalize well to unseen data, and does not overfit to the train set. Precision, recall and f1-score are all above <code class="docutils literal notranslate"><span class="pre">0.93</span></code>, showing a balanced performance across both classes.</p>
+<p>The results suggest that the basis expansion using Legendre polynomials lets the model capture more complex patterns in the data.</p>
+</section>
+<section id="visualizing-the-results">
+<h2>Visualizing the Results<a class="headerlink" href="#visualizing-the-results" title="Link to this heading">#</a></h2>
+<section id="calculating-the-decision-boundary">
+<h3>Calculating the Decision Boundary<a class="headerlink" href="#calculating-the-decision-boundary" title="Link to this heading">#</a></h3>
+<p>We can now obtain the learnt coefficients and the intercept, corresponding to each of the new feature.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Intercept of the classifier:</span><span class="se">\n</span><span class="si">{</span><span class="n">classifier_poly</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Coefficients of the classifier:</span><span class="se">\n</span><span class="si">{</span><span class="n">classifier_poly</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept of the classifier:
+-4.178277054221496
+Coefficients of the classifier:
+[-8.70425717e-05 -3.63731831e-01 -2.03917764e+00 -3.72326424e+00
+ -8.70425717e-05 -8.70425717e-05  6.52179698e+00]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Since we know, that the degrees of the expansion are <code class="docutils literal notranslate"><span class="pre">[3,</span> <span class="pre">0,</span> <span class="pre">1]</span></code>, we can easily deduce, that:</p>
+<ul class="simple">
+<li><p>First four coefficients, $(\gamma_{10}, \gamma_{11}, \gamma_{12}, \gamma_{13}) = $ <code class="docutils literal notranslate"><span class="pre">[-8.70425717e-05</span> <span class="pre">-3.63731831e-01</span> <span class="pre">-2.03917764e+00</span> <span class="pre">-3.72326424e+00]</span></code> correspond to the features $[P_0(x_1), P_1(x_1), P_2(x_1), P_3(x_1)]$;</p></li>
+<li><p>Fifth coefficient $\gamma_{20} = $ <code class="docutils literal notranslate"><span class="pre">[-8.70425717e-05]</span></code> corresponds to $[P_0(x_2)]$;</p></li>
+<li><p>The last two coefficients $(\gamma_{30}, \gamma_{31}) = $ <code class="docutils literal notranslate"><span class="pre">[-8.70425717e-05</span>&#160; <span class="pre">6.52179698e+00]</span></code> correspond to terms $[(P_0(x_3), P_1(x_3)]$;</p></li>
+<li><p>Also, the intercept $\tilde{\beta_0} = $ <code class="docutils literal notranslate"><span class="pre">-4.178277054221496</span></code>.</p></li>
+</ul>
+<p>Using this information, we can express the decision boundary in terms of original features, thus, visualizing the results in $\mathbb{R}^3$. With the help of $(1)$, decision boundary for this specific model can be written as:</p>
+<p>\begin{equation}
+\tilde{\beta_0} + \gamma_{10} P_0(x_1) + \gamma_{11}P_1(x_1) + \gamma_{12}P_2(x_1) + \gamma_{13}P_3(x_1) + \gamma_{20}P_0(x_2) + \gamma_{30}P_0(x_3) + \gamma_{31}P_1(x_3) = 0.
+\end{equation}</p>
+<p>Which, by substituting the Legendre polynomials, can be further simplified to:</p>
+<p>\begin{equation}
+\tilde{\beta_0} + \gamma_{10} + \gamma_{11}x_1 + \frac{\gamma_{12}}{2}(3x_1^2-1) + \frac{\gamma_{13}}{2}(5x_1^3-3x_1) + \gamma_{20} + \gamma_{30} + \gamma_{31}x_3 = 0.
+\end{equation}</p>
+<p>This is a non-linear equation of our new decision boundary, expressed in terms of the original features. If we write it as an explicit function, we can plot it along with the scattered feature points in a 3D plot:</p>
+<p>\begin{equation}
+x_3 = -\frac{1}{\gamma_{31}} \left( \tilde{\beta_0} + \gamma_{10} + \gamma_{20} + \gamma_{30} + \gamma_{11}x_1 + \frac{\gamma_{12}}{2}(3x_1^2-1) + \frac{\gamma_{13}}{2}(5x_1^3-3x_1) \right)
+\end{equation}</p>
+</section>
+<section id="id2">
+<h3>Plotting in 3D<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>This can be implemented in <em>Python</em>, by modifying the calculations of the decision boundary in a function <code class="docutils literal notranslate"><span class="pre">plot_3d_scatter()</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x1_min</span><span class="p">,</span> <span class="n">x1_max</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x2_min</span><span class="p">,</span> <span class="n">x2_max</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+<span class="n">x3</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">coefs</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x1</span> <span class="o">+</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x1</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">x1</span><span class="o">**</span><span class="mi">3</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">x1</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>However, this is not a generalized way, and is only applicable for this once case of Legendre polynomial basis expansion degrees <code class="docutils literal notranslate"><span class="pre">[3,</span> <span class="pre">0,</span> <span class="pre">1]</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_3d_scatter_legendre</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">):</span>
+    <span class="n">scaler</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;scaler&#39;</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+  <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">plot_settings</span><span class="p">)</span>
+  <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">plot_size</span><span class="p">,</span> <span class="n">plot_size</span><span class="p">))</span>
+  <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.05</span><span class="p">)</span>
+
+  <span class="n">intercept</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">)</span> <span class="k">else</span> <span class="n">clf</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">coefs</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">)</span> <span class="k">else</span> <span class="n">clf</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+  <span class="n">x1_min</span><span class="p">,</span> <span class="n">x1_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+  <span class="n">x2_min</span><span class="p">,</span> <span class="n">x2_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+  <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x1_min</span><span class="p">,</span> <span class="n">x1_max</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x2_min</span><span class="p">,</span> <span class="n">x2_max</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+  <span class="n">x3</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">coefs</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x1</span> <span class="o">+</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x1</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">x1</span><span class="o">**</span><span class="mi">3</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">x1</span><span class="p">))</span>
+
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">setting</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plot_settings</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Class 0&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Class 1&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">azim</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Projection </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Feature 1&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Feature 2&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Feature 3&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+  <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_settings</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span>
+  <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">),</span>
+  <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">plot_3d_scatter_legendre</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">classifier_poly</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Train-Set Visualization&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/a891259a34de552e8240ac021dd5f40149ee68c71d2d8b2e1e7508a9225a75d4.png" src="../_images/a891259a34de552e8240ac021dd5f40149ee68c71d2d8b2e1e7508a9225a75d4.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_3d_scatter_legendre</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">classifier_poly</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Test-Set Visualization&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/bc8cfc8173884eedcb718f158520f49a061290658889edf032de4d082275b464.png" src="../_images/bc8cfc8173884eedcb718f158520f49a061290658889edf032de4d082275b464.png" />
+</div>
+</div>
+<p>We can see, that the non-linear decision boundary does a great job separating the two classes. The visualization clearly shows, that the model is able to capture more complex relationships in the data.</p>
+<p>P.S.</p>
+<p>In a general case, the boundary may not be expressed as an explicit function, like $x_3 = f(x_1, x_2)$. Instead, the surface might be described as an implicit equation $F(x_1, x_2, x_3) = 0$. This implicit form is difficult to visualize in <em>Matplotlib</em>, as it requires an explicit equation for plotting surfaces.</p>
+<p>One way to generalize the function would be by calculating the $\text{logit}$ function values accros a defined space, and then generating a scatter plot of masked points, where the $\text{logit}$ function obtains near 0 values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_3d_scatter_generalized</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+
+  <span class="n">scaler</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;scaler&#39;</span><span class="p">]</span>
+  <span class="n">X</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+  <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">plot_settings</span><span class="p">)</span> <span class="o">*</span> <span class="n">plot_size</span><span class="p">,</span> <span class="n">plot_size</span><span class="p">))</span>
+  <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.05</span><span class="p">)</span>
+
+  <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.1</span>
+  <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.1</span>
+  <span class="n">z_min</span><span class="p">,</span> <span class="n">z_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.1</span>
+
+  <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">z_min</span><span class="p">,</span> <span class="n">z_max</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+  <span class="n">XX_poly</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;polynomial&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">zz</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+
+  <span class="n">intercept</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">coefs</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">logit</span> <span class="o">=</span> <span class="p">(</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">XX_poly</span><span class="p">,</span> <span class="n">coefs</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+  <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">logit</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.1</span>
+
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">setting</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plot_settings</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="n">mask</span><span class="p">],</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="n">mask</span><span class="p">],</span> <span class="n">zz</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="n">mask</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Class 0&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Class 1&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">azim</span><span class="o">=</span><span class="n">setting</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Projection </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Feature 1&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Feature 2&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Feature 3&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+  <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_3d_scatter_generalized</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">classifier_poly</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Train-Set Visualization&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fa091aacc5b2c3d864ca0fbcbd9733f1d1f3140e24439c51ab9a5a2f4ba92bfb.png" src="../_images/fa091aacc5b2c3d864ca0fbcbd9733f1d1f3140e24439c51ab9a5a2f4ba92bfb.png" />
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Using Principal Component Analysis<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>We know, that one of the features is highly correlated with others, therefore, PCA can once again be used to reduce dimensionality and visualize a non-linear decision boundary easier.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">degree_range</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span>
+
+<span class="n">param_grid_pca_poly</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;polynomial__degrees&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">]</span> <span class="k">for</span> <span class="n">d1</span> <span class="ow">in</span> <span class="n">degree_range</span> <span class="k">for</span> <span class="n">d2</span> <span class="ow">in</span> <span class="n">degree_range</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">pipeline_pca_poly</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;decomposition&#39;</span><span class="p">,</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span> <span class="p">(</span><span class="s1">&#39;polynomial&#39;</span><span class="p">,</span> <span class="n">LegendreFeatures</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())])</span>
+
+<span class="n">k_folds</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">grid_search_pca_poly</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_pca_poly</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid_pca_poly</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k_folds</span><span class="p">)</span>
+
+<span class="n">grid_search_pca_poly</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">best_degrees_pca_poly</span> <span class="o">=</span> <span class="n">grid_search_pca_poly</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s1">&#39;polynomial__degrees&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Best Legendre Polynomial Basis Expansion Degrees: </span><span class="si">{</span><span class="n">best_degrees_pca_poly</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best Legendre Polynomial Basis Expansion Degrees: [2, 2]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">classifier_pca_poly</span> <span class="o">=</span> <span class="n">grid_search_pca_poly</span><span class="o">.</span><span class="n">best_estimator_</span>
+
+<span class="n">accuracies_pca_poly</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">classifier_pca_poly</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k_folds</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+<span class="n">print_accuracy_measures</span><span class="p">(</span><span class="n">accuracies_pca_poly</span><span class="p">,</span> <span class="n">processing_method</span><span class="o">=</span><span class="s1">&#39;PCA and Basis Expansion&#39;</span><span class="p">)</span>
+
+<span class="n">y_pred_pca_poly</span> <span class="o">=</span> <span class="n">classifier_pca_poly</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">print_test_measures</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_pca_poly</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Classification Accuracy using PCA and Basis Expansion:
+  Average Accuracy: 92.50 %
+  Standard Deviation: 5.62 %
+
+Confusion Matrix:
+
+╒════════╤══════════╤══════════╕
+│        │   Pred:0 │   Pred:1 │
+╞════════╪══════════╪══════════╡
+│ True:0 │       39 │        1 │
+├────────┼──────────┼──────────┤
+│ True:1 │        2 │       38 │
+╘════════╧══════════╧══════════╛
+
+Accuracy Score: 96.25 %
+
+Report of Main Classification Metrics:
+
+              precision    recall  f1-score   support
+
+           0       0.95      0.97      0.96        40
+           1       0.97      0.95      0.96        40
+
+    accuracy                           0.96        80
+   macro avg       0.96      0.96      0.96        80
+weighted avg       0.96      0.96      0.96        80
+</pre></div>
+</div>
+</div>
+</div>
+<p>PCA not only reduces the dimensionality, but also increases the average accuracy by $1.25 % $ and decreases its standard deviation by $0.82 % $. The accuracy and other classification metrics on the test set are also slightly higher.</p>
+</section>
+<section id="id4">
+<h3>Plotting in 2D<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Intercept of the classifier:</span><span class="se">\n</span><span class="si">{</span><span class="n">classifier_pca_poly</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Coefficients of the classifier:</span><span class="se">\n</span><span class="si">{</span><span class="n">classifier_pca_poly</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept of the classifier:
+-2.0931433691144083
+Coefficients of the classifier:
+[-3.57994503e-06  4.04488743e+00 -2.52746534e+00 -3.57994503e-06
+  3.62017730e+00 -3.39144167e+00]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The decision boundary could be plotted in a similar fashion of writing its explicit equation with respect to the remaining PCA feature, $\tilde{x_2} = f(\tilde{x_1})$. However, because <em>Matplotlib</em> handles 2D plots well, a generalized function can be created, by calculating the $\text{logit}$ function:</p>
+<p>\begin{equation}
+\text{logit}[p(y=1 | \phi(\tilde{x_1}), \phi(\tilde{x_2}))] = \tilde{\beta_0} + \tilde{\beta_1} \phi(\tilde{x_1}) + \tilde{\beta_2}  \phi(\tilde{x_2}) = \tilde{\beta_0} + \sum_{i=1}^2 \sum_{j=0}^{n_i}\gamma_{ij}P_{j}(x_i), \tag{2}
+\end{equation}</p>
+<p>where $\tilde{\beta_0}$, $\tilde{\beta_i} = (\gamma_{i0}, …, \gamma_{in_i})^T, i=1,2$, are the coefficients of the transformed model, and $(\tilde{x_1}, \tilde{x_2})$ are the new features, obtained from PCA.</p>
+<p>The equation in $(2)$, represents a decision function of the logistic regression model. The decision boundary is obtained by plotting a z-slice (a contour) of this function at value 0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_2d_scatter_legendre</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+
+  <span class="n">scaler</span><span class="p">,</span> <span class="n">pca</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;scaler&#39;</span><span class="p">],</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;decomposition&#39;</span><span class="p">]</span>
+  <span class="n">X</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+
+  <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">plot_size</span><span class="p">,</span> <span class="n">plot_size</span><span class="p">))</span>
+  <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+  <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.1</span>
+  <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.1</span>
+  <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+
+  <span class="n">XX_poly</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;polynomial&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+
+  <span class="n">intercept</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">coefs</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+  <span class="n">logit</span> <span class="o">=</span> <span class="p">(</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">XX_poly</span><span class="p">,</span> <span class="n">coefs</span><span class="o">.</span><span class="n">T</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+  <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">logit</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">linewidths</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,)</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">logit</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="n">logit</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">logit</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+  <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Class 0&#39;</span><span class="p">)</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Class 1&#39;</span><span class="p">)</span>
+
+  <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;PCA Feature 1&#39;</span><span class="p">)</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;PCA Feature 2&#39;</span><span class="p">)</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+  <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d_scatter_legendre</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">classifier_pca_poly</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Train-Set Visualization with PCA&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/bef375b71df1e16845e328eadf859404e195c23608db366a16e3bbf3788cc258.png" src="../_images/bef375b71df1e16845e328eadf859404e195c23608db366a16e3bbf3788cc258.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d_scatter_legendre</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">classifier_pca_poly</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Test-Set Visualization with PCA&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fadc6dde1e48e9aecab78e9ab4fb6536dddf44a42084fcc95823720e2ba66731.png" src="../_images/fadc6dde1e48e9aecab78e9ab4fb6536dddf44a42084fcc95823720e2ba66731.png" />
+</div>
+</div>
+<p>The scatter plots demonstrate, that PCA combined with Legendre polynomial basis expansion effectively separates the data using a non-linear boundary. The model has managed to learn complex patterns in the data, enhancing the separability between the classes.</p>
+<p>This approach has achieved the best mean accuracy ($92.50 % $) along with lowest standard deviation ($5.62 % $), across the former methods. Test set metrics were improved as well, with an accuracy score of $96.25 %$. The results show, that the model is able to learn the underlying relationships in the data, and generalize well to unseen data (as is not overfitted to the training data).</p>
+<p>Since the task did not ask to use PCA explicitly, it is worth mentioning, that the Legendre polynomial basis expansion alone did a really good job of improving the model. This method resulted in an average accuracy of $91.25 %$ and standard deviation of $4.80 %$ (an improvement from the initial model with mean accuracy of $83.44 %$ and standard deviation of $6.10 %$). Test results gave the accuracy score of $95.00 %$, f1-score was equal to <code class="docutils literal notranslate"><span class="pre">0.95</span></code>. The visualization showed the model’s ability to classify the data well on both, train and test sets.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Section 1</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Problem 1. Classification</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-necessary-libraries">Importing Necessary Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">Task Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-the-data">Reading the Data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1">Task 1.</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-accuracy-using-cross-validation">Calculating Accuracy using Cross-Validation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-different-scaling-methods">Comparing Different Scaling Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-on-the-test-set">Evaluating on the Test Set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-data">Visualizing the Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-in-3d">Plotting in 3D</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-principal-component-analysis">Using Principal Component Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-pca-on-the-test-set">Evaluating PCA on the Test Set</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-in-2d">Plotting in 2D</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2">Task 2.</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-basis-function-expansion">Linear Basis Function Expansion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#legendre-polynomials">Legendre Polynomials</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basis-expansion">Basis Expansion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-and-training-the-model">Defining and Training the Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Evaluating on the Test Set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-results">Visualizing the Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-decision-boundary">Calculating the Decision Boundary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Plotting in 3D</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Using Principal Component Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Plotting in 2D</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ugniusalekna
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
