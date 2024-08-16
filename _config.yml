@@ -14,7 +14,7 @@ latex:
 
 repository:
   url: https://github.com/ugniusalekna/intro-to-ml
-  path_to_book: content
+  path_to_book: content/
   branch: master
 
 html:
