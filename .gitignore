@@ -3,6 +3,7 @@ build_deploy.sh
 
 **/.ipynb_checkpoints
 
+*.DS_Store
 *.tmp
 *.log
 
