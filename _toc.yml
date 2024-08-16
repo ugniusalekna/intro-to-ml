@@ -1,8 +1,17 @@
-# Table of contents
-# Learn more at https://jupyterbook.org/customize/toc.html
+# # Table of contents
+# # Learn more at https://jupyterbook.org/customize/toc.html
 
-format: jb-article
-root: README
-sections:
+# format: jb-article
+# root: README
+# sections:
+#   - file: notebooks/chapter1
+#   - file: notebooks/chapter2
+
+
+# Table of contents
+format: jb-book
+root: README  # or the first chapter of your book
+chapters:
   - file: notebooks/chapter1
   - file: notebooks/chapter2
+  # Add more sections as needed

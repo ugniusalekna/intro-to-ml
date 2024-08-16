@@ -1,18 +1,58 @@
-# Book settings
-# Learn more at https://jupyterbook.org/customize/config.html
+# # Book settings
+# # Learn more at https://jupyterbook.org/customize/config.html
 
-title: Introductory ML Course
-author: ugniusalekna
-baseurl: /intro-to-ml
+# title: Introductory ML Course
+# author: ugniusalekna
+# baseurl: /intro-to-ml
 
-execute:
-  execute_notebooks: force
+# execute:
+#   execute_notebooks: force
 
-repository:
-  url: https://github.com/ugniusalekna/intro-to-ml
-  path_to_book: notebooks/
-  branch: main
+# repository:
+#   url: https://github.com/ugniusalekna/intro-to-ml
+#   path_to_book: notebooks/
+#   branch: main
 
+# html:
+#   use_issues_button: true
+#   use_repository_button: true
+
+
+# Jupyter Book Configuration
+title: "Introductory ML Course"
+author: "ugniusalekna"
+
+# Base URL for GitHub Pages
+baseurl: "/intro-to-ml"  # Make sure this matches your repository name
+
+# Launch buttons
+launch_buttons:
+  notebook_interface: "jupyterlab"  # Interface for running notebooks
+  colab_url: "https://colab.research.google.com"
+  binderhub_url: "https://mybinder.org"
+  jupyterhub_url: ""
+  thebe: false  # Set to true if you want Thebe to be enabled for interactive notebooks
+
+# HTML Theme Options
 html:
-  use_issues_button: true
-  use_repository_button: true
+  # favicon: "path/to/favicon.ico"
+  theme:
+    name: "sphinx_book_theme"
+    options:
+      path_to_docs: "docs"
+      repository_url: "https://github.com/ugniusalekna/intro-to-ml"
+      repository_branch: "main"
+      use_issues_button: true
+      use_repository_button: true
+      use_download_button: true
+      home_page_in_toc: true
+
+# Extra configuration
+extra_navbar:
+  - name: "Home"
+    url: "README.html"
+
+# Table of contents
+toc:
+  - file: notebooks/chapter1
+  - file: notebooks/chapter2
