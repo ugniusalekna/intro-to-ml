@@ -1,1 +1,3 @@
-# Introductory ML Course for NMA 2024
+# Kurso santrauka
+
+TBA
