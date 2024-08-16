@@ -60,7 +60,7 @@
 
 title: "Introductory ML Course"
 author: ugniusalekna
-baseurl: /intro-to-ml
+baseurl: /intro-to-ml/docs
 
 execute:
   execute_notebooks: 'off'
