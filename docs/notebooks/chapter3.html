@@ -427,7 +427,7 @@ document.write(`
 <h2>Importing Necessary Libraries<a class="headerlink" href="#importing-necessary-libraries" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
@@ -466,7 +466,7 @@ deviation). Visualize the classification results: include the feature points, th
 <h2>Reading the Data<a class="headerlink" href="#reading-the-data" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/content/ClassificationData.csv&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/content/ClassificationData.csv&#39;</span>
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
 <span class="n">X</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -474,10 +474,78 @@ deviation). Visualize the classification results: include the feature points, th
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/content/ClassificationData.csv&#39;</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">X</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">y</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/pandas/io/parsers/readers.py:1026,</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1013</span> <span class="n">kwds_defaults</span> <span class="o">=</span> <span class="n">_refine_defaults_read</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1014</span>     <span class="n">dialect</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1015</span>     <span class="n">delimiter</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1022</span>     <span class="n">dtype_backend</span><span class="o">=</span><span class="n">dtype_backend</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1023</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1024</span> <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1026</span> <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/pandas/io/parsers/readers.py:620,</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">617</span> <span class="n">_validate_names</span><span class="p">(</span><span class="n">kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;names&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">619</span> <span class="c1"># Create the parser.</span>
+<span class="ne">--&gt; </span><span class="mi">620</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">622</span> <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">623</span>     <span class="k">return</span> <span class="n">parser</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/pandas/io/parsers/readers.py:1620,</span> in <span class="ni">TextFileReader.__init__</span><span class="nt">(self, f, engine, **kwds)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1617</span>     <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1619</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">:</span> <span class="n">IOHandles</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="ne">-&gt; </span><span class="mi">1620</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/pandas/io/parsers/readers.py:1880,</span> in <span class="ni">TextFileReader._make_engine</span><span class="nt">(self, f, engine)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1878</span>     <span class="k">if</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mode</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1879</span>         <span class="n">mode</span> <span class="o">+=</span> <span class="s2">&quot;b&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1880</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1881</span>     <span class="n">f</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1882</span>     <span class="n">mode</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1883</span>     <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1884</span>     <span class="n">compression</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;compression&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1885</span>     <span class="n">memory_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;memory_map&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1886</span>     <span class="n">is_text</span><span class="o">=</span><span class="n">is_text</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1887</span>     <span class="n">errors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding_errors&quot;</span><span class="p">,</span> <span class="s2">&quot;strict&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1888</span>     <span class="n">storage_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;storage_options&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1889</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1890</span> <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="g g-Whitespace">   </span><span class="mi">1891</span> <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="o">.</span><span class="n">handle</span>
+
+<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/pandas/io/common.py:873,</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">868</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">869</span>     <span class="c1"># Check whether the filename is to be opened in binary mode.</span>
+<span class="g g-Whitespace">    </span><span class="mi">870</span>     <span class="c1"># Binary mode does not support &#39;encoding&#39; and &#39;newline&#39;.</span>
+<span class="g g-Whitespace">    </span><span class="mi">871</span>     <span class="k">if</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span> <span class="ow">and</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">872</span>         <span class="c1"># Encoding</span>
+<span class="ne">--&gt; </span><span class="mi">873</span>         <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">874</span>             <span class="n">handle</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">875</span>             <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">876</span>             <span class="n">encoding</span><span class="o">=</span><span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">877</span>             <span class="n">errors</span><span class="o">=</span><span class="n">errors</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">878</span>             <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">879</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">880</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">881</span>         <span class="c1"># Binary mode</span>
+<span class="g g-Whitespace">    </span><span class="mi">882</span>         <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/content/ClassificationData.csv&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -783,7 +851,7 @@ deviation). Visualize the classification results: include the feature points, th
 <p><code class="docutils literal notranslate"><span class="pre">mean</span></code> of the categorical target variable shows, that the dataset is balanced.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gaussian_curve</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gaussian_curve</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
   <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">((</span><span class="n">t</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
 
@@ -809,7 +877,7 @@ deviation). Visualize the classification results: include the feature points, th
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_histograms</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_histograms</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -829,7 +897,7 @@ deviation). Visualize the classification results: include the feature points, th
 <h3>Comparing Different Scaling Methods<a class="headerlink" href="#comparing-different-scaling-methods" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 
 <span class="n">pipeline_std</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())])</span>
 <span class="n">pipeline_minmax</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())])</span>
@@ -841,7 +909,7 @@ deviation). Visualize the classification results: include the feature points, th
 <p>Two <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> objects are created to compare scaling effects on the classifier - one for standard scaling, and other for min-max scaling. The Pipelines are then trained using cross-validation technique, with 10 folds. <code class="docutils literal notranslate"><span class="pre">KFolds</span></code> object is used to specify the number of folds.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_accuracy_measures</span><span class="p">(</span><span class="n">accuracies</span><span class="p">,</span> <span class="n">processing_method</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_accuracy_measures</span><span class="p">(</span><span class="n">accuracies</span><span class="p">,</span> <span class="n">processing_method</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Classification Accuracy without Scaling:&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">processing_method</span><span class="o">==</span><span class="kc">None</span> <span class="k">else</span>\
   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Classification Accuracy using </span><span class="si">{</span><span class="n">processing_method</span><span class="si">}</span><span class="s1">:&#39;</span><span class="p">)</span>
   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Average Accuracy: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">accuracies</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> %&#39;</span><span class="p">)</span>
@@ -852,7 +920,7 @@ deviation). Visualize the classification results: include the feature points, th
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">k_folds</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k_folds</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="n">accuracies</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">(),</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k_folds</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
 <span class="n">print_accuracy_measures</span><span class="p">(</span><span class="n">accuracies</span><span class="p">,</span> <span class="n">processing_method</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
@@ -894,7 +962,7 @@ Classification Accuracy using MinMax Scaler:
 <h2>Evaluating on the Test Set<a class="headerlink" href="#evaluating-on-the-test-set" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_test_measures</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_test_measures</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
   <span class="n">conf_matrix</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
   <span class="n">acc_score</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
   <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
@@ -913,7 +981,7 @@ Classification Accuracy using MinMax Scaler:
 <p>After validating the logistic regression classifier using cross-validation and obtaining the mean accuracy of $83.44 %$ and its standard deviation of $6.10 %$, the model can be evaluated on the test set. <em>Confusion matrix</em>, <em>accuracy score</em> and <em>classification metrics report</em> are used to evaluate the model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline_minmax</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline_minmax</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 
 <span class="n">print_test_measures</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
@@ -964,7 +1032,7 @@ weighted avg       0.85      0.85      0.85        80
 <p>where $(x_1, x_2, x_3)$ is the feature vector, $\beta_0$ is the intercept, and $(\beta_1, \beta_2, \beta_3)$ are the coefficients. The decision boundary is plotted by using the coefficients and the intercept of the trained logistic regression model and expressing the linear function as an explicit $x_3 = f(x_1, x_2)$ function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_3d_scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_3d_scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
 
   <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">scaler</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;scaler&#39;</span><span class="p">]</span>
@@ -1006,7 +1074,7 @@ weighted avg       0.85      0.85      0.85        80
 <p>The feature points along with the decision boundary can then be plotted using <code class="docutils literal notranslate"><span class="pre">plot_settings</span></code> - a list of (<code class="docutils literal notranslate"><span class="pre">elev</span></code>, <code class="docutils literal notranslate"><span class="pre">azim</span></code>) parameters for controlling the view of the 3D plot. <code class="docutils literal notranslate"><span class="pre">elev</span></code> controls the angle along the $(x, y)$ plane, and <code class="docutils literal notranslate"><span class="pre">azim</span></code> - the rotation angle along $z$ axis.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_settings</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_settings</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span>
   <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">140</span><span class="p">),</span>
   <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
@@ -1022,7 +1090,7 @@ weighted avg       0.85      0.85      0.85        80
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_3d_scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Test-Set Visualization&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_3d_scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Test-Set Visualization&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1039,7 +1107,7 @@ weighted avg       0.85      0.85      0.85        80
 <p>To examine the 1st observation, a <em>covariance matrix</em> is calculated for the train set samples.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">emp_cov</span> <span class="o">=</span> <span class="n">EmpiricalCovariance</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">emp_cov</span> <span class="o">=</span> <span class="n">EmpiricalCovariance</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 <span class="n">cov_matrix</span> <span class="o">=</span> <span class="n">emp_cov</span><span class="o">.</span><span class="n">covariance_</span>
 <span class="n">cov_matrix_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cov_matrix</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Variable 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Variable 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Variable 3&#39;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Variable 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Variable 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Variable 3&#39;</span><span class="p">])</span>
 
@@ -1316,7 +1384,7 @@ weighted avg       0.85      0.85      0.85        80
 <p>A <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> is constructed for performing <em>Principal Component Analysis (PCA)</em> on the given data. <code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code> is chosen to ensure the consistency across the project.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_pca</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;decomposition&#39;</span><span class="p">,</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span> <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_pca</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;decomposition&#39;</span><span class="p">,</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span> <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())])</span>
 
 <span class="n">k_folds</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
@@ -1345,7 +1413,7 @@ weighted avg       0.85      0.85      0.85        80
 <h3>Evaluating PCA on the Test Set<a class="headerlink" href="#evaluating-pca-on-the-test-set" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">classifier_pca</span> <span class="o">=</span> <span class="n">pipeline_pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">classifier_pca</span> <span class="o">=</span> <span class="n">pipeline_pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">y_pred_pca</span> <span class="o">=</span> <span class="n">classifier_pca</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="n">print_test_measures</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_pca</span><span class="p">)</span>
 </pre></div>
@@ -1389,7 +1457,7 @@ weighted avg       0.85      0.85      0.85        80
 <p>where $(\tilde{x_1}, \tilde{x_2})$ is the new feature vector, $\beta_0$ is the intercept, and $(\beta_1, \beta_2)$ are the coefficients. The decision boundary is plotted by expressing the $x_2$ variable from the linear equation, using the coefficients and the intercept of a trained logistic regression model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_2d_scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_2d_scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
 
   <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">scaler</span><span class="p">,</span> <span class="n">pca</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;scaler&#39;</span><span class="p">],</span> <span class="n">clf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;decomposition&#39;</span><span class="p">]</span>
@@ -1425,7 +1493,7 @@ weighted avg       0.85      0.85      0.85        80
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d_scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">pipeline_pca</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Train-Set Visualization with PCA&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d_scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">pipeline_pca</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Train-Set Visualization with PCA&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1435,7 +1503,7 @@ weighted avg       0.85      0.85      0.85        80
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d_scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">pipeline_pca</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Test-Set Visualization with PCA&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d_scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">pipeline_pca</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Test-Set Visualization with PCA&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1507,7 +1575,7 @@ p(y=1 | x_1, x_2, x_3) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + \beta_2 x_2 +
 <p>To implement the Basis Expansion in <em>Python</em>, <code class="docutils literal notranslate"><span class="pre">LegendreFeatures</span></code> class is created, for transforming the input features. First, it rescales them to the interval $[-1, 1]$ as the Legendre polynomials are defined on it. Then, for each feature, it evaluates the polynomials up until a given degree $n_i$.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LegendreFeatures</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LegendreFeatures</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">degrees</span> <span class="o">=</span> <span class="n">degrees</span>
 
@@ -1534,7 +1602,7 @@ p(y=1 | x_1, x_2, x_3) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + \beta_2 x_2 +
 <p>The best set of degrees $n_i, i=1,2,3$, is selected by performing grid-search and validating the model with a 10-fold cross-validation. The parameter grid consists of all possible triplets of degrees from 0 to 5.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">degree_range</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">degree_range</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span>
 
 <span class="n">param_grid_poly</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;polynomial__degrees&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">d3</span><span class="p">]</span> <span class="k">for</span> <span class="n">d1</span> <span class="ow">in</span> <span class="n">degree_range</span> <span class="k">for</span> <span class="n">d2</span> <span class="ow">in</span> <span class="n">degree_range</span> <span class="k">for</span> <span class="n">d3</span> <span class="ow">in</span> <span class="n">degree_range</span><span class="p">]</span>
@@ -1563,7 +1631,7 @@ p(y=1 | x_1, x_2, x_3) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + \beta_2 x_2 +
 <h2>Evaluating on the Test Set<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">classifier_poly</span> <span class="o">=</span> <span class="n">grid_search_poly</span><span class="o">.</span><span class="n">best_estimator_</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">classifier_poly</span> <span class="o">=</span> <span class="n">grid_search_poly</span><span class="o">.</span><span class="n">best_estimator_</span>
 
 <span class="n">accuracies_poly</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">classifier_poly</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k_folds</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
 <span class="n">print_accuracy_measures</span><span class="p">(</span><span class="n">accuracies_poly</span><span class="p">,</span> <span class="n">processing_method</span><span class="o">=</span><span class="s1">&#39;Basis Expansion&#39;</span><span class="p">)</span>
@@ -1615,7 +1683,7 @@ weighted avg       0.95      0.95      0.95        80
 <p>We can now obtain the learnt coefficients and the intercept, corresponding to each of the new feature.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Intercept of the classifier:</span><span class="se">\n</span><span class="si">{</span><span class="n">classifier_poly</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Intercept of the classifier:</span><span class="se">\n</span><span class="si">{</span><span class="n">classifier_poly</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Coefficients of the classifier:</span><span class="se">\n</span><span class="si">{</span><span class="n">classifier_poly</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1661,7 +1729,7 @@ x_3 = -\frac{1}{\gamma_{31}} \left( \tilde{\beta_0} + \gamma_{10} + \gamma_{20} 
 <p>However, this is not a generalized way, and is only applicable for this once case of Legendre polynomial basis expansion degrees <code class="docutils literal notranslate"><span class="pre">[3,</span> <span class="pre">0,</span> <span class="pre">1]</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_3d_scatter_legendre</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_3d_scatter_legendre</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
 
   <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">):</span>
     <span class="n">scaler</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;scaler&#39;</span><span class="p">]</span>
@@ -1700,7 +1768,7 @@ x_3 = -\frac{1}{\gamma_{31}} \left( \tilde{\beta_0} + \gamma_{10} + \gamma_{20} 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_settings</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_settings</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span>
   <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">),</span>
   <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span>
@@ -1716,7 +1784,7 @@ x_3 = -\frac{1}{\gamma_{31}} \left( \tilde{\beta_0} + \gamma_{10} + \gamma_{20} 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_3d_scatter_legendre</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">classifier_poly</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Test-Set Visualization&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_3d_scatter_legendre</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">classifier_poly</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Test-Set Visualization&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1730,7 +1798,7 @@ x_3 = -\frac{1}{\gamma_{31}} \left( \tilde{\beta_0} + \gamma_{10} + \gamma_{20} 
 <p>One way to generalize the function would be by calculating the $\text{logit}$ function values accros a defined space, and then generating a scatter plot of masked points, where the $\text{logit}$ function obtains near 0 values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_3d_scatter_generalized</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_3d_scatter_generalized</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
 
   <span class="n">scaler</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;scaler&#39;</span><span class="p">]</span>
   <span class="n">X</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -1770,7 +1838,7 @@ x_3 = -\frac{1}{\gamma_{31}} \left( \tilde{\beta_0} + \gamma_{10} + \gamma_{20} 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_3d_scatter_generalized</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">classifier_poly</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Train-Set Visualization&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_3d_scatter_generalized</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">classifier_poly</span><span class="p">,</span> <span class="n">plot_settings</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Train-Set Visualization&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1784,7 +1852,7 @@ x_3 = -\frac{1}{\gamma_{31}} \left( \tilde{\beta_0} + \gamma_{10} + \gamma_{20} 
 <p>We know, that one of the features is highly correlated with others, therefore, PCA can once again be used to reduce dimensionality and visualize a non-linear decision boundary easier.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">degree_range</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">degree_range</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span>
 
 <span class="n">param_grid_pca_poly</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;polynomial__degrees&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">]</span> <span class="k">for</span> <span class="n">d1</span> <span class="ow">in</span> <span class="n">degree_range</span> <span class="k">for</span> <span class="n">d2</span> <span class="ow">in</span> <span class="n">degree_range</span><span class="p">]</span>
@@ -1809,7 +1877,7 @@ x_3 = -\frac{1}{\gamma_{31}} \left( \tilde{\beta_0} + \gamma_{10} + \gamma_{20} 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">classifier_pca_poly</span> <span class="o">=</span> <span class="n">grid_search_pca_poly</span><span class="o">.</span><span class="n">best_estimator_</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">classifier_pca_poly</span> <span class="o">=</span> <span class="n">grid_search_pca_poly</span><span class="o">.</span><span class="n">best_estimator_</span>
 
 <span class="n">accuracies_pca_poly</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">classifier_pca_poly</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">k_folds</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
 <span class="n">print_accuracy_measures</span><span class="p">(</span><span class="n">accuracies_pca_poly</span><span class="p">,</span> <span class="n">processing_method</span><span class="o">=</span><span class="s1">&#39;PCA and Basis Expansion&#39;</span><span class="p">)</span>
@@ -1856,7 +1924,7 @@ weighted avg       0.96      0.96      0.96        80
 <h3>Plotting in 2D<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Intercept of the classifier:</span><span class="se">\n</span><span class="si">{</span><span class="n">classifier_pca_poly</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Intercept of the classifier:</span><span class="se">\n</span><span class="si">{</span><span class="n">classifier_pca_poly</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Coefficients of the classifier:</span><span class="se">\n</span><span class="si">{</span><span class="n">classifier_pca_poly</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1879,7 +1947,7 @@ Coefficients of the classifier:
 <p>The equation in $(2)$, represents a decision function of the logistic regression model. The decision boundary is obtained by plotting a z-slice (a contour) of this function at value 0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_2d_scatter_legendre</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_2d_scatter_legendre</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">plot_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
 
   <span class="n">scaler</span><span class="p">,</span> <span class="n">pca</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;scaler&#39;</span><span class="p">],</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;decomposition&#39;</span><span class="p">]</span>
   <span class="n">X</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
@@ -1916,7 +1984,7 @@ Coefficients of the classifier:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d_scatter_legendre</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">classifier_pca_poly</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Train-Set Visualization with PCA&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d_scatter_legendre</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">classifier_pca_poly</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Train-Set Visualization with PCA&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1926,7 +1994,7 @@ Coefficients of the classifier:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d_scatter_legendre</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">classifier_pca_poly</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Test-Set Visualization with PCA&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d_scatter_legendre</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">classifier_pca_poly</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Test-Set Visualization with PCA&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
