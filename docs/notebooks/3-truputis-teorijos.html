@@ -377,6 +377,10 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hipoteze-nuostoliu-funkcija-rizika">Hipotezė, nuostolių funkcija, rizika</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#empirines-rizikos-minimizavimo-taisykle">Empirinės rizikos minimizavimo taisyklė</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizavimo-pagrindai">Optimizavimo pagrindai</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#savokos">Sąvokos</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -416,11 +420,42 @@ document.write(`
 <p>$$
 R_{emp}(h) = \frac{1}{n} \sum_{i=1}^{n}{\ell(h, z_i) },
 $$</p>
-<p>         kur $(z_1, …, z_n)$ – mokymosi duomenų aibė</p>
+<p>         kur $(z_1, …, z_n)$ – mokymosi duomenų aibė.</p>
 <ul class="simple">
 <li><p>Remiantis <strong>Didžiųjų skaičių dėsniu</strong> (angl. the law of large numbers), artinant $n$ į begalybę, empirinės rizikos funkcija konverguoja į tikrąją riziką. Taigi, jei mokymosi duomenų aibės apimtis didelė, tai $R_{emp}(h) \approx R(h)$. Tuo paremta empirinės rizikos minimizavimo taisyklė – minimizuodami $R_{emp}$ gausime hipotezę $h$, kurios tikra rizika bus artima jos minimumui (infimumui).</p></li>
 </ul>
-<p>$\ell$</p>
+</section>
+<section id="optimizavimo-pagrindai">
+<h2>Optimizavimo pagrindai<a class="headerlink" href="#optimizavimo-pagrindai" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Optimizavimo uždavinys sprendžiamas taikant kone kiekvieną MM algoritmą (išimtis – tiesinės regresijos modelis, tačiau ir jo optimalūs parametrai gali būti ieškomi optimizavimo metodais).</p></li>
+<li><p>Optimizavimas atliekamas tuomet, kai ieškome optimalios hipotezės $h$ iš turimos hipotezių klasės $\mathcal{H}$. Pagrindinis optimizavimo uždavinys – rasti duotos funkcijos minimumo tašką, t.y. tašką, kuriame funkcija įgyja mažiausią reikšmę.</p></li>
+<li><p>Tegul $\mathcal{W} \in \mathbb{R}^k$, $f : \mathcal{W} \rightarrow \mathbb{R}$ – duota funkcija. Uždavinys – rasti funkcijos $f$ minimumo tašką $w^{*}$, t.y. tašką iš aibės $\text{arg} \min_{w \in \mathcal{W}} f(w)$.</p></li>
+</ul>
+<section id="savokos">
+<h3>Sąvokos<a class="headerlink" href="#savokos" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><em>Globalaus minimumo taškas</em> – toks taškas $w^{<em>} \in \mathcal{W}$m kad $f(w^{</em>}) \leq f(w)$ su visais $w \in \mathcal{W}$.</p></li>
+<li><p><em>Lokalaus minimumo taškas</em> – toks taškas $w^{<em>} \in \mathcal{W}$m kad $f(w^{</em>}) \leq f(w)$ su visais $w$ iš tam tikros aplinkos, nelygios $\mathcal{W}$.</p></li>
+<li><p><em>Funkcijos gradientas</em> – pirmų dalinių išvestinių vektorius. Gradientas taške $w$ paprastai žymimias $\nabla f(w)$. Gradiento išraiška taške $w$:</p></li>
+</ul>
+<p>$$
+\nabla f(w) := \left (  \frac{\partial f}{\partial w_1}(w), \frac{\partial f}{\partial w_2}(w), …, \frac{\partial f}{\partial w_k}(w) \right )^T.
+$$</p>
+<p>Funkcijos gradientas rodo greičiausio funkcijos didėjimo taške $w$ kryptį, tuo tarpu, antigradientas (neigiama reikšmė) – didžiausio nuolydžio taške $w$ kryptį. Tuo iš tiesų nėra sunku įsitikinti:</p>
+<p>Jeigu $u \in \mathcal{W} : || u || = 1$, tai kryptinė išvestinė $u \cdot \nabla f(w)$ rodo funkcijos $f$ didėjimo greitį $u$ kryptimi. Remiantis Koši-Švarco nelygybe skaliarinei sandaugai, galime įvertinti dydį:</p>
+<p>$$
+| u \cdot \nabla f(w) | \leq || u || \text{ } || \nabla f(w) || = || \nabla f(w) ||.
+$$</p>
+<p>Jei paimsime vienetinio ilgio vektorių gradiento kryptimi $ u_0 = \frac{\nabla f(w)}{|| \nabla f(w) ||}$, gausime, jog</p>
+<p>$$
+u_0 \cdot \nabla f(w) = \frac{\nabla f(w) \cdot \nabla f(w) }{|| \nabla f(w) ||} = || \nabla f(w) ||,
+$$</p>
+<p>t.y. $\nabla f(w)$ kryptis tikrai sutampa su didžiausio didėjimo kryptimi!</p>
+<div style="text-align: right;">
+<p>$\square$</p>
+</div>
+</section>
 </section>
 </section>
 
@@ -490,6 +525,10 @@ $$</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hipoteze-nuostoliu-funkcija-rizika">Hipotezė, nuostolių funkcija, rizika</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#empirines-rizikos-minimizavimo-taisykle">Empirinės rizikos minimizavimo taisyklė</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizavimo-pagrindai">Optimizavimo pagrindai</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#savokos">Sąvokos</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
