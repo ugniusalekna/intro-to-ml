@@ -379,6 +379,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#empirines-rizikos-minimizavimo-taisykle">Empirinės rizikos minimizavimo taisyklė</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizavimo-pagrindai">Optimizavimo pagrindai</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#savokos">Sąvokos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradientinio-nusileidimo-algoritmas">Gradientinio nusileidimo algoritmas</a></li>
 </ul>
 </li>
 </ul>
@@ -454,7 +455,29 @@ $$</p>
 <p>t.y. $\nabla f(w)$ kryptis tikrai sutampa su didžiausio didėjimo kryptimi!</p>
 <div style="text-align: right;">
 <p>$\square$</p>
-</div>
+</div></section>
+<section id="gradientinio-nusileidimo-algoritmas">
+<h3>Gradientinio nusileidimo algoritmas<a class="headerlink" href="#gradientinio-nusileidimo-algoritmas" title="Link to this heading">#</a></h3>
+<hr style="border: none; height: 2px; background-color: black;">
+**Algoritmas 1: Gradientinio nusileidimo algoritmas**
+<hr style="border: none; height: 2px; background-color: black;">
+<p><strong>Require:</strong> $$n \geq 1, w_0 \in \mathcal{W}, \epsilon &gt; 0, s_0 &gt; 0$$ (Inicializuojame maks. iteracijų sk., pradinį artinį, tikslumą, pradinį žingsnio dydį)</p>
+<p>$$
+\begin{aligned}
+&amp;\text{Set } m \leftarrow 0 \
+&amp;\text{Set } S \leftarrow 0 \
+&amp;\textbf{while } m \leq n \textbf{ do} \
+&amp;\quad m \leftarrow m + 1 \
+&amp;\quad \text{Perskaičiuojame } w_m = w_{m-1} - s_{m-1} \nabla f(w_{m-1}) \
+&amp;\quad \text{Parenkame } s_m \geq 0 \text{ naujai iteracijai} \
+&amp;\quad S \leftarrow S + w_m \
+&amp;\quad \textbf{if } \left| f(w_{m-1}) - f(w_m) \right| &lt; \epsilon \textbf{ then} \
+&amp;\qquad \text{Nutraukiame ciklą} \
+&amp;\quad \textbf{end if} \
+&amp;\textbf{end while} \
+&amp;\text{return } \bar{w} = \frac{S}{m}
+\end{aligned}
+$$</p>
 </section>
 </section>
 </section>
@@ -527,6 +550,7 @@ $$</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#empirines-rizikos-minimizavimo-taisykle">Empirinės rizikos minimizavimo taisyklė</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizavimo-pagrindai">Optimizavimo pagrindai</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#savokos">Sąvokos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradientinio-nusileidimo-algoritmas">Gradientinio nusileidimo algoritmas</a></li>
 </ul>
 </li>
 </ul>
