@@ -375,13 +375,13 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Tolydaus kintamojo prognozės uždavinys</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mathbf-x-begin-pmatrix-mathbf-x-1-mathbf-x-2-vdots-mathbf-x-n-end-pmatrix">$$
-\mathbf{X} =
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#textbf-x-begin-pmatrix-textbf-x-1-textbf-x-2-vdots-textbf-x-n-end-pmatrix">$$
+\textbf{X} =
 \begin{pmatrix}
-\mathbf{x}^{(1)} \
-\mathbf{x}^{(2)} \
+\textbf{x}^{(1)} \
+\textbf{x}^{(2)} \
 \vdots \
-\mathbf{x}^{(n)}
+\textbf{x}^{(n)}
 \end{pmatrix}</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tiesine-regresija">Tiesinė regresija</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isreikstinis-pavidalas">Išreikštinis pavidalas</a></li>
@@ -409,15 +409,15 @@ document.write(`
 <li><p>Porų $(\textbf{x}^{(i)}, y^{(i)}), i = 1, …, n$ imtis vadinama apmokymo aibe (<em>pastaba</em>: indeksai viršuje nėra laipsniai). Norėdami dar labiau sutraukti žymėjimus, galime įvesti matricinį apmokymo aibės nepriklausomų kintamųjų pavidalą; matricą žymėsime didžiąja raide:</p></li>
 </ul>
 </section>
-<section id="mathbf-x-begin-pmatrix-mathbf-x-1-mathbf-x-2-vdots-mathbf-x-n-end-pmatrix">
+<section id="textbf-x-begin-pmatrix-textbf-x-1-textbf-x-2-vdots-textbf-x-n-end-pmatrix">
 <h1>$$
-\mathbf{X} =
+\textbf{X} =
 \begin{pmatrix}
-\mathbf{x}^{(1)} \
-\mathbf{x}^{(2)} \
+\textbf{x}^{(1)} \
+\textbf{x}^{(2)} \
 \vdots \
-\mathbf{x}^{(n)}
-\end{pmatrix}<a class="headerlink" href="#mathbf-x-begin-pmatrix-mathbf-x-1-mathbf-x-2-vdots-mathbf-x-n-end-pmatrix" title="Link to this heading">#</a></h1>
+\textbf{x}^{(n)}
+\end{pmatrix}<a class="headerlink" href="#textbf-x-begin-pmatrix-textbf-x-1-textbf-x-2-vdots-textbf-x-n-end-pmatrix" title="Link to this heading">#</a></h1>
 <p>\begin{pmatrix}
 x_{11} &amp; x_{12} &amp; \dots &amp; x_{1k} \
 x_{21} &amp; x_{22} &amp; \dots &amp; x_{2k} \
@@ -438,8 +438,6 @@ $$</p>
 <ul class="simple">
 <li><p>Funkcija $f$ MM kontekste vadinama hipoteze (angl. hypothesis), taigi, ji dažnai žymima raide $h$ (<em>pastaba</em>: MM hipotezė žymi visiškai kitą sąvoką nei statistikoje). Tolydaus kintamojo prognozės uždavinyje dar vadinama regresoriumi (angl. regressor).</p></li>
 </ul>
-<p>$\mathbf{X} = \begin{pmatrix} \mathbf{x}^{(1)} \ \mathbf{x}^{(2)} \ \vdots \ \mathbf{x}^{(n)} \end{pmatrix} = \begin{pmatrix} x_{11} &amp; x_{12} &amp; \dots &amp; x_{1k} \ x_{21} &amp; x_{22} &amp; \dots &amp; x_{2k} \ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \ x_{m1} &amp; x_{n2} &amp; \dots &amp; x_{nk} \end{pmatrix}$</p>
-<p>$\mathbf{y} = \begin{pmatrix} y^{(1)} \ y^{(2)} \ \vdots \ y^{(n)} \end{pmatrix}$</p>
 <section id="tiesine-regresija">
 <h2>Tiesinė regresija<a class="headerlink" href="#tiesine-regresija" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -480,7 +478,7 @@ $$</p>
 <li><p>Tiesinės regresijos modelis yra išskirtinis, kadangi parametrus $\boldsymbol{\theta}$ galime rasti išreikštiniu būdu, t.y. išspręsti minimizavimo uždavinį:</p></li>
 </ul>
 <p>$$
-\text{argmin}<em>{\boldsymbol{\theta}} \text{MSE}(\textbf{X}, h</em>{\boldsymbol{\theta}}) = \text{argmin}<em>{\boldsymbol{\theta}} \frac{1}{n} \sum</em>{i=1}^{n} \left( \boldsymbol{\theta}^T \cdot \textbf{x}^{(i)} - y^{(i)} \right)^2
+\min_{\boldsymbol{\theta}} \text{MSE}(\textbf{X}, h_{\boldsymbol{\theta}}) = \min_{\boldsymbol{\theta}} \frac{1}{n} \sum_{i=1}^{n} \left( \boldsymbol{\theta}^T \cdot \textbf{x}^{(i)} - y^{(i)} \right)^2
 $$</p>
 <p>         Perrašydami MSE lygtį matriciniu pavidalu gauname išraišką:</p>
 <p>$$
@@ -635,13 +633,13 @@ $$</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Tolydaus kintamojo prognozės uždavinys</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mathbf-x-begin-pmatrix-mathbf-x-1-mathbf-x-2-vdots-mathbf-x-n-end-pmatrix">$$
-\mathbf{X} =
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#textbf-x-begin-pmatrix-textbf-x-1-textbf-x-2-vdots-textbf-x-n-end-pmatrix">$$
+\textbf{X} =
 \begin{pmatrix}
-\mathbf{x}^{(1)} \
-\mathbf{x}^{(2)} \
+\textbf{x}^{(1)} \
+\textbf{x}^{(2)} \
 \vdots \
-\mathbf{x}^{(n)}
+\textbf{x}^{(n)}
 \end{pmatrix}</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tiesine-regresija">Tiesinė regresija</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isreikstinis-pavidalas">Išreikštinis pavidalas</a></li>
