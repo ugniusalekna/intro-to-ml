@@ -671,7 +671,11 @@ $$</p></li>
 <p>Iškilos ir neiškilos aibės geometrinė interpretacija:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;remove-input&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">convex_set</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
@@ -773,7 +777,7 @@ $$</p></li>
 </div>
 <ul class="simple">
 <li><p>Teorinės gradientinio nusileidimo garantijos daugiausiai priklauso nuo minimizuojamos funkcijos savybių.</p></li>
-<li><p>Jei funkcija $f$ yra iškila, galima įrodyti, jog gradientinio nusileidimo algoritmas konverguos į <em>globalų</em> minimumą, kadangi tokia funkcija turi tik vieną minimumo tašką.</p></li>
+<li><p>Jei funkcija $f$ yra iškila, galima įrodyti, jog gradientinio nusileidimo algoritmas konverguos į <em>globalų</em> minimumą, kadangi tokios funkcijos kiekvienas lokalus minimumo taškas yra globalus minimumo taškas.</p></li>
 <li><p>Taikant kiek stipresnes prielaidas funkcijai $f$ bei apibrėžimo sričiai, galima apskaičiuoti tikslius konvergavimo greičio įverčius.</p></li>
 <li><p>Dėja, tačiau realiuose taikymo scenarijuose iškilos funkcijos pasitaiko retai – neiškilų funkcijų optimizavimas yra vienas sunkiausių uždavinių optimizavimo teorijoje. Šiuo metu praktikoje daugiausia taikomos įvairios gradientinio nusileidimo adaptacijos, pvz., momentinis gradientinis nusileidimas, kurį matėme aukščiau.</p></li>
 </ul>
