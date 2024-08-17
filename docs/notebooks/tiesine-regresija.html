@@ -397,7 +397,7 @@ document.write(`
 <li><p>Porų $(\textbf{x}^{(i)}, y^{(i)}), i = 1, …, n$ imtis vadinama apmokymo aibe (<em>pastaba</em>: indeksai viršuje nėra laipsniai). Norėdami dar labiau sutraukti žymėjimus, galime įvesti matricinį apmokymo aibės nepriklausomų kintamųjų pavidalą; matricą žymėsime didžiąja raide:</p></li>
 </ul>
 <p>$$
-\textbf{X} = \begin{pmatrix} \textbf{x}^{(1)} \cr \textbf{x}^{(2)} \cr \vdots \cr \textbf{x}^{(n)} \end{pmatrix} = \begin{pmatrix} x_{11} &amp; x_{12} &amp; \dots &amp; x_{1k} \cr x_{21} &amp; x_{22} &amp; \dots &amp; x_{2k} \cr \vdots &amp; \vdots &amp; \ddots &amp; \vdots \cr x_{m1} &amp; x_{n2} &amp; \dots &amp; x_{nk} \end{pmatrix}
+\textbf{X} = \begin{pmatrix} \textbf{x}^{(1)} \cr \textbf{x}^{(2)} \cr \vdots \cr \textbf{x}^{(n)} \end{pmatrix} = \begin{pmatrix} x_{11} &amp; x_{12} &amp; \dots &amp; x_{1k} \cr x_{21} &amp; x_{22} &amp; \dots &amp; x_{2k} \cr \vdots &amp; \vdots &amp; \ddots &amp; \vdots \cr x_{n1} &amp; x_{n2} &amp; \dots &amp; x_{nk} \end{pmatrix}
 $$</p>
 <p>         Tokiu atveju, priklausomų kintamųjų vektorius, bus žymimas:</p>
 <p>$$
@@ -613,7 +613,19 @@ $$</p>
 </ul>
 <p><em>pastaba</em>: įprastai pridedami ne tik laipsniai $a^2, b^3, …$, tačiau ir jų kombinacijos $ab, ab^2, …$; tokiu atveju, pradinis kintamųjų vektorius $\textbf{x} \in \mathbb{R}^{k}$ paverčiamas $\tilde{\textbf{x}}\in \mathbb{R}^{\binom{k + d}{d}}$, kur $ \binom{k + d}{d} = \frac{(k + d)!}{k! \text{ } d!}$.</p>
 <ul class="simple">
-<li><p>Matematinė formuluotė labai panaši,</p></li>
+<li><p>Matematinė formuluotė labai panaši, daugianarių regresijos hipotezė taške $\textbf{x} := x$ (naudojame $x \in \mathbb{R}$ paprastumo dėlei) apibrėžiama lygtimi:</p></li>
+</ul>
+<p>$$
+\hat{y} = \theta_0 + \theta_1 x + \theta_2 x^2 + … + \theta_d x^d
+$$</p>
+<ul class="simple">
+<li><p>Transformuojame požymių matricą (šiuo atveju vektorių):</p></li>
+</ul>
+<p>$$
+\textbf{X} = \begin{pmatrix} \textbf{x}^{(1)} \cr \textbf{x}^{(2)} \cr \vdots \cr \textbf{x}^{(n)} \end{pmatrix} = \begin{pmatrix} x_{1} \cr x_{2} \cr \vdots \cr x_{n} \end{pmatrix} \rightarrow \begin{pmatrix} 1 &amp; x_{1} &amp; x_{1}^2 &amp; \dots &amp; x_{1}^d \cr 1 &amp; x_{2} &amp; x_{2}^2 &amp; \dots &amp; x_{2}^d \cr \vdots &amp; \vdots &amp;\vdots &amp; \ddots &amp; \vdots \cr 1 &amp; x_{n} &amp; x_{n}^2 &amp; \dots &amp; x_{n}^d \end{pmatrix}
+$$</p>
+<ul class="simple">
+<li><p>Taikome jau išmoktą tiesinės regresijos modelį transformuotiems duomenims, siekiant rasti optimalų parametrų rinkinį $\boldsymbol{\theta}$.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
