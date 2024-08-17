@@ -6,6 +6,7 @@ execute:
 
 launch_buttons:
   colab_url: https://colab.research.google.com
+  thebe: true
 
 repository:
   url: https://github.com/ugniusalekna/intro-to-ml
