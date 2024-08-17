@@ -377,6 +377,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isreikstinis-pavidalas">Išreikštinis pavidalas</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daugianariu-regresija">Daugianarių regresija</a></li>
 </ul>
             </nav>
         </div>
@@ -501,7 +502,7 @@ $$</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">add_dummy_feature</span>
 
-<span class="n">X_b</span> <span class="o">=</span> <span class="n">add_dummy_feature</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># add x0 = 1 to each instance</span>
+<span class="n">X_b</span> <span class="o">=</span> <span class="n">add_dummy_feature</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># add x_0 = 1 to each instance</span>
 <span class="n">theta_best</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X_b</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X_b</span><span class="p">)</span> <span class="o">@</span> <span class="n">X_b</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Intercept: </span><span class="si">{</span><span class="n">theta_best</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">; Coefficient </span><span class="si">{</span><span class="n">theta_best</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -531,7 +532,144 @@ $$</p>
 <img alt="../_images/282dbefc9e29bd2e672d65a40efcaa7a200da4597754c6735e72bfb51b68c2c5.png" src="../_images/282dbefc9e29bd2e672d65a40efcaa7a200da4597754c6735e72bfb51b68c2c5.png" />
 </div>
 </div>
+<ul class="simple">
+<li><p>Palyginimas su <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> implementacija:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Intercept: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">; Coefficient </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept: 4.2151; Coefficient 2.7701
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Anscombe’s ketvertas yra puikus pavyzdys, parodantis, jog prieš pritaikant tiesinės regresijos modelį turimiems duomenims, būtina su jais iš anksto “susipažinti”. Jį sudaro keturi duomenų rinkiniai, kurių statistikos (vidurkis, standartinis nuokrypis, t.t.) yra beveik identiškos – todėl visiems jiems randama ta pati optimali tiesė; tačiau jų pasiskirstymai labai skirtingi, tai galima pastebėti pavaizdavus juos grafiškai:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;anscombe&quot;</span><span class="p">)</span>
+
+<span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Linear relationship&#39;</span><span class="p">,</span> <span class="s1">&#39;Non-linear (quadratic) relationship&#39;</span><span class="p">,</span> <span class="s1">&#39;Outlier&#39;</span><span class="p">,</span> <span class="s1">&#39;Extreme case&#39;</span><span class="p">]</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;II&#39;</span><span class="p">,</span> <span class="s1">&#39;III&#39;</span><span class="p">,</span> <span class="s1">&#39;IV&#39;</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">datasets</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+    
+    <span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">titles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;$x_</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;$y_</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/272b78b793238671164bcfe0e262c8cca03e53e81cfa5f053faf96ced21176d1.png" src="../_images/272b78b793238671164bcfe0e262c8cca03e53e81cfa5f053faf96ced21176d1.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Norint užtikrinti, kad pasirinktas tiesinės regresijos modelis gerai atspindės turimus duomenis, duomenų pasiskirstymui įprastai taikomos kelios prielaidos:</p>
+<ul>
+<li><p>Duomenų tiesinė priklausomybė;</p></li>
+<li><p>Homoskedastiškumas;</p></li>
+<li><p>Normalusis nuokrypio nuo vidurkio pasiskirstymas;</p></li>
+<li><p>Autokoreliacijos nebuvimas;</p></li>
+<li><p>Išskirčių nebuvimas.</p></li>
+</ul>
+</li>
+</ul>
 </section>
+</section>
+<section id="daugianariu-regresija">
+<h2>Daugianarių regresija<a class="headerlink" href="#daugianariu-regresija" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Kuomet duomenų pasiskirstymas yra netiesinis, o šiek tiek sudėtingesnis, galime naudoti daugianarių regresiją.</p></li>
+<li><p>Daugianarių regresija leidžia modeliuoti ryšį tarp nepriklausomo kintamojo ir priklausomo kintamojo, nusakytą $n$-ojo laipsnio daugianariu. Daugianarių regresija duomenims randa optimalią kreivę, todėl ji yra daug lankstesnė.</p></li>
+<li><p>Nepaisant pavadinimo, daugianarių regresija laikoma tiesiniu modeliu, nes hipotezė yra tiesinė funkcija pagal koeficientus. Triukas tame, jog pradinius kintamuosius <em>transformuojame į polinominius požymius</em>, o tai leidžia mums pritaikyti lankstesnę kreivę duomenims.</p></li>
+<li><p>Šis triukas iš esmės atlieka tą patį veiksmą, kaip ir kiek anksčiau, panaudojus <code class="docutils literal notranslate"><span class="pre">add_dummy_feature</span></code> funkciją; tuo atveju pradiniai kintamieji buvo transformuojami pridedant $0$-o laipsnio narius. Šiuo atveju pridedami ir aukštesnio laipsnio kintamieji.</p></li>
+</ul>
+<p><em>pastaba</em>: įprastai pridedami ne tik laipsniai $a^2, b^3, …$, tačiau ir jų kombinacijos $ab, ab^2, …$; tokiu atveju, pradinis kintamųjų vektorius $\textbf{x} \in \mathbb{R}^{k}$ paverčiamas $\tilde{\textbf{x}}\in \mathbb{R}^{\binom{k + d}{d}}$, kur $ \binom{k + d}{d} = \frac{(k + d)!}{k! \text{ } d!}$.</p>
+<ul class="simple">
+<li><p>Matematinė formuluotė labai panaši,</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ae85f68d616e268c6c861330607e6dd01ebc47b55f5017fc9de70e0db5cd82b0.png" src="../_images/ae85f68d616e268c6c861330607e6dd01ebc47b55f5017fc9de70e0db5cd82b0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+
+<span class="n">poly</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_poly</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_poly</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">X_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">X</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">X_seq_poly</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_seq</span><span class="p">)</span>
+<span class="n">y_seq</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_seq_poly</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_seq</span><span class="p">,</span> <span class="n">y_seq</span><span class="p">,</span> <span class="s2">&quot;r-&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Predictions&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1cac1b6c9977a17fb11aad2d29ea5e27476fb99c3b9ed59a57efe2dbafc9e107.png" src="../_images/1cac1b6c9977a17fb11aad2d29ea5e27476fb99c3b9ed59a57efe2dbafc9e107.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Tiesa, transformuoti požymius galime ne tik pagal daugianarių priklausomybė – galime pasirinkti bet kokią funkciją ar funkcijų rinkinį (pvz., $\log{\cdot}, \sqrt{\cdot}, …)$. Tokių (ir daug kitų) transformacijų pritaikymas išnaudojant turimus požymius (duomenis), o ne taikant sudėtingesnius modelius angl. vadinamas feature engineering.</p></li>
+</ul>
 </section>
 </section>
 
@@ -603,6 +741,7 @@ $$</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isreikstinis-pavidalas">Išreikštinis pavidalas</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daugianariu-regresija">Daugianarių regresija</a></li>
 </ul>
   </nav></div>
 
