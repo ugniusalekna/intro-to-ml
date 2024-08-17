@@ -57,10 +57,10 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/ML';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/pagrindines-savokos';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Content with notebooks" href="chapter1.html" />
+    <link rel="next" title="Tolydaus kintamojo prognozės uždavinys" href="tiesine-regresija.html" />
     <link rel="prev" title="Kurso santrauka" href="../README.html" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -188,6 +188,7 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Įvadas į mašininį mokymąsi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tiesine-regresija.html">Tolydaus kintamojo prognozės uždavinys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapter1.html">Content with notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapter2.html">Section 1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapter3.html">Problem 1. Classification</a></li>
@@ -247,7 +248,7 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/ugniusalekna/intro-to-ml/blob/main/notebooks/ML.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/ugniusalekna/intro-to-ml/blob/main/notebooks/pagrindines-savokos.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -278,7 +279,7 @@
       
       
       
-      <li><a href="../_sources/notebooks/ML.ipynb" target="_blank"
+      <li><a href="../_sources/notebooks/pagrindines-savokos.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -372,19 +373,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trumpas-apie">Trumpas apie</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#greita-istorija">Greita istorija</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mokymasis-is-duomenu">Mokymasis iš duomenų</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pavyzdziai-realaus-mokymosi-is-duomenu">Pavyzdžiai (realaus mokymosi iš duomenų)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#greita-istorija">Greita istorija</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mokymasis-is-duomenu">Mokymasis iš duomenų</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pavyzdziai-realaus-mokymosi-is-duomenu">Pavyzdžiai (realaus mokymosi iš duomenų)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tradicinis-programavimas-vs-masininis-mokymasis">Tradicinis programavimas vs. mašininis mokymasis</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pavyzdziai-kur-tradicinis-programavimas-paluzta">Pavyzdžiai (kur tradicinis programavimas “palūžta”)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tradicinis-programavimas-vs-masininis-mokymasis">Tradicinis programavimas vs. mašininis mokymasis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pavyzdziai-kur-tradicinis-programavimas-paluzta">Pavyzdžiai (kur tradicinis programavimas “palūžta”)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masininio-mokymosi-uzdaviniu-tipai">Mašininio mokymosi uždavinių tipai</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masininio-mokymosi-uzdaviniu-tipai">Mašininio mokymosi uždavinių tipai</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagrindiniai-masininio-mokymosi-issukiai">Pagrindiniai mašininio mokymosi iššūkiai</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testavimas-ir-validavimas">Testavimas ir validavimas</a></li>
 </ul>
@@ -400,10 +398,8 @@ document.write(`
                   
   <section id="ivadas-i-masinini-mokymasi">
 <h1>Įvadas į mašininį mokymąsi<a class="headerlink" href="#ivadas-i-masinini-mokymasi" title="Link to this heading">#</a></h1>
-<section id="trumpas-apie">
-<h2>Trumpas apie<a class="headerlink" href="#trumpas-apie" title="Link to this heading">#</a></h2>
 <section id="greita-istorija">
-<h3>Greita istorija<a class="headerlink" href="#greita-istorija" title="Link to this heading">#</a></h3>
+<h2>Greita istorija<a class="headerlink" href="#greita-istorija" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Mašininio mokymosi (MM, angl. Machine Learning) sąvoka pirmą kartą paminėta dar 1959 m., IBM tyrėjo Arthur Samuel –   vieno iš dirbtinio intelekto (DI, angl. Artificial Intelligence) srities pradininkų. MM dėl to dažnai vadinamas DI mokslo šaka, apimančia įvairios intelektinės veiklos, kaip mokymosi, suvokimo, loginio mąstymo ir problemų sprendimo aspektus.</p></li>
 <li><p>Nuo to laiko, MM tapo savarankiška tarpdisciplinine sritimi. Joje daugiausia dėmesio skiriama mokymosi procesų automatizavimui panaudojant <em>tikimybių teorijos</em>, <em>statistikos</em>, <em>optimizavimo</em>, <em>informacijos teorijos</em> ir <em>algoritmų teorijos</em> rezultatus.</p></li>
@@ -415,13 +411,13 @@ document.write(`
 </div></blockquote>
 </section>
 <section id="mokymasis-is-duomenu">
-<h3>Mokymasis iš duomenų<a class="headerlink" href="#mokymasis-is-duomenu" title="Link to this heading">#</a></h3>
+<h2>Mokymasis iš duomenų<a class="headerlink" href="#mokymasis-is-duomenu" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>MM kontekste mokymosi sąvoka sutapatinama su <em>mokymosi iš duomenų</em> (angl. learning from data) sąvoka.</p></li>
 <li><p>Mokymusi iš duomenų galima pavadinti procesą, kurio metu duomenyse esanti informacija “suvirškinama” ištraukiant esminius požymius bei, galiausiai, paverčiama rezultatais ar išvadomis.</p></li>
 </ul>
 <section id="pavyzdziai-realaus-mokymosi-is-duomenu">
-<h4>Pavyzdžiai (realaus mokymosi iš duomenų)<a class="headerlink" href="#pavyzdziai-realaus-mokymosi-is-duomenu" title="Link to this heading">#</a></h4>
+<h3>Pavyzdžiai (realaus mokymosi iš duomenų)<a class="headerlink" href="#pavyzdziai-realaus-mokymosi-is-duomenu" title="Link to this heading">#</a></h3>
 <p>a) Gydytojai, norėdami diagnozuoti ligą, analizuoja pacientų simptomus, ligos istorijas, tyrimų rezultatus (duomenis). Įgaudami daugiau patirties, jie vis geriau atpažįsta simptomų ir tyrimų rezultatų dėsningumus, rodančius konkrečias ligas.</p>
 <p>b) Vaikai klausosi juos supančios šnekamosios kalbos (duomenų). Laikui bėgant, bandydami mėgdžioti žodžius ir sakinius, jie išmoksta kalbos struktūrą ir taisykles.</p>
 <hr style="border: none; height: 2px; background-color: black;">
@@ -445,7 +441,7 @@ document.write(`
 </section>
 </section>
 <section id="tradicinis-programavimas-vs-masininis-mokymasis">
-<h3>Tradicinis programavimas vs. mašininis mokymasis<a class="headerlink" href="#tradicinis-programavimas-vs-masininis-mokymasis" title="Link to this heading">#</a></h3>
+<h2>Tradicinis programavimas vs. mašininis mokymasis<a class="headerlink" href="#tradicinis-programavimas-vs-masininis-mokymasis" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Taisyklių kūrimas:</p>
 <ul>
@@ -478,7 +474,7 @@ document.write(`
 </div>
 <hr style="border: none; height: 2px; background-color: black;">
 <section id="pavyzdziai-kur-tradicinis-programavimas-paluzta">
-<h4>Pavyzdžiai (kur tradicinis programavimas “palūžta”)<a class="headerlink" href="#pavyzdziai-kur-tradicinis-programavimas-paluzta" title="Link to this heading">#</a></h4>
+<h3>Pavyzdžiai (kur tradicinis programavimas “palūžta”)<a class="headerlink" href="#pavyzdziai-kur-tradicinis-programavimas-paluzta" title="Link to this heading">#</a></h3>
 <p>a) Vaizdų atpažinimas<br />
 b) Kalbos atpažinimas<br />
 c) Natūralios kalbos apdorojimas<br />
@@ -489,7 +485,7 @@ g) …</p>
 <hr style="border: none; height: 2px; background-color: black;"></section>
 </section>
 <section id="masininio-mokymosi-uzdaviniu-tipai">
-<h3>Mašininio mokymosi uždavinių tipai<a class="headerlink" href="#masininio-mokymosi-uzdaviniu-tipai" title="Link to this heading">#</a></h3>
+<h2>Mašininio mokymosi uždavinių tipai<a class="headerlink" href="#masininio-mokymosi-uzdaviniu-tipai" title="Link to this heading">#</a></h2>
 <p>Taikant tam tikrus skirstymo kriterijus MM srityje išskiriami keli uždavinių tipai:</p>
 <ol class="arabic">
 <li><p><strong>Prižiūrimas mokymasis (angl. supervised learning)</strong><br />
@@ -531,7 +527,6 @@ Skatinamojo mokymosi metu modelis, vadinamas agentu (angl. agent), mokosi priimt
 <hr style="border: none; height: 2px; background-color: black;">
 </li>
 </ol>
-</section>
 </section>
 <section id="pagrindiniai-masininio-mokymosi-issukiai">
 <h2>Pagrindiniai mašininio mokymosi iššūkiai<a class="headerlink" href="#pagrindiniai-masininio-mokymosi-issukiai" title="Link to this heading">#</a></h2>
@@ -699,7 +694,7 @@ Akivaizdu, kad jei mokymosi duomenyse yra daug klaidų, nukrypimų ir triukšmo 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">degrees</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">degrees</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span>
 <span class="n">best_score</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
 <span class="n">best_model</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -740,8 +735,6 @@ Degree 3: Accuracy score on test set = 0.9276
 Degree 4: Accuracy score on test set = 0.9233
 Degree 5: Accuracy score on test set = 0.9299
 Degree 6: Accuracy score on test set = 0.9288
-Degree 7: Accuracy score on test set = 0.9268
-Degree 8: Accuracy score on test set = 0.9155
 </pre></div>
 </div>
 <img alt="../_images/1b55968424607b28c5c9324a825951227e1f8c62a949cef3372813d7bb916a27.png" src="../_images/1b55968424607b28c5c9324a825951227e1f8c62a949cef3372813d7bb916a27.png" />
@@ -842,11 +835,11 @@ Degree 5: Mean validation accuracy = 0.8616
       </div>
     </a>
     <a class="right-next"
-       href="chapter1.html"
+       href="tiesine-regresija.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Content with notebooks</p>
+        <p class="prev-next-title">Tolydaus kintamojo prognozės uždavinys</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -866,19 +859,16 @@ Degree 5: Mean validation accuracy = 0.8616
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trumpas-apie">Trumpas apie</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#greita-istorija">Greita istorija</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mokymasis-is-duomenu">Mokymasis iš duomenų</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pavyzdziai-realaus-mokymosi-is-duomenu">Pavyzdžiai (realaus mokymosi iš duomenų)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#greita-istorija">Greita istorija</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mokymasis-is-duomenu">Mokymasis iš duomenų</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pavyzdziai-realaus-mokymosi-is-duomenu">Pavyzdžiai (realaus mokymosi iš duomenų)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tradicinis-programavimas-vs-masininis-mokymasis">Tradicinis programavimas vs. mašininis mokymasis</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pavyzdziai-kur-tradicinis-programavimas-paluzta">Pavyzdžiai (kur tradicinis programavimas “palūžta”)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tradicinis-programavimas-vs-masininis-mokymasis">Tradicinis programavimas vs. mašininis mokymasis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pavyzdziai-kur-tradicinis-programavimas-paluzta">Pavyzdžiai (kur tradicinis programavimas “palūžta”)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masininio-mokymosi-uzdaviniu-tipai">Mašininio mokymosi uždavinių tipai</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masininio-mokymosi-uzdaviniu-tipai">Mašininio mokymosi uždavinių tipai</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagrindiniai-masininio-mokymosi-issukiai">Pagrindiniai mašininio mokymosi iššūkiai</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testavimas-ir-validavimas">Testavimas ir validavimas</a></li>
 </ul>
