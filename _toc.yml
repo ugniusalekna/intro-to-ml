@@ -4,8 +4,9 @@
 format: jb-article
 root: README
 sections:
-  - file: notebooks/pagrindines-savokos
-  - file: notebooks/tiesine-regresija
+  - file: notebooks/1-pagrindines-savokos
+  - file: notebooks/2-tiesine-regresija
+  - file: notebooks/3-klasifikavimas
   - file: notebooks/chapter1
   - file: notebooks/chapter2
   - file: notebooks/chapter3

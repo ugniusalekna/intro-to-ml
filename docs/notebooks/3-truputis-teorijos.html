@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Section 1 &#8212; Introductory ML Course</title>
+    <title>Truputis mašininio mokymosi teorijos &#8212; Introductory ML Course</title>
   
   
   
@@ -57,11 +57,9 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/chapter2';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/3-truputis-teorijos';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Problem 1. Classification" href="chapter3.html" />
-    <link rel="prev" title="Content with notebooks" href="chapter1.html" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -137,6 +135,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -186,11 +186,11 @@
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
+        <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1-pagrindines-savokos.html">Įvadas į mašininį mokymąsi</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2-tiesine-regresija.html">Tolydaus kintamojo prognozės uždavinys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapter1.html">Content with notebooks</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Section 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter2.html">Section 1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapter3.html">Problem 1. Classification</a></li>
 
 
@@ -248,7 +248,7 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/ugniusalekna/intro-to-ml/blob/main/notebooks/chapter2.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/ugniusalekna/intro-to-ml/blob/main/notebooks/3-truputis-teorijos.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -279,7 +279,7 @@
       
       
       
-      <li><a href="../_sources/notebooks/chapter2.ipynb" target="_blank"
+      <li><a href="../_sources/notebooks/3-truputis-teorijos.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -363,7 +363,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Section 1</h1>
+    <h1>Truputis mašininio mokymosi teorijos</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -373,8 +373,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subsection-about-something">Subsection about something</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-other-subsection">Some other subsection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hipoteze-nuostoliu-funkcija-rizika">Hipotezė, nuostolių funkcija, rizika</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#empirines-rizikos-minimizavimo-taisykle">Empirinės rizikos minimizavimo taisyklė</a></li>
 </ul>
             </nav>
         </div>
@@ -386,55 +386,39 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="section-1">
-<h1>Section 1<a class="headerlink" href="#section-1" title="Link to this heading">#</a></h1>
-<p>Some random shit in markup</p>
-<p>Imports blah blah blah</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section id="subsection-about-something">
-<h2>Subsection about something<a class="headerlink" href="#subsection-about-something" title="Link to this heading">#</a></h2>
-<p>Some plot jada jada</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/6b1e8512a9c7d3927b3244ed5ca2b5ae18525782cdf545ee0ca4e1829bd20f06.png" src="../_images/6b1e8512a9c7d3927b3244ed5ca2b5ae18525782cdf545ee0ca4e1829bd20f06.png" />
-</div>
-</div>
+  <section id="truputis-masininio-mokymosi-teorijos">
+<h1>Truputis mašininio mokymosi teorijos<a class="headerlink" href="#truputis-masininio-mokymosi-teorijos" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Kadangi šiek tiek susipažinome su prižiūrimo MM eiga, tolimesnėms temoms pravers šiek tiek statistinio mokymosi ir optimizavimo teorijos.</p></li>
+</ul>
+<section id="hipoteze-nuostoliu-funkcija-rizika">
+<h2>Hipotezė, nuostolių funkcija, rizika<a class="headerlink" href="#hipoteze-nuostoliu-funkcija-rizika" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Visų galimų požymių rinkinį žymėsime $\mathcal{X} \subseteq \mathbb{R}^k$. Šio rinkinio elementai yra požymių vektoriai, pažymėti mažosiomis raidėmis $x$ (arba $\textbf{x}$).</p></li>
+<li><p>Reikšmių rinkinys bus žymimas $\mathcal{Y}$ (baigtinė aibė klasifikavimo uždaviniuose, tolydi aibė regresijos uždaviniuose).</p></li>
+<li><p>$\mathcal{Z} = \mathcal{X} \times \mathcal{Y}$ žymėsime stebinių aibę.</p></li>
+<li><p>Bet kokia (mati) funkcija $h : \mathcal{X} \rightarrow \mathcal{Y}$ vadinama hipoteze ir gali būti naudojama prognozavimui.</p></li>
+<li><p>Visų galimų hipotezių rinkinį žymėsime $\mathcal{Y}^{\mathcal{X}}$. Paprastai nagrinėjame specifinius hipotezių rinkinius, o ne visą įmanomą hipotezių klasę (žymėsime $\mathcal{H} \subseteq \mathcal{Y}^{\mathcal{X}}$).</p></li>
+<li><p>Siekiant pamatuoti nuostolį, kurį patiriame prognozei taške $x$ naudodami hipotezę $h$, t.y. prognozuodami būsimą $y$ reikšmę lygią $h(x)$, nagrinėjamai hipotezių klasei $\mathcal{H}$ įvedama nuostolių funkcija $\ell : \mathcal{Z} \times \mathcal{H} \rightarrow [ 0; \infty )$. Reikšmė $l(z,h) = \ell((x,y),h)$ žymi nuostolį, kurį patirsime tikrąją stebinio reikšmę $y$ keisdami prognoze $h(x)$.</p></li>
+<li><p>$\ell(z,h)$ kiekybiškai įvertina nuostolį konkrečiai stebinio reikšmei, tačiau kadangi stebinys yra atsitiktinis dydis, hipotezė $h$ turėtų būti pakankamai tiksli visoms galimoms jo reikšmėms.</p></li>
+<li><p>Norint pasirinkti $h$ taip, kad lygybė $h(x) \approx y$ būtų kiek įmanoma tikslesnė visoms $x$ reikšmėms, įvedama rizikos funkcija $R(h) = \mathbb{E} [ \ell(z, h) ]$. Vidurkis imamas pagal $z$, funkcijos $R$ apibrėžimo sritis yra nagrinėjamos hipotezių klasės $\mathcal{H}$.</p></li>
+<li><p>$R(h)$ matuoja vidutinį hipotezės $h$ nuostolį fiksuotos nuostolių funkcijos $l$ atžvilgiu.</p></li>
+</ul>
 </section>
-<section id="some-other-subsection">
-<h2>Some other subsection<a class="headerlink" href="#some-other-subsection" title="Link to this heading">#</a></h2>
-<p>Some other plot yadayada</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/721c074d223c6a025c86777f7d30f9c156c3f37f16bce64b3b39bc5b59e39851.png" src="../_images/721c074d223c6a025c86777f7d30f9c156c3f37f16bce64b3b39bc5b59e39851.png" />
-</div>
-</div>
+<section id="empirines-rizikos-minimizavimo-taisykle">
+<h2>Empirinės rizikos minimizavimo taisyklė<a class="headerlink" href="#empirines-rizikos-minimizavimo-taisykle" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Dėja, tačiau realiose situacijoje natūralu laikyti, kad atsitiktinio dydžio $z = (x,y)$ skirstinys yra nežinomas. Jeigu nežinome skirstinio, negalime apskaičiuoti jo vidurkio, t.y., dydžio $\mathbb{E} [ \ell(z, h) ]$. Taigi, pasirinkę nuostolių funkciją $\ell$ negalime suskaičiuoti ją atitinkančios rizikos – negalime ieškoti optimalios hipotezės (rizikos funkcijos minimumo taško) $\tilde{h} \in \text{arg} \min_{h \in \mathcal{H}} R(h)$.</p></li>
+<li><p>Siekiant rasti išeitį, apibrėžiama <em>empirinės rizikos funkcija</em>:</p></li>
+</ul>
+<p>$$
+R_{emp}(h) = \frac{1}{n} \sum_{i=1}^{n}{\ell(h, z_i) },
+$$</p>
+<p>         kur $(z_1, …, z_n)$ – mokymosi duomenų aibė</p>
+<ul class="simple">
+<li><p>Remiantis <strong>Didžiųjų skaičių dėsniu</strong> (angl. the law of large numbers), artinant $n$ į begalybę, empirinės rizikos funkcija konverguoja į tikrąją riziką. Taigi, jei mokymosi duomenų aibės apimtis didelė, tai $R_{emp}(h) \approx R(h)$. Tuo paremta empirinės rizikos minimizavimo taisyklė – minimizuodami $R_{emp}$ gausime hipotezę $h$, kurios tikra rizika bus artima jos minimumui (infimumui).</p></li>
+</ul>
+<p>$\ell$</p>
 </section>
 </section>
 
@@ -468,24 +452,6 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="chapter1.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Content with notebooks</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="chapter3.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Problem 1. Classification</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -502,8 +468,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subsection-about-something">Subsection about something</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-other-subsection">Some other subsection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hipoteze-nuostoliu-funkcija-rizika">Hipotezė, nuostolių funkcija, rizika</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#empirines-rizikos-minimizavimo-taisykle">Empirinės rizikos minimizavimo taisyklė</a></li>
 </ul>
   </nav></div>
 
