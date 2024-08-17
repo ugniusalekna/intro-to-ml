@@ -400,6 +400,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradientinio-nusileidimo-algoritmas">Gradientinio nusileidimo algoritmas</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#teorines-gradientinio-nusileidimo-garantijos">Teorinės gradientinio nusileidimo garantijos</a></li>
 </ul>
             </nav>
         </div>
@@ -503,11 +504,11 @@ $$</p>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">FloatSlider</span>
 
-<span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">w</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">w</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">w</span>
 
-<span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">4</span><span class="o">*</span><span class="n">w</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">9</span><span class="o">*</span><span class="n">w</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span>
 </pre></div>
 </div>
 </div>
@@ -515,17 +516,17 @@ $$</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gradient_descent</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">grad</span><span class="p">,</span> <span class="n">initial_point</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">num_iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">initial_point</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>  <span class="c1"># To store the path</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">initial_point</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="p">]</span>
     
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iterations</span><span class="p">):</span>
-        <span class="n">new_x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">grad</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_x</span><span class="p">)</span>
+        <span class="n">new_w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">grad</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_w</span><span class="p">)</span>
         
-        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">new_x</span><span class="p">)</span> <span class="o">-</span> <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">new_w</span><span class="p">)</span> <span class="o">-</span> <span class="n">func</span><span class="p">(</span><span class="n">w</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
             <span class="k">break</span>
             
-        <span class="n">x</span> <span class="o">=</span> <span class="n">new_x</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">new_w</span>
     
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </pre></div>
@@ -537,37 +538,130 @@ $$</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_gradient_descent</span><span class="p">(</span><span class="n">initial_point</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">):</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">gradient_descent</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">gradient</span><span class="p">,</span> <span class="n">initial_point</span><span class="o">=</span><span class="n">initial_point</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">)</span>
     
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
     
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
     
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Objective Function&#39;</span><span class="p">)</span>
-    
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">function</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Objective Function&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">path</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">function</span><span class="p">(</span><span class="n">path</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">path</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">function</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">-</span> <span class="n">function</span><span class="p">(</span><span class="n">path</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">function</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Gradient Descent Path&#39;</span><span class="p">)</span>
     
+    <span class="n">final_point</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">final_value</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">final_point</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Final Point</span><span class="se">\n</span><span class="s1">w=</span><span class="si">{</span><span class="n">final_point</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s1">f(w)=</span><span class="si">{</span><span class="n">final_value</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> 
+                <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">final_point</span><span class="p">,</span> <span class="n">final_value</span><span class="p">),</span> 
+                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">final_point</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">final_value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">headlength</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">headwidth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">backgroundcolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">))</span>
+
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gradient Descent (lr=</span><span class="si">{</span><span class="n">learning_rate</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, start=</span><span class="si">{</span><span class="n">initial_point</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;f(x)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;f(w)&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
     
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="n">interact</span><span class="p">(</span><span class="n">plot_gradient_descent</span><span class="p">,</span> 
-         <span class="n">initial_point</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Initial Point&#39;</span><span class="p">),</span>
-         <span class="n">learning_rate</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Learning Rate&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description_width&#39;</span><span class="p">:</span> <span class="s1">&#39;100px&#39;</span><span class="p">}))</span>
+<span class="c1"># interact(plot_gradient_descent, </span>
+<span class="c1">#          initial_point=FloatSlider(value=1.0, min=-1.5, max=3, step=0.1, description=&#39;Initial Point&#39;),</span>
+<span class="c1">#          learning_rate=FloatSlider(value=0.1, min=0.01, max=0.5, step=0.01, description=&#39;Learning Rate&#39;, </span>
+<span class="c1">#                                    style={&#39;description_width&#39;: &#39;100px&#39;}))</span>
+
+<span class="n">plot_gradient_descent</span><span class="p">(</span><span class="n">initial_point</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c1b8e0f93d99470b97c7387efd4a6eed", "version_major": 2, "version_minor": 0}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.plot_gradient_descent(initial_point, learning_rate)&gt;
+<img alt="../_images/609d23a3706e364c3a8c5f6185ae1373997ae06daa3985289205267e83181a84.png" src="../_images/609d23a3706e364c3a8c5f6185ae1373997ae06daa3985289205267e83181a84.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Matome, jog algoritmas dažnai randa optimalų funkcijos minimumą, tačiau tai įvyksta ne visada – kokie pastebėjimai?</p></li>
+<li><p>Egzistuoja įvairių gradientinio nusileidimo modifikacijų, viena iš jų – momentinis metodas. Taikant šį metodą prie naujo taško pereinama naudojant taisyklę:</p></li>
+</ul>
+<p>$$
+w_{m+1} = w_m − \eta \nabla f(w_m) + \gamma \Delta w_m,
+$$</p>
+<p>         kur $\Delta w_m = w_m − w_{m−1}$ ir $\gamma \in (0; 1]$ – fiksuota parametro reikšme.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gradient_descent_with_momentum</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">grad</span><span class="p">,</span> <span class="n">initial_point</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> 
+                                   <span class="n">num_iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">initial_point</span>
+    <span class="n">w_diff</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iterations</span><span class="p">):</span>
+        <span class="n">new_w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">grad</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="n">momentum</span> <span class="o">*</span> <span class="n">w_diff</span>
+        <span class="n">w_diff</span> <span class="o">=</span> <span class="n">new_w</span> <span class="o">-</span> <span class="n">w</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_w</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">new_w</span><span class="p">)</span> <span class="o">-</span> <span class="n">func</span><span class="p">(</span><span class="n">w</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="k">break</span>
+            
+        <span class="n">w</span> <span class="o">=</span> <span class="n">new_w</span>
+    
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_gradient_descent_with_momenum</span><span class="p">(</span><span class="n">initial_point</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">momentum</span><span class="p">):</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">gradient_descent_with_momentum</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">gradient</span><span class="p">,</span> 
+                                          <span class="n">initial_point</span><span class="o">=</span><span class="n">initial_point</span><span class="p">,</span> 
+                                          <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span>
+                                          <span class="n">momentum</span><span class="o">=</span><span class="n">momentum</span><span class="p">)</span>
+    
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Objective Function&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">path</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">function</span><span class="p">(</span><span class="n">path</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">path</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">function</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">-</span> <span class="n">function</span><span class="p">(</span><span class="n">path</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">function</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Gradient Descent Path&#39;</span><span class="p">)</span>
+    
+    <span class="n">final_point</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">final_value</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">final_point</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Final Point</span><span class="se">\n</span><span class="s1">w=</span><span class="si">{</span><span class="n">final_point</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s1">f(w)=</span><span class="si">{</span><span class="n">final_value</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> 
+                <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">final_point</span><span class="p">,</span> <span class="n">final_value</span><span class="p">),</span> 
+                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">final_point</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">final_value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">headlength</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">headwidth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">backgroundcolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">))</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gradient Descent (lr=</span><span class="si">{</span><span class="n">learning_rate</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, start=</span><span class="si">{</span><span class="n">initial_point</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, momentum=</span><span class="si">{</span><span class="n">momentum</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;f(w)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># interact(plot_gradient_descent_with_momenum, </span>
+<span class="c1">#          initial_point=FloatSlider(value=1.0, min=-1.5, max=3, step=0.1, description=&#39;Initial Point&#39;),</span>
+<span class="c1">#          learning_rate=FloatSlider(value=0.1, min=0.001, max=0.01, step=0.001, description=&#39;Learning Rate&#39;, </span>
+<span class="c1">#                                    style={&#39;description_width&#39;: &#39;100px&#39;}),</span>
+<span class="c1">#          momentum=FloatSlider(value=0.9, min=0.0, max=1.0, step=0.01, description=&#39;Momentum&#39;))</span>
+
+<span class="n">plot_gradient_descent_with_momenum</span><span class="p">(</span><span class="n">initial_point</span><span class="o">=-</span><span class="mf">1.10</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.98</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ac20f48bcec869dc55e8bc2c0bb26f9258f14672fcf1962dc00acef85c96d739.png" src="../_images/ac20f48bcec869dc55e8bc2c0bb26f9258f14672fcf1962dc00acef85c96d739.png" />
+</div>
+</div>
 </section>
+</section>
+<section id="teorines-gradientinio-nusileidimo-garantijos">
+<h2>Teorinės gradientinio nusileidimo garantijos<a class="headerlink" href="#teorines-gradientinio-nusileidimo-garantijos" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -642,6 +736,7 @@ $$</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradientinio-nusileidimo-algoritmas">Gradientinio nusileidimo algoritmas</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#teorines-gradientinio-nusileidimo-garantijos">Teorinės gradientinio nusileidimo garantijos</a></li>
 </ul>
   </nav></div>
 
