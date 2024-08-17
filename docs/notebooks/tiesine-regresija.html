@@ -189,6 +189,7 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pagrindines-savokos.html">Įvadas į mašininį mokymąsi</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Tolydaus kintamojo prognozės uždavinys</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="chapter1.html">Content with notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapter2.html">Section 1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapter3.html">Problem 1. Classification</a></li>
@@ -373,8 +374,23 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tiesine-regresija">Tiesinė regresija</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Tolydaus kintamojo prognozės uždavinys</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mathbf-x-begin-pmatrix-mathbf-x-1-mathbf-x-2-vdots-mathbf-x-n-end-pmatrix">$$
+\mathbf{X} =
+\begin{pmatrix}
+\mathbf{x}^{(1)} \
+\mathbf{x}^{(2)} \
+\vdots \
+\mathbf{x}^{(n)}
+\end{pmatrix}</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tiesine-regresija">Tiesinė regresija</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isreikstinis-pavidalas">Išreikštinis pavidalas</a></li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -390,7 +406,36 @@ document.write(`
 <ul class="simple">
 <li><p>Sprendžiamas tolydaus kintamojo prognozės uždavinys, kurio tikslas – parinkti funkciją $f$ su kuria kuo tiksliau galėtume nustatyti kintamojo $y$ reikšmes pagal nepriklausomo kintamojo $x$ reikšmes, t.y. taip, kad lygybė $f(x) \approx y$ būtų kiek įmanoma tikslesnė.</p></li>
 <li><p>Dažniausias scenarijus – $y \in \mathbb{R}$, $x \in \mathbb{R}^{k}$, $k \in \mathbb{N}$. Tokiu atveju, vektorius žymėsime paryškintu šriftu, t.y., $\textbf{x} := (x_1, x_2, …, x_k)^T \in \mathbb{R}^{k}$, o skaliarus įprastai – $y := y \in \mathbb{R}$.</p></li>
-<li><p>Porų $(\textbf{x}^{(i)}, y^{(i)}), i = 1, …, n$ imtis vadinama apmokymo aibe (<em>pastaba</em>: indeksai viršuje nėra laipsniai)</p></li>
+<li><p>Porų $(\textbf{x}^{(i)}, y^{(i)}), i = 1, …, n$ imtis vadinama apmokymo aibe (<em>pastaba</em>: indeksai viršuje nėra laipsniai). Norėdami dar labiau sutraukti žymėjimus, galime įvesti matricinį apmokymo aibės nepriklausomų kintamųjų pavidalą; matricą žymėsime didžiąja raide:</p></li>
+</ul>
+</section>
+<section id="mathbf-x-begin-pmatrix-mathbf-x-1-mathbf-x-2-vdots-mathbf-x-n-end-pmatrix">
+<h1>$$
+\mathbf{X} =
+\begin{pmatrix}
+\mathbf{x}^{(1)} \
+\mathbf{x}^{(2)} \
+\vdots \
+\mathbf{x}^{(n)}
+\end{pmatrix}<a class="headerlink" href="#mathbf-x-begin-pmatrix-mathbf-x-1-mathbf-x-2-vdots-mathbf-x-n-end-pmatrix" title="Link to this heading">#</a></h1>
+<p>\begin{pmatrix}
+x_{11} &amp; x_{12} &amp; \dots &amp; x_{1k} \
+x_{21} &amp; x_{22} &amp; \dots &amp; x_{2k} \
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \
+x_{m1} &amp; x_{n2} &amp; \dots &amp; x_{nk}
+\end{pmatrix}
+$$</p>
+<p>         Tokiu atveju, priklausomų kintamųjų vektorius, bus žymimas:
+$$
+\textbf{y} =
+\begin{pmatrix}
+y^{(1)} \
+y^{(2)} \
+\vdots \
+y^{(n)}
+\end{pmatrix}
+$$</p>
+<ul class="simple">
 <li><p>Funkcija $f$ MM kontekste vadinama hipoteze (angl. hypothesis), taigi, ji dažnai žymima raide $h$ (<em>pastaba</em>: MM hipotezė žymi visiškai kitą sąvoką nei statistikoje). Tolydaus kintamojo prognozės uždavinyje dar vadinama regresoriumi (angl. regressor).</p></li>
 </ul>
 <section id="tiesine-regresija">
@@ -404,7 +449,7 @@ document.write(`
 $$</p>
 <ul class="simple">
 <li><p>Lygties parametrai $\theta_1, \theta_2, …, \theta_k$ vadinami krypties koeficientais (angl. coefficients), o parametras $\theta_0$ – pastovus narys (angl. intercept).</p></li>
-<li><p>Jeigu pažymime $\boldsymbol{\theta} = (\theta_1, \theta_2, …, \theta_k)^T$ ir $x_0 := 1$, tuomet nepriklausomų kintamųjų vektorių galime užrašyti kaip $\textbf{x} = (x_0, x_1, …, x_k)^T = (1, x_1, …, x_k)^T \in \mathbb{R^{k+1}}$. Tada, tiesinės regresijos hipotezės taške $\textbf{x}$ matricinis pavidalas yra:
+<li><p>Jeigu pažymime $\boldsymbol{\theta} = (\theta_1, \theta_2, …, \theta_k)^T$ ir $x_0 := 1$, tuomet nepriklausomų kintamųjų vektorių galime užrašyti kaip $\textbf{x} = (x_0, x_1, …, x_k)^T = (1, x_1, …, x_k)^T \in \mathbb{R^{k+1}}$. Tada, tiesinės regresijos hipotezės taške $\textbf{x}$ vektorinis pavidalas yra:
 $$
 \hat{y} = h(\textbf{x}) = \boldsymbol{\theta}^T \cdot \textbf{x}
 $$</p></li>
@@ -419,14 +464,107 @@ $$</p></li>
 <li><p>Taigi, apsibrėžėme tiesinės regresijos hipotezę $h_{\boldsymbol{\theta}}$, tačiau kaip ją apmokyti? Šiuo atveju, modelio apmokymas reiškia geriausio parametrų rinkinio suradimą. Norint surasti geriausią parametrų rinkinį turime išmatuoti, kaip gerai (ar blogai) modelis tinka mokymo duomenims. Dažniausiai naudojamas tiesinės regresijos tikslumo matas yra standartinis nuokrypis (angl. root mean squared error, RMSE) – tai matas, nusakantis atsitiktinio dydžio įgyjamų reikšmių nuokrypį nuo vidurkio. Standartinis nuokrypis apibrėžiamas formule:</p></li>
 </ul>
 <p>$$
-\text{RMSE}(\textbf{x}, h_{\boldsymbol{\theta}}) = \sqrt{\frac{1}{n} \sum_{i=1}^{n} \left(h_{\boldsymbol{\theta}}(\textbf{x}^{(i)}) - y^{(i)} \right)^2}
+\text{RMSE}(\textbf{X}, h_{\boldsymbol{\theta}}) = \sqrt{\frac{1}{n} \sum_{i=1}^{n} \left(h_{\boldsymbol{\theta}}(\textbf{x}^{(i)}) - y^{(i)} \right)^2}
 $$</p>
 <ul class="simple">
 <li><p>Norint išmokyti tiesinės regresijos modelį, reikia rasti tokią $\boldsymbol{\theta}$ vertę, kuri minimizuotų RMSE. Praktikoje paprasčiau minimizuoti vidutinę kvadratinę paklaidą (angl. mean squared error, MSE) nei RMSE, nes tai duoda tą patį rezultatą:</p></li>
 </ul>
 <p>$$
-\text{MSE}(\textbf{x}, h_{\boldsymbol{\theta}}) = \frac{1}{n} \sum_{i=1}^{n} \left(\boldsymbol{\theta}^T \cdot \textbf{x}^{(i)} - y^{(i)} \right)^2
+\text{MSE}(\textbf{X}, h_{\boldsymbol{\theta}}) = \frac{1}{n} \sum_{i=1}^{n} \left(h_{\boldsymbol{\theta}}(\textbf{x}^{(i)}) - y^{(i)} \right)^2
 $$</p>
+<section id="isreikstinis-pavidalas">
+<h3>Išreikštinis pavidalas<a class="headerlink" href="#isreikstinis-pavidalas" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Tiesinės regresijos modelis yra išskirtinis, kadangi parametrus $\boldsymbol{\theta}$ galime rasti išreikštiniu būdu, t.y. išspręsti minimizavimo uždavinį:</p></li>
+</ul>
+<p>$$
+\argmin_{\boldsymbol{\theta}} \text{MSE}(\textbf{X}, h_{\boldsymbol{\theta}}) = \argmin_{\boldsymbol{\theta}} \frac{1}{n} \sum_{i=1}^{n} \left( \boldsymbol{\theta}^T \cdot \textbf{x}^{(i)} - y^{(i)} \right)^2
+$$</p>
+<p>         Perrašydami MSE lygtį matriciniu pavidalu gauname išraišką:</p>
+<p>$$
+\text{MSE}(\textbf{X}, h_{\boldsymbol{\theta}}) = \frac{1}{n} (\textbf{X} \boldsymbol{\theta} - \textbf{y} )^T (\textbf{X} \boldsymbol{\theta} - \textbf{y} ) = \frac{1}{n} (\boldsymbol{\theta}^T \textbf{X}^T - \textbf{y} ^T) (\textbf{X} \boldsymbol{\theta} - \textbf{y} ) = \frac{1}{n} (\boldsymbol{\theta}^T \textbf{X}^T \textbf{X} \boldsymbol{\theta} - \boldsymbol{\theta}^T \textbf{X}^T \textbf{y}  - \textbf{y} ^T \textbf{X} \boldsymbol{\theta} + \textbf{y} ^T \textbf{y} )
+$$</p>
+<ul class="simple">
+<li><p>Remiantis optimizavimo teorijos rezultatais, žinome, jog būtent ši funkcija yra iškila, t.y. funkcija turi vieną globalų minimumo tašką. Jį galime rasti prisilyginę funkcijos išvestinę pagal koeficientus $\boldsymbol{\theta}$ nuliui (<em>pastaba</em>: šiuo atveju dalinę išvestinę pagal vektorių, tačiau tai intuicijos nekeičia, tik formulės kiek skiriasi):</p></li>
+</ul>
+<p>$$
+\frac{\partial}{\partial \boldsymbol{\theta}} \text{MSE}(\textbf{X}, h_{\boldsymbol{\theta}}) = \frac{\partial}{\partial \boldsymbol{\theta}} \left( \frac{1}{n} (\boldsymbol{\theta}^T \textbf{X}^T \textbf{X} \boldsymbol{\theta} - \boldsymbol{\theta}^T \textbf{X}^T \textbf{y}  - \textbf{y} ^T \textbf{X} \boldsymbol{\theta} + \textbf{y} ^T \textbf{y} ) \right) = \frac{2}{n} \left( \textbf{X}^T \textbf{X} \boldsymbol{\theta} - \textbf{X}^T \textbf{y}  \right)
+$$</p>
+<ul class="simple">
+<li><p>Prisilyginus išvestinę nuliui gauname išreikštinę formą koeficientams suskaičiuoti:</p></li>
+</ul>
+<p>$$
+\frac{2}{n} \left( \textbf{X}^T \textbf{X} \boldsymbol{\theta} - \textbf{X}^T \textbf{y}  \right) = 0 \iff \textbf{X}^T \textbf{X} \boldsymbol{\theta} = \textbf{X}^T \textbf{y}  \iff \boldsymbol{\theta} = (\textbf{X}^T \textbf{X})^{-1} \textbf{X}^T \textbf{y}</p>
+<p>$$</p>
+<ul class="simple">
+<li><p>Įsitikinkime, jog formulė tikrai veikia:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="c1"># Matrix of independent arguments</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Vector / matrix of dependent target variable</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$X$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c72408f7ce3924de9d48729cca00a826769e7b3ed5f8d99042dab604250ff91e.png" src="../_images/c72408f7ce3924de9d48729cca00a826769e7b3ed5f8d99042dab604250ff91e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">add_dummy_feature</span>
+
+<span class="n">X_b</span> <span class="o">=</span> <span class="n">add_dummy_feature</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># add x0 = 1 to each instance</span>
+<span class="n">theta_best</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X_b</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X_b</span><span class="p">)</span> <span class="o">@</span> <span class="n">X_b</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Intercept: </span><span class="si">{</span><span class="n">theta_best</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">; Coefficient </span><span class="si">{</span><span class="n">theta_best</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept: 4.2151; Coefficient 2.7701
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X_b</span><span class="nd">@theta_best</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$X$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/282dbefc9e29bd2e672d65a40efcaa7a200da4597754c6735e72bfb51b68c2c5.png" src="../_images/282dbefc9e29bd2e672d65a40efcaa7a200da4597754c6735e72bfb51b68c2c5.png" />
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -494,8 +632,23 @@ $$</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tiesine-regresija">Tiesinė regresija</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Tolydaus kintamojo prognozės uždavinys</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mathbf-x-begin-pmatrix-mathbf-x-1-mathbf-x-2-vdots-mathbf-x-n-end-pmatrix">$$
+\mathbf{X} =
+\begin{pmatrix}
+\mathbf{x}^{(1)} \
+\mathbf{x}^{(2)} \
+\vdots \
+\mathbf{x}^{(n)}
+\end{pmatrix}</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tiesine-regresija">Tiesinė regresija</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isreikstinis-pavidalas">Išreikštinis pavidalas</a></li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
