@@ -21,10 +21,3 @@ sphinx:
   config:
     templates_path: ["_templates"]
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-    html_theme_options:
-      use_thebe: true
-
-thebe:
-  always_load: true
-  selector: "div.highlight"
-  kernel_name: "python3"
