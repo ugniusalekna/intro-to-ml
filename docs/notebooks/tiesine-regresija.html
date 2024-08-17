@@ -425,8 +425,8 @@ x_{21} &amp; x_{22} &amp; \dots &amp; x_{2k} \
 x_{m1} &amp; x_{n2} &amp; \dots &amp; x_{nk}
 \end{pmatrix}
 $$</p>
-<p>         Tokiu atveju, priklausomų kintamųjų vektorius, bus žymimas:
-$$
+<p>         Tokiu atveju, priklausomų kintamųjų vektorius, bus žymimas:</p>
+<p>$$
 \textbf{y} =
 \begin{pmatrix}
 y^{(1)} \
@@ -438,6 +438,8 @@ $$</p>
 <ul class="simple">
 <li><p>Funkcija $f$ MM kontekste vadinama hipoteze (angl. hypothesis), taigi, ji dažnai žymima raide $h$ (<em>pastaba</em>: MM hipotezė žymi visiškai kitą sąvoką nei statistikoje). Tolydaus kintamojo prognozės uždavinyje dar vadinama regresoriumi (angl. regressor).</p></li>
 </ul>
+<p>$\mathbf{X} = \begin{pmatrix} \mathbf{x}^{(1)} \ \mathbf{x}^{(2)} \ \vdots \ \mathbf{x}^{(n)} \end{pmatrix} = \begin{pmatrix} x_{11} &amp; x_{12} &amp; \dots &amp; x_{1k} \ x_{21} &amp; x_{22} &amp; \dots &amp; x_{2k} \ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \ x_{m1} &amp; x_{n2} &amp; \dots &amp; x_{nk} \end{pmatrix}$</p>
+<p>$\mathbf{y} = \begin{pmatrix} y^{(1)} \ y^{(2)} \ \vdots \ y^{(n)} \end{pmatrix}$</p>
 <section id="tiesine-regresija">
 <h2>Tiesinė regresija<a class="headerlink" href="#tiesine-regresija" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -478,7 +480,7 @@ $$</p>
 <li><p>Tiesinės regresijos modelis yra išskirtinis, kadangi parametrus $\boldsymbol{\theta}$ galime rasti išreikštiniu būdu, t.y. išspręsti minimizavimo uždavinį:</p></li>
 </ul>
 <p>$$
-\argmin_{\boldsymbol{\theta}} \text{MSE}(\textbf{X}, h_{\boldsymbol{\theta}}) = \argmin_{\boldsymbol{\theta}} \frac{1}{n} \sum_{i=1}^{n} \left( \boldsymbol{\theta}^T \cdot \textbf{x}^{(i)} - y^{(i)} \right)^2
+\text{argmin}<em>{\boldsymbol{\theta}} \text{MSE}(\textbf{X}, h</em>{\boldsymbol{\theta}}) = \text{argmin}<em>{\boldsymbol{\theta}} \frac{1}{n} \sum</em>{i=1}^{n} \left( \boldsymbol{\theta}^T \cdot \textbf{x}^{(i)} - y^{(i)} \right)^2
 $$</p>
 <p>         Perrašydami MSE lygtį matriciniu pavidalu gauname išraišką:</p>
 <p>$$
