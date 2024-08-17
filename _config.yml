@@ -28,3 +28,8 @@ sphinx:
       - nbsphinx
       - sphinx.ext.mathjax
       - sphinx.ext.intersphinx
+
+jupyter:
+  execute:
+    execute_notebooks: "force"
+    cache: false
