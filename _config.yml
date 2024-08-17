@@ -23,3 +23,4 @@ sphinx:
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
     extensions:
       - jupyter_sphinx
+      - nbsphinx
