@@ -478,7 +478,7 @@ $$</p>
 <li><p>Tiesinės regresijos modelis yra išskirtinis, kadangi parametrus $\boldsymbol{\theta}$ galime rasti išreikštiniu būdu, t.y. išspręsti minimizavimo uždavinį:</p></li>
 </ul>
 <p>$$
-\text{MSE} \min_{\boldsymbol{\theta}} \text{MSE}(\textbf{X}, h_{\boldsymbol{\theta}}) = \min_{\boldsymbol{\theta}} \frac{1}{n} \sum_{i=1}^{n} \left( \boldsymbol{\theta}^T \cdot \textbf{x}^{(i)} - y^{(i)} \right)^2
+\text{arg} \min_{\boldsymbol{\theta}} \text{MSE}(\textbf{X}, h_{\boldsymbol{\theta}}) = \text{arg} \min_{\boldsymbol{\theta}} \frac{1}{n} \sum_{i=1}^{n} \left( \boldsymbol{\theta}^T \cdot \textbf{x}^{(i)} - y^{(i)} \right)^2
 $$</p>
 <p>         Perrašydami MSE lygtį matriciniu pavidalu gauname išraišką:</p>
 <p>$$
