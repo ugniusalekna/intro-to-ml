@@ -538,7 +538,31 @@ $$</p>
     <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
     
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    
+<span class="w">    </span>
+<span class="w">    </span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    value : float</span>
+<span class="sd">        position of the slider</span>
+<span class="sd">    min : float</span>
+<span class="sd">        minimal position of the slider</span>
+<span class="sd">    max : float</span>
+<span class="sd">        maximal position of the slider</span>
+<span class="sd">    step : float</span>
+<span class="sd">        step of the trackbar</span>
+<span class="sd">    description : str</span>
+<span class="sd">        name of the slider</span>
+<span class="sd">    orientation : {&#39;horizontal&#39;, &#39;vertical&#39;}</span>
+<span class="sd">        default is &#39;horizontal&#39;, orientation of the slider</span>
+<span class="sd">    readout : {True, False}</span>
+<span class="sd">        default is True, display the current value of the slider next to it</span>
+<span class="sd">    behavior : str</span>
+<span class="sd">        slider handle and connector dragging behavior. Default is &#39;drag-tap&#39;.</span>
+<span class="sd">    readout_format : str</span>
+<span class="sd">        default is &#39;.2f&#39;, specifier for the format function used to represent</span>
+<span class="sd">        slider value for human consumption, modeled after Python 3&#39;s format</span>
+<span class="sd">        specification mini-language (PEP 3101).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
 <span class="n">interact</span><span class="p">(</span><span class="n">plot_gradient_descent</span><span class="p">,</span> 
          <span class="n">initial_point</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Initial Point&#39;</span><span class="p">),</span>
          <span class="n">learning_rate</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Learning Rate&#39;</span><span class="p">))</span>
@@ -550,6 +574,15 @@ $$</p>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Learning Rate&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a067f838094b4f1fab260a4310fa86af", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 </section>
