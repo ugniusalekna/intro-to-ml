@@ -21,15 +21,3 @@ sphinx:
   config:
     templates_path: ["_templates"]
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-    extensions:
-      - jupyter_sphinx
-      - sphinx_togglebutton
-      - sphinx_copybutton
-      - nbsphinx
-      - sphinx.ext.mathjax
-      - sphinx.ext.intersphinx
-
-jupyter:
-  execute:
-    execute_notebooks: "force"
-    cache: false

@@ -1,0 +1,813 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Tolydaus kintamojo prognozės uždavinys &#8212; Introductory ML Course</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/2-tiesine-regresija';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Truputis mašininio mokymosi teorijos" href="3-truputis-teorijos.html" />
+    <link rel="prev" title="Įvadas į mašininį mokymąsi" href="1-pagrindines-savokos.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <script type="text/javascript" id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$', '$']],
+        processEscapes: true
+      }
+    });
+  </script>
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introductory ML Course</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    Kurso santrauka
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1-pagrindines-savokos.html">Įvadas į mašininį mokymąsi</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tolydaus kintamojo prognozės uždavinys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3-truputis-teorijos.html">Truputis mašininio mokymosi teorijos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4-klasifikavimas.html">Hiperplokštumomis grįsti klasifikatoriai</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">Content with notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter2.html">Section 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapter3.html">Problem 1. Classification</a></li>
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ugniusalekna/intro-to-ml/blob/main/notebooks/2-tiesine-regresija.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/2-tiesine-regresija.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tolydaus kintamojo prognozės uždavinys</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tiesine-regresija">Tiesinė regresija</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isreikstinis-pavidalas">Išreikštinis pavidalas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daugianariu-regresija">Daugianarių regresija</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="tolydaus-kintamojo-prognozes-uzdavinys">
+<h1>Tolydaus kintamojo prognozės uždavinys<a class="headerlink" href="#tolydaus-kintamojo-prognozes-uzdavinys" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Sprendžiamas tolydaus kintamojo prognozės uždavinys, kurio tikslas – parinkti funkciją $f$ su kuria kuo tiksliau galėtume nustatyti kintamojo $y$ reikšmes pagal nepriklausomo kintamojo $x$ reikšmes, t.y. taip, kad lygybė $f(x) \approx y$ būtų kiek įmanoma tikslesnė.</p></li>
+<li><p>Dažniausias scenarijus – $y \in \mathbb{R}$, $x \in \mathbb{R}^{k}$, $k \in \mathbb{N}$. Tokiu atveju, vektorius žymėsime paryškintu šriftu, t.y., $\textbf{x} := (x_1, x_2, …, x_k)^T \in \mathbb{R}^{k}$, o skaliarus įprastai – $y := y \in \mathbb{R}$.</p></li>
+<li><p>Porų $(\textbf{x}^{(i)}, y^{(i)}), i = 1, …, n$ imtis vadinama apmokymo aibe (<em>pastaba</em>: indeksai viršuje nėra laipsniai). Norėdami dar labiau sutraukti žymėjimus, galime įvesti matricinį apmokymo aibės nepriklausomų kintamųjų pavidalą; matricą žymėsime didžiąja raide:</p></li>
+</ul>
+<p>$$
+\textbf{X} = \begin{pmatrix} \textbf{x}^{(1)} \cr \textbf{x}^{(2)} \cr \vdots \cr \textbf{x}^{(n)} \end{pmatrix} = \begin{pmatrix} x_{11} &amp; x_{12} &amp; \dots &amp; x_{1k} \cr x_{21} &amp; x_{22} &amp; \dots &amp; x_{2k} \cr \vdots &amp; \vdots &amp; \ddots &amp; \vdots \cr x_{n1} &amp; x_{n2} &amp; \dots &amp; x_{nk} \end{pmatrix}
+$$</p>
+<p>         Tokiu atveju, priklausomų kintamųjų vektorius, bus žymimas:</p>
+<p>$$
+\textbf{y} = \begin{pmatrix} y^{(1)} \cr y^{(2)} \cr \vdots \cr y^{(n)} \end{pmatrix}
+$$</p>
+<ul class="simple">
+<li><p>Funkcija $f$ MM kontekste vadinama hipoteze (angl. hypothesis), taigi, ji dažnai žymima raide $h$ (<em>pastaba</em>: MM hipotezė žymi visiškai kitą sąvoką nei statistikoje). Tolydaus kintamojo prognozės uždavinyje dar vadinama regresoriumi (angl. regressor).</p></li>
+</ul>
+<section id="tiesine-regresija">
+<h2>Tiesinė regresija<a class="headerlink" href="#tiesine-regresija" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Tiesinė regresija yra vienas iš elementariausių mašininio mokymosi algoritmų, naudojamų tolydaus kintamojo prognozės uždaviniams.</p></li>
+<li><p>Tiesinės regresijos tikslas – rasti geriausiai duomenų taškus atitinkančią tiesę (regresijos tiesę). Ši tiesė (tiesinės regresijos hipotezė) taške $\textbf{x}$ apibrėžiama lygtimi:</p></li>
+</ul>
+<p>$$
+\hat{y} = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + … + \theta_k x_k
+$$</p>
+<ul class="simple">
+<li><p>Lygties parametrai $\theta_1, \theta_2, …, \theta_k$ vadinami krypties koeficientais (angl. coefficients), o parametras $\theta_0$ – pastovus narys (angl. intercept).</p></li>
+<li><p>Jeigu pažymime $\boldsymbol{\theta} = (\theta_1, \theta_2, …, \theta_k)^T$ ir $x_0 := 1$, tuomet nepriklausomų kintamųjų vektorių galime užrašyti kaip $\textbf{x} = (x_0, x_1, …, x_k)^T = (1, x_1, …, x_k)^T \in \mathbb{R^{k+1}}$. Tada, tiesinės regresijos hipotezės taške $\textbf{x}$ vektorinis pavidalas yra:
+$$
+\hat{y} = h(\textbf{x}) = \boldsymbol{\theta}^T \cdot \textbf{x}
+$$</p></li>
+</ul>
+<ul class="simple">
+<li><p>Siekiant atkreipti dėmesį, kad hipotezės funkcija $h$ priklauso ne tik nuo kintamųjų $\textbf{x}$, bet ir nuo parametrų $\boldsymbol{\theta}$, dažnai žymime:
+$$
+h(\textbf{x}) := h_{\boldsymbol{\theta}}(\textbf{x})
+$$</p></li>
+</ul>
+<ul class="simple">
+<li><p>Taigi, apsibrėžėme tiesinės regresijos hipotezę $h_{\boldsymbol{\theta}}$, tačiau kaip ją apmokyti? Šiuo atveju, modelio apmokymas reiškia geriausio parametrų rinkinio suradimą. Norint surasti geriausią parametrų rinkinį turime išmatuoti, kaip gerai (ar blogai) modelis tinka mokymo duomenims. Dažniausiai naudojamas tiesinės regresijos tikslumo matas yra standartinis nuokrypis (angl. root mean squared error, RMSE) – tai matas, nusakantis atsitiktinio dydžio įgyjamų reikšmių nuokrypį nuo vidurkio. Standartinis nuokrypis apibrėžiamas formule:</p></li>
+</ul>
+<p>$$
+\text{RMSE}(\textbf{X}, h_{\boldsymbol{\theta}}) = \sqrt{\frac{1}{n} \sum_{i=1}^{n} \left(h_{\boldsymbol{\theta}}(\textbf{x}^{(i)}) - y^{(i)} \right)^2}
+$$</p>
+<ul class="simple">
+<li><p>Norint išmokyti tiesinės regresijos modelį, reikia rasti tokią $\boldsymbol{\theta}$ vertę, kuri minimizuotų RMSE. Praktikoje paprasčiau minimizuoti vidutinę kvadratinę paklaidą (angl. mean squared error, MSE) nei RMSE, nes tai duoda tą patį rezultatą:</p></li>
+</ul>
+<p>$$
+\text{MSE}(\textbf{X}, h_{\boldsymbol{\theta}}) = \frac{1}{n} \sum_{i=1}^{n} \left(h_{\boldsymbol{\theta}}(\textbf{x}^{(i)}) - y^{(i)} \right)^2
+$$</p>
+<section id="isreikstinis-pavidalas">
+<h3>Išreikštinis pavidalas<a class="headerlink" href="#isreikstinis-pavidalas" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Tiesinės regresijos modelis yra išskirtinis, kadangi parametrus $\boldsymbol{\theta}$ galime rasti išreikštiniu būdu, t.y. išspręsti minimizavimo uždavinį:</p></li>
+</ul>
+<p>$$
+\text{arg} \min_{\boldsymbol{\theta}} \text{MSE}(\textbf{X}, h_{\boldsymbol{\theta}}) = \text{arg} \min_{\boldsymbol{\theta}} \frac{1}{n} \sum_{i=1}^{n} \left( \boldsymbol{\theta}^T \cdot \textbf{x}^{(i)} - y^{(i)} \right)^2
+$$</p>
+<p>         Perrašydami MSE lygtį matriciniu pavidalu gauname išraišką:</p>
+<p>$$
+\text{MSE}(\textbf{X}, h_{\boldsymbol{\theta}}) = \frac{1}{n} (\textbf{X} \boldsymbol{\theta} - \textbf{y} )^T (\textbf{X} \boldsymbol{\theta} - \textbf{y} ) = \frac{1}{n} (\boldsymbol{\theta}^T \textbf{X}^T - \textbf{y} ^T) (\textbf{X} \boldsymbol{\theta} - \textbf{y} ) = \frac{1}{n} (\boldsymbol{\theta}^T \textbf{X}^T \textbf{X} \boldsymbol{\theta} - \boldsymbol{\theta}^T \textbf{X}^T \textbf{y}  - \textbf{y} ^T \textbf{X} \boldsymbol{\theta} + \textbf{y} ^T \textbf{y} )
+$$</p>
+<ul class="simple">
+<li><p>Remiantis optimizavimo teorijos rezultatais, žinome, jog būtent ši funkcija yra iškila, t.y. funkcija turi vieną globalų minimumo tašką. Jį galime rasti prisilyginę funkcijos išvestinę pagal koeficientus $\boldsymbol{\theta}$ nuliui (<em>pastaba</em>: šiuo atveju dalinę išvestinę pagal vektorių, tačiau tai intuicijos nekeičia, tik formulės kiek skiriasi):</p></li>
+</ul>
+<p>$$
+\frac{\partial}{\partial \boldsymbol{\theta}} \text{MSE}(\textbf{X}, h_{\boldsymbol{\theta}}) = \frac{\partial}{\partial \boldsymbol{\theta}} \left( \frac{1}{n} (\boldsymbol{\theta}^T \textbf{X}^T \textbf{X} \boldsymbol{\theta} - \boldsymbol{\theta}^T \textbf{X}^T \textbf{y}  - \textbf{y} ^T \textbf{X} \boldsymbol{\theta} + \textbf{y} ^T \textbf{y} ) \right) = \frac{2}{n} \left( \textbf{X}^T \textbf{X} \boldsymbol{\theta} - \textbf{X}^T \textbf{y}  \right)
+$$</p>
+<ul class="simple">
+<li><p>Prisilyginus išvestinę nuliui gauname išreikštinę formą koeficientams suskaičiuoti:</p></li>
+</ul>
+<p>$$
+\frac{2}{n} \left( \textbf{X}^T \textbf{X} \boldsymbol{\theta} - \textbf{X}^T \textbf{y}  \right) = 0 \iff \textbf{X}^T \textbf{X} \boldsymbol{\theta} = \textbf{X}^T \textbf{y}  \iff \boldsymbol{\theta} = (\textbf{X}^T \textbf{X})^{-1} \textbf{X}^T \textbf{y}
+$$</p>
+<ul class="simple">
+<li><p>Įsitikinkime, jog formulė tikrai veikia:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="c1"># Matrix of independent arguments</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Vector / matrix of dependent target variable</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$X$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c72408f7ce3924de9d48729cca00a826769e7b3ed5f8d99042dab604250ff91e.png" src="../_images/c72408f7ce3924de9d48729cca00a826769e7b3ed5f8d99042dab604250ff91e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">add_dummy_feature</span>
+
+<span class="n">X_b</span> <span class="o">=</span> <span class="n">add_dummy_feature</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># add x_0 = 1 to each instance</span>
+<span class="n">theta_best</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X_b</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X_b</span><span class="p">)</span> <span class="o">@</span> <span class="n">X_b</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Intercept: </span><span class="si">{</span><span class="n">theta_best</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">; Coefficient </span><span class="si">{</span><span class="n">theta_best</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept: 4.2151; Coefficient 2.7701
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X_b</span><span class="nd">@theta_best</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$X$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$y$&quot;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/282dbefc9e29bd2e672d65a40efcaa7a200da4597754c6735e72bfb51b68c2c5.png" src="../_images/282dbefc9e29bd2e672d65a40efcaa7a200da4597754c6735e72bfb51b68c2c5.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Palyginimas su <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> implementacija:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Intercept: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">; Coefficient </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept: 4.2151; Coefficient 2.7701
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Anscombe’s ketvertas yra puikus pavyzdys, parodantis, jog prieš pritaikant tiesinės regresijos modelį turimiems duomenims, būtina su jais iš anksto “susipažinti”. Jį sudaro keturi duomenų rinkiniai, kurių statistikos (vidurkis, standartinis nuokrypis, t.t.) yra beveik identiškos – todėl visiems jiems randama <strong>ta pati optimali tiesė</strong>; tačiau jų pasiskirstymai labai skirtingi, tai galima pastebėti pavaizdavus juos grafiškai:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;anscombe&quot;</span><span class="p">)</span>
+
+<span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Linear relationship&#39;</span><span class="p">,</span> <span class="s1">&#39;Non-linear (quadratic) relationship&#39;</span><span class="p">,</span> <span class="s1">&#39;Outlier&#39;</span><span class="p">,</span> <span class="s1">&#39;Extreme case&#39;</span><span class="p">]</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;II&#39;</span><span class="p">,</span> <span class="s1">&#39;III&#39;</span><span class="p">,</span> <span class="s1">&#39;IV&#39;</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">datasets</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+    
+    <span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">titles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;$x_</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;$y_</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/272b78b793238671164bcfe0e262c8cca03e53e81cfa5f053faf96ced21176d1.png" src="../_images/272b78b793238671164bcfe0e262c8cca03e53e81cfa5f053faf96ced21176d1.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Norint užtikrinti, kad pasirinktas tiesinės regresijos modelis gerai atspindės turimus duomenis, duomenų pasiskirstymui įprastai taikomos kelios prielaidos:</p>
+<ul>
+<li><p>Duomenų tiesinė priklausomybė;</p></li>
+<li><p>Homoskedastiškumas;</p></li>
+<li><p>Normalusis nuokrypio nuo vidurkio pasiskirstymas;</p></li>
+<li><p>Autokoreliacijos nebuvimas;</p></li>
+<li><p>Išskirčių nebuvimas.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="daugianariu-regresija">
+<h2>Daugianarių regresija<a class="headerlink" href="#daugianariu-regresija" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Kuomet duomenų pasiskirstymas yra netiesinis, o šiek tiek sudėtingesnis, galime naudoti daugianarių regresiją.</p></li>
+<li><p>Daugianarių regresija leidžia modeliuoti ryšį tarp nepriklausomo kintamojo ir priklausomo kintamojo, nusakytą $n$-ojo laipsnio daugianariu. Daugianarių regresija duomenims randa optimalią kreivę, todėl ji yra daug lankstesnė.</p></li>
+<li><p>Nepaisant pavadinimo, daugianarių regresija laikoma tiesiniu modeliu, nes hipotezė yra tiesinė funkcija pagal koeficientus. Triukas tame, jog pradinius kintamuosius <em>transformuojame į polinominius požymius</em>, o tai leidžia mums pritaikyti lankstesnę kreivę duomenims.</p></li>
+<li><p>Šis triukas iš esmės atlieka tą patį veiksmą, kaip ir kiek anksčiau, panaudojus <code class="docutils literal notranslate"><span class="pre">add_dummy_feature</span></code> funkciją; tuo atveju pradiniai kintamieji buvo transformuojami pridedant $0$-o laipsnio narius. Šiuo atveju pridedami ir aukštesnio laipsnio kintamieji.</p></li>
+</ul>
+<p><em>pastaba</em>: įprastai pridedami ne tik laipsniai $a^2, b^3, …$, tačiau ir jų kombinacijos $ab, ab^2, …$; tokiu atveju, pradinis kintamųjų vektorius $\textbf{x} \in \mathbb{R}^{k}$ paverčiamas $\tilde{\textbf{x}}\in \mathbb{R}^{\binom{k + d}{d}}$, kur $ \binom{k + d}{d} = \frac{(k + d)!}{k! \text{ } d!}$.</p>
+<ul class="simple">
+<li><p>Matematinė formuluotė labai panaši, daugianarių regresijos hipotezė taške $\textbf{x} := x$ (naudojame $x \in \mathbb{R}$ paprastumo dėlei) apibrėžiama lygtimi:</p></li>
+</ul>
+<p>$$
+\hat{y} = \theta_0 + \theta_1 x + \theta_2 x^2 + … + \theta_d x^d
+$$</p>
+<ul class="simple">
+<li><p>Transformuojame požymių matricą (šiuo atveju vektorių):</p></li>
+</ul>
+<p>$$
+\textbf{X} = \begin{pmatrix} \textbf{x}^{(1)} \cr \textbf{x}^{(2)} \cr \vdots \cr \textbf{x}^{(n)} \end{pmatrix} = \begin{pmatrix} x_{1} \cr x_{2} \cr \vdots \cr x_{n} \end{pmatrix} \rightarrow \begin{pmatrix} 1 &amp; x_{1} &amp; x_{1}^2 &amp; \dots &amp; x_{1}^d \cr 1 &amp; x_{2} &amp; x_{2}^2 &amp; \dots &amp; x_{2}^d \cr \vdots &amp; \vdots &amp;\vdots &amp; \ddots &amp; \vdots \cr 1 &amp; x_{n} &amp; x_{n}^2 &amp; \dots &amp; x_{n}^d \end{pmatrix}
+$$</p>
+<ul class="simple">
+<li><p>Taikome jau išmoktą tiesinės regresijos modelį transformuotiems duomenims, siekiant rasti optimalų parametrų rinkinį $\boldsymbol{\theta}$.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ae85f68d616e268c6c861330607e6dd01ebc47b55f5017fc9de70e0db5cd82b0.png" src="../_images/ae85f68d616e268c6c861330607e6dd01ebc47b55f5017fc9de70e0db5cd82b0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+
+<span class="n">poly</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_poly</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_poly</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">X_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">X</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">X_seq_poly</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_seq</span><span class="p">)</span>
+<span class="n">y_seq</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_seq_poly</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_seq</span><span class="p">,</span> <span class="n">y_seq</span><span class="p">,</span> <span class="s2">&quot;r-&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Predictions&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1cac1b6c9977a17fb11aad2d29ea5e27476fb99c3b9ed59a57efe2dbafc9e107.png" src="../_images/1cac1b6c9977a17fb11aad2d29ea5e27476fb99c3b9ed59a57efe2dbafc9e107.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Tiesa, transformuoti požymius galime ne tik pagal daugianarių priklausomybė – galime pasirinkti bet kokią funkciją ar funkcijų rinkinį (pvz., $\log{\cdot}, \sqrt{\cdot}, …)$. Tokių (ir daug kitų) transformacijų pritaikymas išnaudojant turimus požymius (duomenis), o ne taikant sudėtingesnius modelius angl. vadinamas feature engineering.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1-pagrindines-savokos.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Įvadas į mašininį mokymąsi</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3-truputis-teorijos.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Truputis mašininio mokymosi teorijos</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tiesine-regresija">Tiesinė regresija</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isreikstinis-pavidalas">Išreikštinis pavidalas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daugianariu-regresija">Daugianarių regresija</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ugniusalekna
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
