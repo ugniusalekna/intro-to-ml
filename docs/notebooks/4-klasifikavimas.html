@@ -393,10 +393,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atraminiu-vektoriu-klasifikatorius">Atraminių vektorių klasifikatorius</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tikslumo-metrikos-klasifikacijos-uzdaviniams">Tikslumo metrikos klasifikacijos uždaviniams</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tikslumo-metrikos-regresijos-uzduotims">Tikslumo Metrikos Regresijos Užduotims</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tikslumo-metrikos-klasifikacijos-uzdaviniams">Tikslumo metrikos klasifikacijos uždaviniams</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#branduolio-triukas">Branduolio triukas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistines-regresijos-klasifikatorius">Logistinės regresijos klasifikatorius</a></li>
 </ul>
@@ -468,12 +465,15 @@ $$</p>
 <hr style="border: none; height: 2px; background-color: black;"><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span><span class="p">,</span> <span class="n">make_classification</span>
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">FloatSlider</span>
 
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="c1"># X, y = make_blobs(n_samples=300, centers=2, n_features=2, cluster_std=1.0, random_state=42)</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+                           <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">class_sep</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">plot_decision_boundaries</span><span class="p">(</span><span class="n">C</span><span class="p">):</span>
     
@@ -512,7 +512,7 @@ $$</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ec2f1f0adc324bf0b717d18bfa12eee3", "version_major": 2, "version_minor": 0}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.plot_decision_boundaries(C)&gt;
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "df8d04378e44485db6c95db7190302a5", "version_major": 2, "version_minor": 0}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.plot_decision_boundaries(C)&gt;
 </pre></div>
 </div>
 </div>
@@ -561,62 +561,69 @@ $$</p></li>
 <li><p>Didelis jautrumas rodo, kad dauguma teigiamų atvejų yra nustatyti.</p></li>
 </ul>
 </li>
-<li><p><strong>F1-matas (angl. F1-score)</strong>:</p>
+<li><p><strong>$F_1$-matas (angl. $F_1$-score)</strong>:</p>
 <ul class="simple">
-<li><p>F1 yra tikslumo ir jautrumo harmoninis vidurkis.
+<li><p>$F_1$ yra tikslumo ir jautrumo harmoninis vidurkis.
 $$
-F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+F_1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
 $$</p></li>
 <li><p>Veikia ir kai klasių pasiskirstymas yra nesubalansuotas.</p></li>
 </ul>
 </li>
 </ol>
-<section id="tikslumo-metrikos-regresijos-uzduotims">
-<h3>Tikslumo Metrikos Regresijos Užduotims<a class="headerlink" href="#tikslumo-metrikos-regresijos-uzduotims" title="Link to this heading">#</a></h3>
-<p>Regresijos užduotyse tikslas yra prognozuoti tęstinį tikslinį kintamąjį. Tikslumas matuojamas įvertinant, kaip arti prognozuotos reikšmės yra tikrosioms reikšmėms. Dažniausiai naudojamos regresijos tikslumo metrikos yra:</p>
-<ol class="arabic simple">
-<li><p><strong>Vidutinė Absoliuti Klaida (MAE)</strong>:</p>
-<ul class="simple">
-<li><p>MAE yra vidutinė absoliučių skirtumų tarp prognozuotų ir tikrųjų reikšmių reikšmė. Ši metrika suteikia paprastą interpretaciją apie vidutinį klaidos dydį.</p></li>
-<li><p>Formulė:
-$$
-\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
-$$</p></li>
-<li><p>MAE yra atspari išskirtinėms reikšmėms, nes klaidos nėra kvadratuojamos, suteikiant vienodą svorį visiems nuokrypiams.</p></li>
-</ul>
-</li>
-<li><p><strong>Vidutinė Kvadratinė Klaida (MSE)</strong>:</p>
-<ul class="simple">
-<li><p>MSE yra vidutinė kvadratinių skirtumų tarp prognozuotų ir tikrųjų reikšmių reikšmė. Dėl kvadrato operatoriaus ji stipriai penalizuoja didesnes klaidas.</p></li>
-<li><p>Formulė:
-$$
-\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
-$$</p></li>
-<li><p>MSE yra jautri išskirtinėms reikšmėms, nes didesnės klaidos turi neproporcingai didelę įtaką.</p></li>
-</ul>
-</li>
-<li><p><strong>Kvadratinė Vidutinė Klaida (RMSE)</strong>:</p>
-<ul class="simple">
-<li><p>RMSE yra MSE kvadratinė šaknis. Ji išlaiko tikslinio kintamojo vienetus ir dažnai yra lengviau interpretuojama.</p></li>
-<li><p>Formulė:
-$$
-\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
-$$</p></li>
-<li><p>Kaip ir MSE, RMSE stipriai penalizuoja didesnes klaidas.</p></li>
-</ul>
-</li>
-<li><p><strong>R kvadratas (R²)</strong>:</p>
-<ul class="simple">
-<li><p>R², arba determinacijos koeficientas, parodo, kokią dalį kintamojo variacijos galima paaiškinti naudojant nepriklausomus kintamuosius. Jis suteikia supratimą, kaip gerai modelis užfiksuoja duomenų variaciją.</p></li>
-<li><p>Formulė:
-$$
-R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}<em>i)^2}{\sum</em>{i=1}^{n} (y_i - \bar{y})^2}
-$$</p></li>
-<li><p>R² reikšmės svyruoja nuo 0 iki 1, kur 1 rodo tobulas prognozes.</p></li>
-</ul>
-</li>
-</ol>
-</section>
+<div class="cell tag_remove-input docutils container">
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">svm</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)}</span>
+
+<span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">svm</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">best_C</span> <span class="o">=</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best C value: </span><span class="si">{</span><span class="n">best_C</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classification Report:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confusion Matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+<span class="n">plot_decision_boundary</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">clf</span><span class="o">=</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span><span class="p">,</span> <span class="n">support_vectors</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best C value: 0.01
+Classification Report:
+
+              precision    recall  f1-score   support
+
+           0       0.97      1.00      0.99        34
+           1       1.00      0.96      0.98        26
+
+    accuracy                           0.98        60
+   macro avg       0.99      0.98      0.98        60
+weighted avg       0.98      0.98      0.98        60
+
+Confusion Matrix:
+
+[[34  0]
+ [ 1 25]]
+</pre></div>
+</div>
+<img alt="../_images/972489cb7df5a2de4b67d91095df005f08195e92125b5d1c6f212553590121b4.png" src="../_images/972489cb7df5a2de4b67d91095df005f08195e92125b5d1c6f212553590121b4.png" />
+</div>
+</div>
 </section>
 <section id="branduolio-triukas">
 <h2>Branduolio triukas<a class="headerlink" href="#branduolio-triukas" title="Link to this heading">#</a></h2>
@@ -704,10 +711,7 @@ $$</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atraminiu-vektoriu-klasifikatorius">Atraminių vektorių klasifikatorius</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tikslumo-metrikos-klasifikacijos-uzdaviniams">Tikslumo metrikos klasifikacijos uždaviniams</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tikslumo-metrikos-regresijos-uzduotims">Tikslumo Metrikos Regresijos Užduotims</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tikslumo-metrikos-klasifikacijos-uzdaviniams">Tikslumo metrikos klasifikacijos uždaviniams</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#branduolio-triukas">Branduolio triukas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistines-regresijos-klasifikatorius">Logistinės regresijos klasifikatorius</a></li>
 </ul>

@@ -397,6 +397,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daugianariu-regresija">Daugianarių regresija</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tikslumo-metrikos-regresijos-uzduotims">Tikslumo metrikos regresijos užduotims</a></li>
 </ul>
             </nav>
         </div>
@@ -702,6 +703,38 @@ $$</p>
 <li><p>Tiesa, transformuoti požymius galime ne tik pagal daugianarių priklausomybė – galime pasirinkti bet kokią funkciją ar funkcijų rinkinį (pvz., $\log{\cdot}, \sqrt{\cdot}, …)$. Tokių (ir daug kitų) transformacijų pritaikymas išnaudojant turimus požymius (duomenis), o ne taikant sudėtingesnius modelius angl. vadinamas feature engineering.</p></li>
 </ul>
 </section>
+<section id="tikslumo-metrikos-regresijos-uzduotims">
+<h2>Tikslumo metrikos regresijos užduotims<a class="headerlink" href="#tikslumo-metrikos-regresijos-uzduotims" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Vidutinė absoliuti paklaida (MAE)</strong>:</p>
+<ul class="simple">
+<li><p>MAE yra vidutinė absoliučių skirtumų tarp prognozuotų ir tikrųjų reikšmių reikšmė.
+$$
+\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
+$$</p></li>
+<li><p>MAE suteikiant vienodą svorį visiems nuokrypiams.</p></li>
+</ul>
+</li>
+<li><p><strong>Vidutinė kvadratinė paklaida (MSE)</strong>:</p>
+<ul class="simple">
+<li><p>MSE yra vidutinė kvadratinių skirtumų tarp prognozuotų ir tikrųjų reikšmių reikšmė.
+$$
+\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
+$$</p></li>
+<li><p>MSE yra jautri išskirtinėms reikšmėms, nes didesnės klaidos turės didesnę įtaką.</p></li>
+</ul>
+</li>
+<li><p><strong>R kvadratas ($R^2$)</strong>:</p>
+<ul class="simple">
+<li><p>$R^2$, determinacijos koeficientas – matas iš statistikos.
+$$
+R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}<em>i)^2}{\sum</em>{i=1}^{n} (y_i - \bar{y})^2}
+$$</p></li>
+<li><p>$R^2$ reikšmės svyruoja nuo 0 iki 1, kur 1 rodo tobulas prognozes.</p></li>
+</ul>
+</li>
+</ol>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -773,6 +806,7 @@ $$</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daugianariu-regresija">Daugianarių regresija</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tikslumo-metrikos-regresijos-uzduotims">Tikslumo metrikos regresijos užduotims</a></li>
 </ul>
   </nav></div>
 
