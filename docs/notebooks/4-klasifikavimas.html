@@ -191,7 +191,6 @@
 <li class="toctree-l1"><a class="reference internal" href="2-tiesine-regresija.html">Tolydaus kintamojo prognozės uždavinys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3-truputis-teorijos.html">Truputis mašininio mokymosi teorijos</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Hiperplokštumomis grįsti klasifikatoriai</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="5-dirbtiniai-neuroniniai-tinklai.html">Dirbtiniai neuroniniai tinklai</a></li>
 <li class="toctree-l1"><a class="reference internal" href="6-konvoliuciniai-neuroniniai-tinklai.html">Konvoliuciniai neuroniniai tinklai</a></li>
 <li class="toctree-l1"><a class="reference internal" href="7-generatyviniai-neuroniniai-tinklai.html">Generatyviniai neuroniniai tinklai</a></li>
@@ -393,18 +392,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Hiperplokštumomis grįsti klasifikatoriai</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistines-regresijos-klasifikatorius">Logistinės regresijos klasifikatorius</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ell-0-1-w-textbf-x-y-begin-cases-1-text-kai-y-neq-h-w-textbf-x-0-text-kai-y-h-w-textbf-x-end-cases">$$
-\ell_{0-1}(w, \textbf{x}, y) =
-\begin{cases}
-1, &amp; \text{kai } y \neq h_w(\textbf{x}), \
-0, &amp; \text{kai } y = h_w(\textbf{x}),
-\end{cases}</a></li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -431,19 +420,8 @@ $$</p>
 <section id="logistines-regresijos-klasifikatorius">
 <h2>Logistinės regresijos klasifikatorius<a class="headerlink" href="#logistines-regresijos-klasifikatorius" title="Link to this heading">#</a></h2>
 <p>Atsižvelgiant į binarinio klasifikavimo uždavinį, natūrali ir pati paprasčiausia netikties funkcija galėtų būti $0-1$ indikatorinė funkcija, kuri įgyja reikšmę 0, jei prognozuojama klasifikacija atitinka tikrąją klasę, arba 1, jei prognozuojama klasifikacija neatitinka tikrosios klasės. Ši netikties funkcija užrašoma kaip:</p>
-</section>
-</section>
-<section id="ell-0-1-w-textbf-x-y-begin-cases-1-text-kai-y-neq-h-w-textbf-x-0-text-kai-y-h-w-textbf-x-end-cases">
-<h1>$$
-\ell_{0-1}(w, \textbf{x}, y) =
-\begin{cases}
-1, &amp; \text{kai } y \neq h_w(\textbf{x}), \
-0, &amp; \text{kai } y = h_w(\textbf{x}),
-\end{cases}<a class="headerlink" href="#ell-0-1-w-textbf-x-y-begin-cases-1-text-kai-y-neq-h-w-textbf-x-0-text-kai-y-h-w-textbf-x-end-cases" title="Link to this heading">#</a></h1>
-<p>\begin{cases}
-1, &amp; \text{kai } -y(\textbf{x} \cdot v + b) \geq 0, \
-0, &amp; \text{kai } -y(\textbf{x} \cdot v + b) &lt; 0.
-\end{cases}
+<p>$$
+\ell_{0-1}(w, \textbf{x}, y) = \begin{cases} 1, &amp; \text{kai } y \neq h_w(\textbf{x}), \cr 0, &amp; \text{kai } y = h_ (\textbf{x}), \end{cases} = \begin{cases} 1, &amp; \text{kai } -y(\textbf{x} \cdot v + b) \geq 0, \cr 0, &amp; \text{kai } -y (\textbf{x} \cdot v + b) &lt; 0. \end{cases}
 $$</p>
 <p>Dėja, bet tokia funkcija nėra iškila ir netgi netolydi (kodėl tai problema?). Šią laiptinę funkciją gerai aproksimuoja sigmoidė:</p>
 <p>$$
@@ -454,6 +432,7 @@ $$</p>
 <img alt="../_images/6948ee64665ad9f4c245687c4a72862c22307a8759ad796d50dfa53f63ae0e35.png" src="../_images/6948ee64665ad9f4c245687c4a72862c22307a8759ad796d50dfa53f63ae0e35.png" />
 </div>
 </div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -520,18 +499,8 @@ $$</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Hiperplokštumomis grįsti klasifikatoriai</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistines-regresijos-klasifikatorius">Logistinės regresijos klasifikatorius</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ell-0-1-w-textbf-x-y-begin-cases-1-text-kai-y-neq-h-w-textbf-x-0-text-kai-y-h-w-textbf-x-end-cases">$$
-\ell_{0-1}(w, \textbf{x}, y) =
-\begin{cases}
-1, &amp; \text{kai } y \neq h_w(\textbf{x}), \
-0, &amp; \text{kai } y = h_w(\textbf{x}),
-\end{cases}</a></li>
-</ul>
-
   </nav></div>
 
 </div></div>
