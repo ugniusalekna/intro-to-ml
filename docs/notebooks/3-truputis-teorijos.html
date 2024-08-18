@@ -794,7 +794,7 @@ $$</p>
 <span class="n">X_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">X_standardized</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="n">X_mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">X_std</span>
 
-<span class="n">theta</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">stochastic_gradient_descent</span><span class="p">(</span><span class="n">X_standardized</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">theta</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">stochastic_gradient_descent</span><span class="p">(</span><span class="n">X_standardized</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">num_iterations</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -822,7 +822,7 @@ $$</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02c3babe45cc6cc63fcf7527875dcd265e7cd255151bf5bcb6e05a68b0351e3a.png" src="../_images/02c3babe45cc6cc63fcf7527875dcd265e7cd255151bf5bcb6e05a68b0351e3a.png" />
+<img alt="../_images/49858bc2b4a88d17ad4549e7cf14237ba73921b03b115989951c721fe0f25d68.png" src="../_images/49858bc2b4a88d17ad4549e7cf14237ba73921b03b115989951c721fe0f25d68.png" />
 </div>
 </div>
 <p>Norėdami pamatyti stochastinę algoritmo prigimtį, galime pavaizduoti parametrų artėjimo į minimumo tašką “kelią”. Kadangi mūsų rizikos funkcija priklauso nuo trijų parametrų rinkinio $(\theta_0, \theta_1, \theta_2)$, tokios funkcijos grafiškai pavaizduoti negalime, tačiau pasirinkdami dviejų parametrų poaibį rizikos funkciją pavaizduoti galime taip:</p>
@@ -850,7 +850,7 @@ $$</p>
     <span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">T1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Empirical Risk&#39;</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta_path</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">theta_path</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SGD Path&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -869,7 +869,7 @@ $$</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2e7481ec741ac25053069ee7c5c7e654b9a6bc96e47a47e88476acea71dee734.png" src="../_images/2e7481ec741ac25053069ee7c5c7e654b9a6bc96e47a47e88476acea71dee734.png" />
+<img alt="../_images/efce2ab2fb39c8c6d8a7f79d3e3f588a26277cc018dab34c8ca1d1c2f7f12888.png" src="../_images/efce2ab2fb39c8c6d8a7f79d3e3f588a26277cc018dab34c8ca1d1c2f7f12888.png" />
 </div>
 </div>
 </section>
