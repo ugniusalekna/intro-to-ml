@@ -9,6 +9,6 @@ sections:
   - file: notebooks/3-truputis-teorijos
   - file: notebooks/4-klasifikavimas
   - file: notebooks/5-dirbtiniai-neuroniniai-tinklai
-  # - file: notebooks/chapter1
-  # - file: notebooks/chapter2
-  # - file: notebooks/chapter3
+  - file: notebooks/6-konvoliuciniai-neuroniniai-tinklai
+  - file: notebooks/7-generatyviniai-neuroniniai-tinklai
+  - file: notebooks/8-pabaigai
