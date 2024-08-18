@@ -12,3 +12,4 @@ sections:
   - file: notebooks/6-konvoliuciniai-neuroniniai-tinklai
   - file: notebooks/7-generatyviniai-neuroniniai-tinklai
   - file: notebooks/8-pabaigai
+  - file: notebooks/sdf
