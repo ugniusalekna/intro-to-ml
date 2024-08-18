@@ -426,14 +426,42 @@ $$</p>
 <ul class="simple">
 <li><p>Atraminių vektorių klasifikatorius (angl. support vector machine, SVM) yra labai įdomus ir universalus MM modelis, galintis atlikti tiesinį arba netiesinį klasifikavimą (bei regresiją). SVM ypač gerai tinka sudėtingiems, bet mažiems ar vidutinio dydžio duomenų rinkiniams klasifikuoti.</p></li>
 <li><p>Pagrindinė SVM idėja – surasti hiperplokštumą, kuri atskirtų dvi turimas klases. Tačiau erdvėje tokių hiperplokštumų galime nubrėžti be galo daug. SVM modelis parenka optimalią hiperplokštumą siekdamas maksimizuoti paraštę tarp artimiausių skirtingų klasių taškų. Šį algoritmą galime įsivaizduoti kaip plačiausios įmanomos gatvės tarp dviejų klasių suradimą.</p></li>
-<li><p>Daugiau apmokymo aibės atvejų, esančių už paraštės ribų, neturės jokios įtakos hiperplokštumos parinkimui – ją visiškai nustato (supports) ruožo pakraštyje esantys atvejai. Šie duomenų atvejai vadinami atraminiais vektoriais.</p></li>
+<li><p>Daugiau apmokymo aibės atvejų, esančių už paraštės ribų, neturės jokios įtakos hiperplokštumos parinkimui – ją visiškai nustato (angl. supports) ruožo pakraštyje esantys atvejai. Šie duomenų atvejai vadinami atraminiais vektoriais.</p></li>
 </ul>
 <hr style="border: none; height: 2px; background-color: black;">
 <div style="text-align: center;">
-<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/support_vector_machines.png" alt="Classification" width="65%">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/support_vector_machines.png" alt="hyperplane-svm" width="65%">
 <p><strong>1.6 pav., Hiperplokštumų pavyzdys dvimačiu atveju</strong></p>
 </div>
 <hr style="border: none; height: 2px; background-color: black;">
+<ul class="simple">
+<li><p>Atvejis, kuomet duomenis galime pilnai atskirti hiperplokštuma, vadinamas <em>separabiliu</em>. Formaliai, jis gali būti užrašytas taip:</p></li>
+</ul>
+<p>Atvejis yra separabilus, kuomet egzistuoja hiperplokštuma $H(w), w = (v, b)$, kuria apibrėžiamas klasifikatorius $h_w$ tenkina prielaidą
+$$
+\mathbb{P}(y = h_w(\textbf{x})) = 1
+$$</p>
+<ul class="simple">
+<li><p>Galiojant šiai prielaidai visada egzistuos optimali hiperplokštuma, atskirianti dvi klases.</p></li>
+</ul>
+<p>Hiperplokštumos paraštė taške $\textbf{x}$ vadinamas dydis $\text{dist}(\textbf{x}, H(w))$. Klasifikatoriaus $h_w$, atitinkančio mokymosi aibę $S = ((\textbf{x}^{(1)}, y^{(1)}), …, (\textbf{x}^{(n)}, y^{(n)}))$ parašte (angl. margin) vadinamas dydis $d(w) = \min_{1\leq i \leq n} dist(\textbf{x}^{(i)}, H(w))$. Galiausiai, optimali paraštė SVM algoritmu ieškoma siekiant optimizuoti uždavinį:</p>
+<p>$$
+\max_{\forall i ; y^{(i)}(\textbf{x}^{(i)} \cdot v + b) &gt; 0} d(w) = \max_{\forall i ; y^{(i)}(\textbf{x}^{(i)} \cdot v + b) &gt; 0} \min_{1\leq i \leq n} dist(\textbf{x}^{(i)}, H(w)),
+$$</p>
+<p>Toks uždavinys gali būti pakeistas iškilos funkcijos minimizavimo uždaviniu, todėl jis gali būti sprendžiamas įprastais minimizavimo metodais, su garantija, jog bus rastas globalus minimumo taškas.</p>
+<p>Prielaida, jog duomenys yra separabilūs galioja ne visada. Taigi, pastarasis optimizavimo uždavinys gali neturėti sprendinio. Siekiant apeiti šią problemą, įvedami papildomi laisvi kintamieji $\xi_i \geq 0, i = 1, …, n$ (angl. slack variables) ir apribojimas optimizavimo uždavinyje keičiamas tokiu:
+$$
+\forall i ; y^{(i)}(\textbf{x}^{(i)} \cdot v + b) &gt; 1 - \xi_i
+$$</p>
+<p>Jei $\xi_i &gt; 0$, tai atitinkamą stebinį vadiname išskirtimi. Atmetus visas išskirtis, redukuota mokymosi aibė bus separabili ir jos taškus jau galima atskirti panaudojant anksčiau paminėtą optimizavimo būdą.</p>
+<p><code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> tokių kintamųjų parinkimą galima valdyti naudojant $C$ hiperparametrą: mažesnė C reikšmė lemia platesnę paraštę, bet daugiau ribinių pažeidimų. 5-4 pav. parodytos dviejų minkštosios maržos SVM klasifikatorių sprendimo ribos ir maržos netiesiškai atskiriamame duomenų rinkinyje. Kairėje pusėje, naudojant didelę C reikšmę, klasifikatorius padaro mažiau ribinių pažeidimų, bet galiausiai gauna mažesnę ribą. Dešinėje pusėje, naudojant mažą C reikšmę, ribinė reikšmė yra daug didesnė, tačiau daug atvejų atsiduria gatvėje. Tačiau atrodo tikėtina, kad antrasis klasifikatorius geriau apibendrins: iš tikrųjų net ir šioje mokymo aibėje jis padaro mažiau prognozavimo klaidų, nes dauguma ribinių pažeidimų iš tikrųjų yra teisingoje sprendimo ribos pusėje.</p>
+<hr style="border: none; height: 2px; background-color: black;">
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/margin-svm.png" alt="margin-svm" width="65%">
+<p><strong>1.7 pav., Konstantos C poveikis sprendinio paraštės dydžiui </strong></p>
+</div>
+<hr style="border: none; height: 2px; background-color: black;">
+<p>Jei reikalaujame, kad mūsų modelis  atvejai būtų ne gatvėje ir dešinėje pusėje, tai vadinama kietuoju ribiniu klasifikavimu. Yra dvi pagrindinės problemos, susijusios su griežtuoju ribiniu klasifikavimu. Pirma, jis veikia tik tada, kai duomenys yra tiesiškai atskiriami, ir, antra, jis yra gana jautrus nukrypimams. 5-3 paveiksle parodytas rainelės duomenų rinkinys su vienu papildomu nuokrypiu: kairėje pusėje neįmanoma rasti kietosios ribos, o dešinėje sprendimo riba labai skiriasi nuo tos, kurią matėme 5-1 paveiksle be nuokrypio, ir ji tikriausiai nebus taip gerai apibendrinta.</p>
 </section>
 <section id="logistines-regresijos-klasifikatorius">
 <h2>Logistinės regresijos klasifikatorius<a class="headerlink" href="#logistines-regresijos-klasifikatorius" title="Link to this heading">#</a></h2>
