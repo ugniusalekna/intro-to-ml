@@ -699,8 +699,8 @@ $$</p></li>
 <li><p>Stochastinis gradientinis nusileidimas kiekviename žingsnyje perskaičiuojant $w_{m}$ vietoje gradiento $\nabla f(w_{m-1})$ reikšmės naudoja atsitiktinę reikšmę $v_{m-1}$. Sekos $v_0, v_1, … $ nariams keliama viena sąlyga – atsitiktinio dydžio $v_m$ vidurkis turi būti lygus funkcijos gradientui taške $w_m$.</p></li>
 <li><p>Dėl savo stochastinio pobūdžio šis algoritmas yra daug mažiau pastovus nei gradientinis nusileidimas: vietoje to, kad funkcijos reikšmės nuosekliai mažėtų link minimumo, mažėja tik jų vidurkis. Laikui bėgant reikšmės priartės prie minimumo, tačiau net ir pasiekus jį, vertės ir toliau svyruos, niekada nekonverguodamos į vieną tašką. Todėl, sustabdžius algoritmą, galutinės parametrų vertės bus geros, bet ne optimalios.</p></li>
 </ul>
-<p>Stochastinio gradientinio nusileidimo veikimą paprasčiau pavaizduoti konkrečiu pavyzdžiu MM kontekste.</p>
-<p>Sugrįžkime prie daugianarių regresijos pavyzdžio (pvz., kuriame yra daug koeficientų):</p>
+<p>Stochastinio gradientinio nusileidimo veikimą paprasčiau pavaizduoti konkrečiu pavyzdžiu MM kontekste.
+Sugrįžkime prie daugianarių regresijos pavyzdžio:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -757,12 +757,12 @@ $$</p>
 $$</p>
 <p>Nestochastinis gradientinis nusileidimas tinkamas, jei imtis $S$ maža. Jei $S$ didelė, tai $w_m = w_{m−1} − \eta \nabla R_{emp}(w_{m−1})$ skaičiavimo operacija gali pareikalauti daug mašininio laiko, nes $\nabla R_{emp}$ sumoje bus daug dėmenų.</p>
 <p>Taikant SGN kiekviename žingsnyje galima apsiriboti tik vieno dėmens skaičiavimu:</p>
-<p>Parinkdami atsitiktinį duomenų imties atvejį su vienoda tikimybe, apibrėžiame $v_m = \nabla \ell \left( \tilde{\textbf{x}}, \tilde{y}; \boldsymbol{\theta} \right)$, kur $(\tilde{\textbf{x}}, \tilde{y})$ – atsitiktinai parinkta apmokymo aibės elementų pora. Matome, jog taip apibrėžtos sekos $v_m$ vidurkis tikrai lygus funkcijos gradientui taške $w_m$.</p>
+<p>Parinkdami atsitiktinį duomenų imties atvejį su vienoda tikimybe, apibrėžiame $v_m = \nabla \ell \left( \tilde{\textbf{x}}, \tilde{y}; \boldsymbol{\theta} \right)$, kur $(\tilde{\textbf{x}}, \tilde{y})$ – atsitiktinai parinkta apmokymo aibės elementų pora. Matome, jog taip apibrėžto atsitiktinio dydžio $v_m$ vidurkis tikrai lygus funkcijos gradientui taške $w_m$.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
 
-<span class="k">def</span> <span class="nf">stochastic_gradient_descent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">num_iterations</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">stochastic_gradient_descent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">num_iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
     <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
     <span class="n">d</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># polynomial degree</span>
     <span class="n">num_parameters</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">d</span><span class="p">)))</span>
@@ -779,8 +779,8 @@ $$</p>
         <span class="n">y_i</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">random_index</span><span class="p">:</span><span class="n">random_index</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
         
         <span class="n">gradients</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">X_i</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_i</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="n">y_i</span><span class="p">)</span>
-        
-        <span class="n">theta</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradients</span>
+
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradients</span>
         <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">theta</span><span class="p">,</span> <span class="n">path</span>
@@ -822,7 +822,54 @@ $$</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/75c9af5884757df080d59a8ab87226d32c7a94c840c346f93f8409d9ff7836f3.png" src="../_images/75c9af5884757df080d59a8ab87226d32c7a94c840c346f93f8409d9ff7836f3.png" />
+<img alt="../_images/02c3babe45cc6cc63fcf7527875dcd265e7cd255151bf5bcb6e05a68b0351e3a.png" src="../_images/02c3babe45cc6cc63fcf7527875dcd265e7cd255151bf5bcb6e05a68b0351e3a.png" />
+</div>
+</div>
+<p>Norėdami pamatyti stochastinę algoritmo prigimtį, galime pavaizduoti parametrų artėjimo į minimumo tašką “kelią”. Kadangi mūsų rizikos funkcija priklauso nuo trijų parametrų rinkinio $(\theta_0, \theta_1, \theta_2)$, tokios funkcijos grafiškai pavaizduoti negalime, tačiau pasirinkdami dviejų parametrų poaibį rizikos funkciją pavaizduoti galime taip:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span> <span class="k">as</span> <span class="n">mse</span>
+
+<span class="k">def</span> <span class="nf">plot_sgd_path_contour</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    
+    <span class="n">theta_path</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        
+    <span class="n">theta_1_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">theta_path</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="n">theta_path</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">theta_2_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">theta_path</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="n">theta_path</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">T1</span><span class="p">,</span> <span class="n">T2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">theta_1_seq</span><span class="p">,</span> <span class="n">theta_2_seq</span><span class="p">)</span>
+
+    <span class="n">X_poly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="p">]</span>
+    
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="n">mse</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X_poly</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">theta_path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">t1</span><span class="p">],</span> <span class="p">[</span><span class="n">t2</span><span class="p">]])))</span>
+        <span class="k">for</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">T1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">T2</span><span class="p">))</span>
+    <span class="p">])</span>
+    
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">T1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Empirical Risk&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta_path</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">theta_path</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SGD Path&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">theta_path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">theta_path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Final Theta&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_1$&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_2$&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;SGD Path on Empirical Risk Contour&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">plot_sgd_path_contour</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">X_standardized</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2e7481ec741ac25053069ee7c5c7e654b9a6bc96e47a47e88476acea71dee734.png" src="../_images/2e7481ec741ac25053069ee7c5c7e654b9a6bc96e47a47e88476acea71dee734.png" />
 </div>
 </div>
 </section>
