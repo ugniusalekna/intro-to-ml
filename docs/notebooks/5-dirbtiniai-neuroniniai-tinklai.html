@@ -396,6 +396,34 @@ document.write(`
                   
   <section id="dirbtiniai-neuroniniai-tinklai">
 <h1>Dirbtiniai neuroniniai tinklai<a class="headerlink" href="#dirbtiniai-neuroniniai-tinklai" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Dirbtiniai neuroniniai tinklai (angl. artificial neural networks, ANNs) yra MM modelių klasė, įkvėpta smegenų neuronų architektūra.</p></li>
+<li><p>Dirbtiniai neuroniniai tinklai egzistuoja jau gana seniai – pirmą kartą juos 1943 m. pristatė neurofiziologas Warrenas McCullochas ir matematikas Walteris Pittsas. Jie buvo sukurti kaip būdas aproksimuoti sudėtingas funkcijas, neturinčias aiškios išreikštinės formos.</p></li>
+<li><p>Dirbtinius neuroninius tinklus sudaro sujungti mazgai, vadinami dirbtiniais neuronais. Juos jungia briaunos, atitinkančios smegenų sinapses. Kiekvienas dirbtinis neuronas gauna signalus iš prieš jį esančių neuronų, tada juos apdoroja ir siunčia signalą toliau kitiems neuronams. Signalas yra realusis skaičius, o kiekvieno neurono išvestis apskaičiuojama pagal tam tikrą taisyklę. Signalo stiprumą kiekviename ryšyje lemia svoris, dažniausiai pavaizduotas ant briaunos.</p></li>
+</ul>
+<hr style="border: none; height: 2px; background-color: black;">
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/real_neuron.png" alt="real-neuron" width="65%">
+<p><strong>1.8 pav., Biologinis neuronas </strong></p>
+</div>
+<hr style="border: none; height: 2px; background-color: black;">
+<ul class="simple">
+<li><p>Dirbtiniai neuroniniai tinklai taikomi tiek regresijos, tiek klasifikavimo uždaviniuose.</p></li>
+</ul>
+<p>Tegul $x = (x_1, \ldots, x_d) \in \mathbb{R}^{d_0}$. Dirbtinis neuroninis tinklas $h^L : \mathbb{R}^{d_0} \rightarrow \mathbb{R}^d$ [čia $d = d_L$] apibrėžiamas kaip funkcijų $ h^l = (h_1^l, \ldots, h_{d_l}^l): \mathbb{R}^{d_{l-1}} \rightarrow \mathbb{R}^{d_l}, \text{ } l = 1, \ldots, L $ kompozicija, kur $h^l$ komponentės užrašomos</p>
+<p>$$
+h_j^1(x) = \sum_{i=1}^{d_0} w_{ij}^1 x_i + b_j^1, \quad j = 1, \ldots, d_1
+$$</p>
+<p>$$
+h_j^l(x) = \sum_{i=1}^{d_{l-1}} w_{ij}^l \sigma(h_i^{l-1}(x)) + b_j^l, \quad j = 1, \ldots, d_l \quad l = 2, \ldots, L
+$$</p>
+<ul class="simple">
+<li><p>Čia $L$ žymi dirbtinio neuroninio tinklo <em>sluoksnių skaičių</em>.</p></li>
+<li><p>Kiekvienas sluoksnis $l = 1, \ldots, L$ turi $d_l$ dirbtinių neuronų, $W := \max_{1 \leq l \leq L} d_l$ žymi neuroninio tinklo <em>plotį</em>.</p></li>
+<li><p>Koeficientai $w_{ij}^l$ atitinka <em>svorius</em>, kurie jungia $i$-ąjį neuroną $(l-1)$-ajame sluoksnyje su $j$-uoju neuronu $l$-ajame sluoksnyje; $b_j^l$ yra $j$-ojo neurono $l$-ajame sluoksnyje <em>laisvasis narys</em>.</p></li>
+<li><p>Funkcija $\sigma$, istoriškai vadinama <em>aktyvacijos funkcija</em>, yra žinoma ir fiksuota, tuo tarpu koeficientai $w_{ij}^l$ ir laisvasis narys $b_j^l$ – nežinomi.</p></li>
+</ul>
+<p>Dirbtinio neuroninio tinklo $h^L$ <em>parametrais</em> vadinsime aibę $\theta = { w_{ij}^l, b_j^l \mid 1 \leq i \leq d_{l-1}, 1 \leq j \leq d_l, 1 \leq l \leq L }$. Ši aibė apibrėžia dirbtinio neuroninio tinklo architektūrą, todėl kartais žymėsime $h^L(x) = h^L(x; \theta)$.</p>
 </section>
 
     <script type="text/x-thebe-config">
