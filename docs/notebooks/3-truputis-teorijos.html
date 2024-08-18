@@ -757,9 +757,7 @@ $$</p>
 $$</p>
 <p>Nestochastinis gradientinis nusileidimas tinkamas, jei imtis $S$ maža. Jei $S$ didelė, tai $w_m = w_{m−1} − \eta \nabla R_{emp}(w_{m−1})$ skaičiavimo operacija gali pareikalauti daug mašininio laiko, nes $\nabla R_{emp}$ sumoje bus daug dėmenų.</p>
 <p>Taikant SGN kiekviename žingsnyje galima apsiriboti tik vieno dėmens skaičiavimu:</p>
-<p>Parinkdami atsitiktinį duomenų imties atvejį su vienoda tikimybe, apibrėžiame
-$v_m = \nabla \ell((\textbf{x}<em>{rand}, y</em>{rand}), \boldsymbol{\theta})$.
-Matome, jog taip apibrėžtos sekos $v_m$ vidurkis tikrai lygus funkcijos gradientui taške $w_m$.</p>
+<p>Parinkdami atsitiktinį duomenų imties atvejį su vienoda tikimybe, apibrėžiame $v_m = \nabla \ell((\textbf{x}<em>{rand}, y</em>{rand}), \boldsymbol{\theta})$. Matome, jog taip apibrėžtos sekos $v_m$ vidurkis tikrai lygus funkcijos gradientui taške $w_m$.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
