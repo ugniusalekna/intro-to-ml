@@ -8,6 +8,7 @@ sections:
   - file: notebooks/2-tiesine-regresija
   - file: notebooks/3-truputis-teorijos
   - file: notebooks/4-klasifikavimas
+  - file: notebooks/5-dirbtiniai-neuroniniai-tinklai
   # - file: notebooks/chapter1
   # - file: notebooks/chapter2
   # - file: notebooks/chapter3
