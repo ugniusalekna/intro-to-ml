@@ -393,6 +393,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atraminiu-vektoriu-klasifikatorius">Atraminių vektorių klasifikatorius</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#branduolio-triukas">Branduolio triukas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistines-regresijos-klasifikatorius">Logistinės regresijos klasifikatorius</a></li>
 </ul>
             </nav>
@@ -454,14 +455,15 @@ $$
 \forall i ; y^{(i)}(\textbf{x}^{(i)} \cdot v + b) &gt; 1 - \xi_i
 $$</p>
 <p>Jei $\xi_i &gt; 0$, tai atitinkamą stebinį vadiname išskirtimi. Atmetus visas išskirtis, redukuota mokymosi aibė bus separabili ir jos taškus jau galima atskirti panaudojant anksčiau paminėtą optimizavimo būdą.</p>
-<p><code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> tokių kintamųjų parinkimą galima valdyti naudojant $C$ hiperparametrą: mažesnė C reikšmė lemia platesnę paraštę, bet daugiau ribinių pažeidimų. 5-4 pav. parodytos dviejų minkštosios maržos SVM klasifikatorių sprendimo ribos ir maržos netiesiškai atskiriamame duomenų rinkinyje. Kairėje pusėje, naudojant didelę C reikšmę, klasifikatorius padaro mažiau ribinių pažeidimų, bet galiausiai gauna mažesnę ribą. Dešinėje pusėje, naudojant mažą C reikšmę, ribinė reikšmė yra daug didesnė, tačiau daug atvejų atsiduria gatvėje. Tačiau atrodo tikėtina, kad antrasis klasifikatorius geriau apibendrins: iš tikrųjų net ir šioje mokymo aibėje jis padaro mažiau prognozavimo klaidų, nes dauguma ribinių pažeidimų iš tikrųjų yra teisingoje sprendimo ribos pusėje.</p>
+<p><code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> tokių kintamųjų parinkimą galima valdyti naudojant $C$ hiperparametrą: mažesnė C reikšmė lemia platesnę paraštę, t.y. daugiau stebinių bus atmesti. Naudojant didelę $C$ reikšmę, klasifikatorius atmeta mažiau stebinių, bet gauna mažesnę paraštę.</p>
 <hr style="border: none; height: 2px; background-color: black;">
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/margin-svm.png" alt="margin-svm" width="65%">
 <p><strong>1.7 pav., Konstantos C poveikis sprendinio paraštės dydžiui </strong></p>
 </div>
-<hr style="border: none; height: 2px; background-color: black;">
-<p>Jei reikalaujame, kad mūsų modelis  atvejai būtų ne gatvėje ir dešinėje pusėje, tai vadinama kietuoju ribiniu klasifikavimu. Yra dvi pagrindinės problemos, susijusios su griežtuoju ribiniu klasifikavimu. Pirma, jis veikia tik tada, kai duomenys yra tiesiškai atskiriami, ir, antra, jis yra gana jautrus nukrypimams. 5-3 paveiksle parodytas rainelės duomenų rinkinys su vienu papildomu nuokrypiu: kairėje pusėje neįmanoma rasti kietosios ribos, o dešinėje sprendimo riba labai skiriasi nuo tos, kurią matėme 5-1 paveiksle be nuokrypio, ir ji tikriausiai nebus taip gerai apibendrinta.</p>
+<hr style="border: none; height: 2px; background-color: black;"></section>
+<section id="branduolio-triukas">
+<h2>Branduolio triukas<a class="headerlink" href="#branduolio-triukas" title="Link to this heading">#</a></h2>
 </section>
 <section id="logistines-regresijos-klasifikatorius">
 <h2>Logistinės regresijos klasifikatorius<a class="headerlink" href="#logistines-regresijos-klasifikatorius" title="Link to this heading">#</a></h2>
@@ -546,6 +548,7 @@ $$</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atraminiu-vektoriu-klasifikatorius">Atraminių vektorių klasifikatorius</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#branduolio-triukas">Branduolio triukas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistines-regresijos-klasifikatorius">Logistinės regresijos klasifikatorius</a></li>
 </ul>
   </nav></div>
