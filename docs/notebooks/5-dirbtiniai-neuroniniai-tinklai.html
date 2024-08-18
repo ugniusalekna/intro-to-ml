@@ -392,7 +392,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matematine-formuluote">Matematinė formuluotė</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matematine-formuluote">Matematinė formuluotė</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatinis-diferencijavimas">Automatinis diferencijavimas</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -450,7 +453,58 @@ $$</p>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/backprop.png" alt="backprop" width="65%">
 <p><strong>1.9 pav., Sklidimo atgal algoritmas </strong></p>
-</div></section>
+</div><p>Iki šiol, gradientus apskaičiuodavome apibrėždami juos iš anksto pagal tam tikras formules. Tai veikė gerai, kadangi turimi modeliai buvo stacionarūs (pvz., tiesinės regresijos hipotezė visada tokia pati, todėl galime apibrėžti empirinės rizikos funkcijos gradientą ir ją naudoti optimizavime). Dirbtiniai neuroniniai tinklai, kita vertus, yra labai universalūs, gali būti didinami bei mažinami (plotis, ilgis), todėl apibrėžti gradiento negalime.</p>
+<p>Skaitiškai apskaičiuoti funkcijos išvestinę yra daug būtų, pavyzdžiui:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">/</span> <span class="n">h</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Function x^2&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;f(x)&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Derivative of x^2&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;f&#39;(x)&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/f14321ff309b6acab5668646758fdf8125f808596ca80f564c37c5259bedb524.png" src="../_images/f14321ff309b6acab5668646758fdf8125f808596ca80f564c37c5259bedb524.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Toks būdas nėra tinkamas, kuomet funkcija turi daug kintamųjų, o su empirinės rizikos funkcija būtent taip ir yra.</p></li>
+<li><p>Gradientai yra apskaičiuojami taikant automatinio diferencijavimo (angl. autodiff) algoritmą.</p></li>
+</ul>
+<section id="automatinis-diferencijavimas">
+<h3>Automatinis diferencijavimas<a class="headerlink" href="#automatinis-diferencijavimas" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Automatinis diferencijavimas (AD) naudojamas apskaičiuoti kompiuteriu užrašomų funkcijų dalines išvestines. Metodo veikimas paremtas tuo, jog visi skaitiniai skaičiavimai gali būti suvesti į baigtinį skaičių elementarių operacijų, kurių išvestinės yra žinomos. Žinodami sudedamųjų operacijų išvestines bei pasinaudodami sudėtinės funkcijos diferencijavimo taisykle, galime tiksliai apskaičiuoti norimos funkcijos dalines išvestines pasirinktame taške.</p></li>
+<li><p>AD atliekamas dviem etapais: pirmuoju etapu apskaičiuojamos visų sudedamųjų operacijų vertės, o antruoju etapu apskaičiuojamos išvestinės. Algoritmo veikimą pavaizduosime pavyzdžiu.</p></li>
+</ul>
+<p>Nagrinėkime dviejų kintamųjų funkciją $f(x_1, x_2) = \frac{3}{1 + \text{e}^{-(2x_1 - 3x_2 + 2)}} - 1$ (<em>pastaba</em>: toks funkcijos pasirinkimas neatsitiktinis – atkreipkite dėmesį į neuroninio tinklo išraišką). Tuomet $f$ galime užrašyti kaip funkcijų $h_1: \mathbb{R}^2 \rightarrow \mathbb{R}, h_2: \mathbb{R} \rightarrow \mathbb{R}, h_3: \mathbb{R} \rightarrow \mathbb{R}$ kompoziciją, $f = h_3 \circ h_2 \circ h_1$, kur $h_1(x, y) = 2x - 3y + 2$, $h_2(x) = \frac{1}{1 + \text{e}^{-x}}$, $h_3(x) = 3x - 1$. Apskaičiuosime funkcijos $f$ dalines išvestines $\frac{\partial f}{\partial x_1}$, $\frac{\partial f}{\partial x_2}$ taške $(x_1, x_2) = (0.5, 1)$:</p>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/backprop_example.png" alt="backprop-example" width="65%">
+<p><strong>1.10 pav., Sklidimo atgal algoritmo pavyzdys </strong></p>
+</div>
+<p>Galime pastebėti, kad atlikę vieną sklidimo į priekį ir vieną atgalinio sklidimo etapą, randame visas funkcijos $f:\mathbb{R}^d \rightarrow \mathbb{R}$ dalines išvestines, nepriklausomai nuo kintamųjų skaičiaus $d$, t.y. algoritmo skaičiavimo sudėtingumas priklauso tik nuo pačios funkcijos sudėtingumo.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -517,7 +571,10 @@ $$</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matematine-formuluote">Matematinė formuluotė</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matematine-formuluote">Matematinė formuluotė</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatinis-diferencijavimas">Automatinis diferencijavimas</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
