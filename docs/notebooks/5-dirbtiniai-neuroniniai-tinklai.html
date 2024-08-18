@@ -369,7 +369,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -385,6 +387,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matematine-formuluote">Matematinė formuluotė</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -410,6 +420,8 @@ document.write(`
 <ul class="simple">
 <li><p>Dirbtiniai neuroniniai tinklai taikomi tiek regresijos, tiek klasifikavimo uždaviniuose.</p></li>
 </ul>
+<section id="matematine-formuluote">
+<h2>Matematinė formuluotė<a class="headerlink" href="#matematine-formuluote" title="Link to this heading">#</a></h2>
 <p>Tegul $x = (x_1, \ldots, x_d) \in \mathbb{R}^{d_0}$. Dirbtinis neuroninis tinklas $h^L : \mathbb{R}^{d_0} \rightarrow \mathbb{R}^d$ [čia $d = d_L$] apibrėžiamas kaip funkcijų $ h^l = (h_1^l, \ldots, h_{d_l}^l): \mathbb{R}^{d_{l-1}} \rightarrow \mathbb{R}^{d_l}, \text{ } l = 1, \ldots, L $ kompozicija, kur $h^l$ komponentės užrašomos</p>
 <p>$$
 h_j^1(x) = \sum_{i=1}^{d_0} w_{ij}^1 x_i + b_j^1, \quad j = 1, \ldots, d_1
@@ -422,8 +434,23 @@ $$</p>
 <li><p>Kiekvienas sluoksnis $l = 1, \ldots, L$ turi $d_l$ dirbtinių neuronų, $W := \max_{1 \leq l \leq L} d_l$ žymi neuroninio tinklo <em>plotį</em>.</p></li>
 <li><p>Koeficientai $w_{ij}^l$ atitinka <em>svorius</em>, kurie jungia $i$-ąjį neuroną $(l-1)$-ajame sluoksnyje su $j$-uoju neuronu $l$-ajame sluoksnyje; $b_j^l$ yra $j$-ojo neurono $l$-ajame sluoksnyje <em>laisvasis narys</em>.</p></li>
 <li><p>Funkcija $\sigma$, istoriškai vadinama <em>aktyvacijos funkcija</em>, yra žinoma ir fiksuota, tuo tarpu koeficientai $w_{ij}^l$ ir laisvasis narys $b_j^l$ – nežinomi.</p></li>
+<li><p>MM kontekste, paskutinio sluoksnio išvestis, žymima $h^L$, yra hipotezės funkcija. Visų dirbtinio neuroninio tinklo svorių ir laisvųjų narių rinkinys vadinamas tinklo <em>parametrais</em> $\theta$. Ši parametrų aibė apibrėžia dirbtinio neuroninio tinklo architektūrą, todėl kartais žymėsime $h^L(x) = h^L(x; \theta)$.</p></li>
 </ul>
-<p>Dirbtinio neuroninio tinklo $h^L$ <em>parametrais</em> vadinsime aibę $\theta = { w_{ij}^l, b_j^l \mid 1 \leq i \leq d_{l-1}, 1 \leq j \leq d_l, 1 \leq l \leq L }$. Ši aibė apibrėžia dirbtinio neuroninio tinklo architektūrą, todėl kartais žymėsime $h^L(x) = h^L(x; \theta)$.</p>
+<p>Pažymėkime apmokymo aibę $D = { (x^i, y^i) \mid i = 1, \ldots, N}$. Tam, kad galėtume kiekybiškai įvertinti nuostolį vienai stebinio reikšmei $(x^i, y^i)$, įvedama nuostolių funkcija $\ell$. Norint, kad $h^L$ artinys būtų geras visoje aibėje $D$, įvedama empirinės rizikos funkcija:</p>
+<p>$$
+R_{emp}(h^L) = \frac{1}{N} \sum_{i=1}^{N} \ell\left( (x^i, y^i), h^L(x^i;\theta) \right).
+$$</p>
+<ul class="simple">
+<li><p>Dalykai jau pažįstami iš anksčiau :)</p></li>
+</ul>
+<p><em>pastaba:</em> literatūroje empirinės rizikos funkcija dažniausiai vadinama tiesiog netiktimi, sutapatinant du terminus į vieną.</p>
+<p>Neuroniniai tinklai apmokomi minimizuojant empirinės rizikos funkciją. Minimizavimas dažniausiai atliekamas gradientinio nusileidimo metodais. Taikant šiuos metodus, reikia apskaičiuoti empirinės rizikos funkcijos gradientą.</p>
+<p>1986 m. Davidas Rumelhartas, Geoffrey Hintonas ir Ronaldas Williamsas išleido straipsnį, kuriame buvo pristatytas sklidimo atgal apmokymo algoritmas (angl. backpropagation), kuris naudojamas iki šiol.</p>
+<p>Algoritmas yra efektyvus, nes tik per du perėjimus per tinklą (vieną pirmyn, kitą atgal) galima apskaičiuoti empirinės rizikos funkcijos gradientą kiekvieno modelio parametro atžvilgiu.</p>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/backprop.png" alt="backprop" width="65%">
+<p><strong>1.9 pav., Sklidimo atgal algoritmas </strong></p>
+</div></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -480,6 +507,21 @@ $$</p>
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matematine-formuluote">Matematinė formuluotė</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
