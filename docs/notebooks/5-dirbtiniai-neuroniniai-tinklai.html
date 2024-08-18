@@ -393,6 +393,8 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matematine-formuluote">Matematinė formuluotė</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aktyvacijos-funkcija">Aktyvacijos funkcija</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sklidimo-atgal-algoritmas">Sklidimo atgal algoritmas</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatinis-diferencijavimas">Automatinis diferencijavimas</a></li>
 </ul>
 </li>
@@ -437,7 +439,7 @@ $$</p>
 <li><p>Kiekvienas sluoksnis $l = 1, \ldots, L$ turi $d_l$ dirbtinių neuronų, $W := \max_{1 \leq l \leq L} d_l$ žymi neuroninio tinklo <em>plotį</em>.</p></li>
 <li><p>Koeficientai $w_{ij}^l$ atitinka <em>svorius</em>, kurie jungia $i$-ąjį neuroną $(l-1)$-ajame sluoksnyje su $j$-uoju neuronu $l$-ajame sluoksnyje; $b_j^l$ yra $j$-ojo neurono $l$-ajame sluoksnyje <em>laisvasis narys</em>.</p></li>
 <li><p>Funkcija $\sigma$, istoriškai vadinama <em>aktyvacijos funkcija</em>, yra žinoma ir fiksuota, tuo tarpu koeficientai $w_{ij}^l$ ir laisvasis narys $b_j^l$ – nežinomi.</p></li>
-<li><p>MM kontekste, paskutinio sluoksnio išvestis, žymima $h^L$, yra hipotezės funkcija. Visų dirbtinio neuroninio tinklo svorių ir laisvųjų narių rinkinys vadinamas tinklo <em>parametrais</em> $\theta$. Ši parametrų aibė apibrėžia dirbtinio neuroninio tinklo architektūrą, todėl kartais žymėsime $h^L(x) = h^L(x; \theta)$.</p></li>
+<li><p>MM kontekste, paskutinio sluoksnio išvestis, žymima $h^L$, yra hipotezės funkcija. Visų dirbtinio neuroninio tinklo svorių ir laisvųjų narių rinkinys vadinamas tinklo <em>parametrais</em> $\theta$. Ši parametrų aibė apibrėžia dirbtinio neuroninio tinklo architektūrą, todėl žymėsime $h^L(x) = h^L(x; \theta)$.</p></li>
 </ul>
 <p>Pažymėkime apmokymo aibę $D = { (x^i, y^i) \mid i = 1, \ldots, N}$. Tam, kad galėtume kiekybiškai įvertinti nuostolį vienai stebinio reikšmei $(x^i, y^i)$, įvedama nuostolių funkcija $\ell$. Norint, kad $h^L$ artinys būtų geras visoje aibėje $D$, įvedama empirinės rizikos funkcija:</p>
 <p>$$
@@ -447,14 +449,29 @@ $$</p>
 <li><p>Dalykai jau pažįstami iš anksčiau :)</p></li>
 </ul>
 <p><em>pastaba:</em> literatūroje empirinės rizikos funkcija dažniausiai vadinama tiesiog netiktimi, sutapatinant du terminus į vieną.</p>
+<section id="aktyvacijos-funkcija">
+<h3>Aktyvacijos funkcija<a class="headerlink" href="#aktyvacijos-funkcija" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Aktyvacijos funkcija žaidžia esminę rolę dirbtinio neuroninio tinklo architektūroje. Iš tiesų, jeigu jos nebūtų (t.y., jei $\sigma(t) = t$), tada nesvarbu kokio gylio neuroninį tinklą bekonstruosime, galutinė išraiška galės būti supaprastinta į tiesinį modelį. Aktyvacijos funkcija įveda netiesiškumo – tai leidžia modeliuoti žymiai sudėtingesnius reiškinius.</p></li>
+</ul>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/activation_functions.png" alt="activation-functions" width="65%">
+<p><strong>1.11 pav., Dažniausiai naudojamos aktyvacijos funkcijos </strong></p>
+</div>
+<ul class="simple">
+<li><p>Žiauriai kietas puslapis, parodantis aktyvacijos funkcijos svarbą ir daug kitų aspektų: <a class="reference external" href="https://playground.tensorflow.org/#activation=tanh&amp;amp;batchSize=10&amp;amp;dataset=circle&amp;amp;regDataset=reg-plane&amp;amp;learningRate=0.03&amp;amp;regularizationRate=0&amp;amp;noise=0&amp;amp;networkShape=4,2&amp;amp;seed=0.13358&amp;amp;showTestData=false&amp;amp;discretize=false&amp;amp;percTrainData=50&amp;amp;x=true&amp;amp;y=true&amp;amp;xTimesY=false&amp;amp;xSquared=false&amp;amp;ySquared=false&amp;amp;cosX=false&amp;amp;sinX=false&amp;amp;cosY=false&amp;amp;sinY=false&amp;amp;collectStats=false&amp;amp;problem=classification&amp;amp;initZero=false&amp;amp;hideText=false">Tensorflow Playground</a></p></li>
+</ul>
+</section>
+<section id="sklidimo-atgal-algoritmas">
+<h3>Sklidimo atgal algoritmas<a class="headerlink" href="#sklidimo-atgal-algoritmas" title="Link to this heading">#</a></h3>
 <p>Neuroniniai tinklai apmokomi minimizuojant empirinės rizikos funkciją. Minimizavimas dažniausiai atliekamas gradientinio nusileidimo metodais. Taikant šiuos metodus, reikia apskaičiuoti empirinės rizikos funkcijos gradientą.</p>
 <p>1986 m. Davidas Rumelhartas, Geoffrey Hintonas ir Ronaldas Williamsas išleido straipsnį, kuriame buvo pristatytas sklidimo atgal apmokymo algoritmas (angl. backpropagation), kuris naudojamas iki šiol.</p>
 <p>Algoritmas yra efektyvus, nes tik per du perėjimus per tinklą (vieną pirmyn, kitą atgal) galima apskaičiuoti empirinės rizikos funkcijos gradientą kiekvieno modelio parametro atžvilgiu.</p>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/backprop.png" alt="backprop" width="65%">
 <p><strong>1.9 pav., Sklidimo atgal algoritmas </strong></p>
-</div><p>Iki šiol, gradientus apskaičiuodavome apibrėždami juos iš anksto pagal tam tikras formules. Tai veikė gerai, kadangi turimi modeliai buvo stacionarūs (pvz., tiesinės regresijos hipotezė visada tokia pati, todėl galime apibrėžti empirinės rizikos funkcijos gradientą ir ją naudoti optimizavime). Dirbtiniai neuroniniai tinklai, kita vertus, yra labai universalūs, gali būti didinami bei mažinami (plotis, ilgis), todėl apibrėžti gradiento negalime.</p>
-<p>Skaitiškai apskaičiuoti funkcijos išvestinę yra daug būtų, pavyzdžiui:</p>
+</div><p>Iki šiol, gradientus apskaičiuodavome apibrėždami juos iš anksto pagal tam tikras formules. Tai veikė gerai, kadangi turimi modeliai buvo stacionarūs (pvz., tiesinės regresijos hipotezė visada tokia pati, todėl galime apibrėžti empirinės rizikos funkcijos gradientą ir ją naudoti optimizavime). Dirbtiniai neuroniniai tinklai, kita vertus, yra labai universalūs, gali būti didinami bei mažinami (plotis, gylis), todėl apibrėžti gradiento negalime.</p>
+<p>Skaitiškai apskaičiuoti funkcijos išvestinę yra daug būdų, pavyzdžiui:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -470,16 +487,19 @@ $$</p>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Function x^2&quot;</span><span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;f(x)&#39;</span><span class="p">)</span>
-
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">diff</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Derivative of x^2&quot;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;f(x)&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;f&#39;(x)&quot;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Function x^2&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Derivative of x^2&quot;</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="p">:</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -491,6 +511,7 @@ $$</p>
 <li><p>Toks būdas nėra tinkamas, kuomet funkcija turi daug kintamųjų, o su empirinės rizikos funkcija būtent taip ir yra.</p></li>
 <li><p>Gradientai yra apskaičiuojami taikant automatinio diferencijavimo (angl. autodiff) algoritmą.</p></li>
 </ul>
+</section>
 <section id="automatinis-diferencijavimas">
 <h3>Automatinis diferencijavimas<a class="headerlink" href="#automatinis-diferencijavimas" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -503,6 +524,9 @@ $$</p>
 <p><strong>1.10 pav., Sklidimo atgal algoritmo pavyzdys </strong></p>
 </div>
 <p>Galime pastebėti, kad atlikę vieną sklidimo į priekį ir vieną atgalinio sklidimo etapą, randame visas funkcijos $f:\mathbb{R}^d \rightarrow \mathbb{R}$ dalines išvestines, nepriklausomai nuo kintamųjų skaičiaus $d$, t.y. algoritmo skaičiavimo sudėtingumas priklauso tik nuo pačios funkcijos sudėtingumo.</p>
+<ul class="simple">
+<li><p>Kompiuterio kalba visa tai užrašoma daugmaž taip:</p></li>
+</ul>
 </section>
 </section>
 </section>
@@ -572,6 +596,8 @@ $$</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matematine-formuluote">Matematinė formuluotė</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aktyvacijos-funkcija">Aktyvacijos funkcija</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sklidimo-atgal-algoritmas">Sklidimo atgal algoritmas</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatinis-diferencijavimas">Automatinis diferencijavimas</a></li>
 </ul>
 </li>
