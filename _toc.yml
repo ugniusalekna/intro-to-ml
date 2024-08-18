@@ -4,4 +4,10 @@
 format: jb-article
 root: README
 sections:
-  - file: notebooks/somenb
+  - file: notebooks/1-pagrindines-savokos
+  - file: notebooks/2-tiesine-regresija
+  - file: notebooks/3-truputis-teorijos
+  - file: notebooks/4-klasifikavimas
+  - file: notebooks/chapter1
+  - file: notebooks/chapter2
+  - file: notebooks/chapter3
