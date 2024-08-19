@@ -392,13 +392,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matematine-formuluote">Matematinė formuluotė</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aktyvacijos-funkcija">Aktyvacijos funkcija</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#teoriniai-rezulatatai">Teoriniai rezulatatai</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matematine-formuluote">Matematinė formuluotė</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aktyvacijos-funkcija">Aktyvacijos funkcija</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#teoriniai-rezulatatai">Teoriniai rezulatatai</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tinklo-apmokymo-intuicija">Tinklo apmokymo intuicija</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sklidimo-atgal-algoritmas">Sklidimo atgal algoritmas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tinklo-apmokymo-intuicija">Tinklo apmokymo intuicija</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sklidimo-atgal-algoritmas">Sklidimo atgal algoritmas</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatinis-diferencijavimas">Automatinis diferencijavimas</a></li>
 </ul>
 </li>
@@ -453,8 +453,9 @@ $$</p>
 <li><p>Dalykai jau pažįstami iš anksčiau :)</p></li>
 </ul>
 <p><em>pastaba:</em> literatūroje empirinės rizikos funkcija dažniausiai vadinama tiesiog netiktimi, sutapatinant du terminus į vieną.</p>
+</section>
 <section id="aktyvacijos-funkcija">
-<h3>Aktyvacijos funkcija<a class="headerlink" href="#aktyvacijos-funkcija" title="Link to this heading">#</a></h3>
+<h2>Aktyvacijos funkcija<a class="headerlink" href="#aktyvacijos-funkcija" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Aktyvacijos funkcija žaidžia esminę rolę dirbtinio neuroninio tinklo architektūroje. Iš tiesų, jeigu jos nebūtų (t.y., jei $\sigma(t) = t$), tada nesvarbu kokio gylio neuroninį tinklą bekonstruosime, galutinė išraiška galės būti supaprastinta į tiesinį modelį. Aktyvacijos funkcija įveda netiesiškumo – tai leidžia modeliuoti žymiai sudėtingesnius reiškinius.</p></li>
 </ul>
@@ -466,7 +467,7 @@ $$</p>
 <li><p>Žiauriai kietas puslapis, parodantis aktyvacijos funkcijos svarbą ir daug kitų aspektų: <a class="reference external" href="https://playground.tensorflow.org/#activation=tanh&amp;amp;batchSize=10&amp;amp;dataset=circle&amp;amp;regDataset=reg-plane&amp;amp;learningRate=0.03&amp;amp;regularizationRate=0&amp;amp;noise=0&amp;amp;networkShape=4,2&amp;amp;seed=0.13358&amp;amp;showTestData=false&amp;amp;discretize=false&amp;amp;percTrainData=50&amp;amp;x=true&amp;amp;y=true&amp;amp;xTimesY=false&amp;amp;xSquared=false&amp;amp;ySquared=false&amp;amp;cosX=false&amp;amp;sinX=false&amp;amp;cosY=false&amp;amp;sinY=false&amp;amp;collectStats=false&amp;amp;problem=classification&amp;amp;initZero=false&amp;amp;hideText=false">Tensorflow Playground</a></p></li>
 </ul>
 <section id="teoriniai-rezulatatai">
-<h4>Teoriniai rezulatatai<a class="headerlink" href="#teoriniai-rezulatatai" title="Link to this heading">#</a></h4>
+<h3>Teoriniai rezulatatai<a class="headerlink" href="#teoriniai-rezulatatai" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Aktyvacijos funkcijos svarbą pagrindžia ir kai kurie teoriniai rezultatai. Vieni pirmų teorinių rezultatų buvo atrasti austrų matematiko K. Hortnik 1989 m. Kiek vėliau, jo darbai buvo apibendrinti, įrodant teoremą, teigiančią, kad kiekvienai tolydžiai funkcijai egzistuoja dirbtinis neuroninis tinklas, gebantis aproksimuoti ją norimu tikslumu tada ir tik tada, kai aktyvacijos funkcija nėra daugianaris.</p></li>
 <li><p>Labai įdomu – neuroninio tinklo idėja buvo suformuluota nemąstant iš matematinės pusės :)</p></li>
@@ -475,7 +476,7 @@ $$</p>
 </section>
 </section>
 <section id="tinklo-apmokymo-intuicija">
-<h3>Tinklo apmokymo intuicija<a class="headerlink" href="#tinklo-apmokymo-intuicija" title="Link to this heading">#</a></h3>
+<h2>Tinklo apmokymo intuicija<a class="headerlink" href="#tinklo-apmokymo-intuicija" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Dirbtinis neuroninis tinklas – sudėtinga paprastų funkcijų kompozicija.</p></li>
 <li><p>Empirinės rizikos funkcija (netiktis) – matas, kaip gerai ar blogai modelis prognozuoja.</p></li>
@@ -536,7 +537,7 @@ $$</p>
 </div>
 </section>
 <section id="sklidimo-atgal-algoritmas">
-<h3>Sklidimo atgal algoritmas<a class="headerlink" href="#sklidimo-atgal-algoritmas" title="Link to this heading">#</a></h3>
+<h2>Sklidimo atgal algoritmas<a class="headerlink" href="#sklidimo-atgal-algoritmas" title="Link to this heading">#</a></h2>
 <p>Neuroniniai tinklai apmokomi minimizuojant empirinės rizikos funkciją. Minimizavimas dažniausiai atliekamas gradientinio nusileidimo metodais. Taikant šiuos metodus, reikia apskaičiuoti empirinės rizikos funkcijos gradientą.</p>
 <p>1986 m. Davidas Rumelhartas, Geoffrey Hintonas ir Ronaldas Williamsas išleido straipsnį, kuriame buvo pristatytas sklidimo atgal apmokymo algoritmas (angl. backpropagation), kuris naudojamas iki šiol.</p>
 <p>Algoritmas yra efektyvus, nes tik per du perėjimus per tinklą (vieną pirmyn, kitą atgal) galima apskaičiuoti empirinės rizikos funkcijos gradientą kiekvieno modelio parametro atžvilgiu.</p>
@@ -584,7 +585,6 @@ $$</p>
 <li><p>Toks būdas nėra tinkamas, kuomet funkcija turi daug kintamųjų, o su empirinės rizikos funkcija būtent taip ir yra.</p></li>
 <li><p>Gradientai yra apskaičiuojami taikant automatinio diferencijavimo (angl. autodiff) algoritmą.</p></li>
 </ul>
-</section>
 <section id="automatinis-diferencijavimas">
 <h3>Automatinis diferencijavimas<a class="headerlink" href="#automatinis-diferencijavimas" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -598,9 +598,12 @@ $$</p>
 </div>
 <p>Galime pastebėti, kad atlikę vieną sklidimo į priekį ir vieną atgalinio sklidimo etapą, randame visas funkcijos $f:\mathbb{R}^d \rightarrow \mathbb{R}$ dalines išvestines, nepriklausomai nuo kintamųjų skaičiaus $d$, t.y. algoritmo skaičiavimo sudėtingumas priklauso tik nuo pačios funkcijos sudėtingumo.</p>
 <ul class="simple">
-<li><p>Kompiuterio kalba visa tai užrašoma daugmaž taip:</p></li>
+<li><p>Sklidimo į priekį metu apskaičiuojamos vertės išsaugomos grafe (angl. computational graph),</p></li>
 </ul>
-</section>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/computational_graph.png" alt="computational-graph" width="65%">
+<p><strong>1.11 pav., Automatinio diferencijavimo grafas</strong></p>
+</div></section>
 </section>
 </section>
 
@@ -668,13 +671,13 @@ $$</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matematine-formuluote">Matematinė formuluotė</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aktyvacijos-funkcija">Aktyvacijos funkcija</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#teoriniai-rezulatatai">Teoriniai rezulatatai</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matematine-formuluote">Matematinė formuluotė</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aktyvacijos-funkcija">Aktyvacijos funkcija</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#teoriniai-rezulatatai">Teoriniai rezulatatai</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tinklo-apmokymo-intuicija">Tinklo apmokymo intuicija</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sklidimo-atgal-algoritmas">Sklidimo atgal algoritmas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tinklo-apmokymo-intuicija">Tinklo apmokymo intuicija</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sklidimo-atgal-algoritmas">Sklidimo atgal algoritmas</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatinis-diferencijavimas">Automatinis diferencijavimas</a></li>
 </ul>
 </li>
