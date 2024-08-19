@@ -401,8 +401,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucinis-sluoksnis">Konvoliucinis sluoksnis</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nuliu-pridejimas-angl-zero-padding">Nulių pridėjimas (angl. zero-padding)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-filtro-zingsnis-angl-stride">Konvoliucijos filtro žingsnis (angl. stride)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sutelkimo-sluoksnis-angl-max-pooling">Sutelkimo sluoksnis (angl. max pooling)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pozymiu-zemelapiai">Požymių žemėlapiai</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacija-naudojant-pytorch">Implementacija naudojant PyTorch</a></li>
 </ul>
             </nav>
         </div>
@@ -607,7 +610,22 @@ $$</p></li>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/stride.png" alt="stride" width="65%">
 <p><strong>1.14 pav., Konvoliucijos filtro žingsnis </strong></p>
-</div><ul class="simple">
+</div></section>
+<section id="sutelkimo-sluoksnis-angl-max-pooling">
+<h3>Sutelkimo sluoksnis (angl. max pooling)<a class="headerlink" href="#sutelkimo-sluoksnis-angl-max-pooling" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Šių sluoksnių tikslas - sumažinti įvesties vaizdo rezoliuciją, kad būtų sumažinta skaičiavimo apkrova, atminties sąnaudos ir parametrų skaičius.</p></li>
+<li><p>Apdorojimas vyksta panašiai kaip ir konvoliuciniuose sluoksniuose.</p></li>
+<li><p>Sutelkimo sluoksnio neuronai neturi svorių – viskas, ką jie atlieka, tai apdoroja įvestį, naudodamiesi nustatyta funkcija, pavyzdžiui, maksimalios vertės (angl. max-pooling) arba vidurkio (angl. average-pooling).</p></li>
+</ul>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/max_pooling.png" alt="max-pooling" width="65%">
+<p><strong>1.14 pav., Sutelkimo pagal maksimalią reikšmę sluoksnis </strong></p>
+</div>
+</section>
+<section id="pozymiu-zemelapiai">
+<h3>Požymių žemėlapiai<a class="headerlink" href="#pozymiu-zemelapiai" title="Link to this heading">#</a></h3>
+<ul class="simple">
 <li><p>Iki šiol kiekvieną konvoliucinį sluoksnį vaizdavome kaip ploną 2D sluoksnį, tačiau iš tikrųjų jį sudaro keli vienodo dydžio požymių žemėlapiai (angl. feature maps), todėl tiksliau yra jį vaizduoti 3D formatu.</p></li>
 </ul>
 <div style="text-align: center;">
@@ -626,13 +644,20 @@ $$</p></li>
 $$</p>
 <p>kur $b$ yra laisvasis narys, $C$ – kanalų (požymių žemėlapių gilesniuose sluoksniuose) skaičius.</p>
 <ul class="simple">
-<li><p>Sulyg kiekvienu tinklo sluoksniu, įvesties rezoliucija yra mažinama (naudojant stride), o kanalų skaičius (feature maps) platinamas. Konvoliucinio neuroninio tinklo architektūrą įprasta žymėti tokia schema:</p></li>
+<li><p>Sulyg kiekvienu tinklo sluoksniu, įvesties rezoliucija yra mažinama (naudojant <em>stride</em> arba <em>max pooling</em>), o kanalų skaičius (<em>feature maps</em>) platinamas. Konvoliucinio neuroninio tinklo architektūrą įprasta žymėti tokia schema:</p></li>
 </ul>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/convnet.png" alt="convolutional-network" width="65%">
 <p><strong>1.14 pav., Konvoliucinio neuroninio tinklo architektūra </strong></p>
-</div><p>Puiki vizualizacija: <a class="reference external" href="https://poloclub.github.io/cnn-explainer/">CNN Explainer</a></p>
+</div>
+<ul class="simple">
+<li><p>Matome, jog tinklo pabaigoje yra įprastas dirbtinis neuroninis tinklas, žymimas <em>dense</em> jungtimis.</p></li>
+</ul>
+<p>Puiki vizualizacija: <a class="reference external" href="https://poloclub.github.io/cnn-explainer/">CNN Explainer</a></p>
 </section>
+</section>
+<section id="implementacija-naudojant-pytorch">
+<h2>Implementacija naudojant PyTorch<a class="headerlink" href="#implementacija-naudojant-pytorch" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -709,8 +734,11 @@ $$</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucinis-sluoksnis">Konvoliucinis sluoksnis</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nuliu-pridejimas-angl-zero-padding">Nulių pridėjimas (angl. zero-padding)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-filtro-zingsnis-angl-stride">Konvoliucijos filtro žingsnis (angl. stride)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sutelkimo-sluoksnis-angl-max-pooling">Sutelkimo sluoksnis (angl. max pooling)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pozymiu-zemelapiai">Požymių žemėlapiai</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacija-naudojant-pytorch">Implementacija naudojant PyTorch</a></li>
 </ul>
   </nav></div>
 
