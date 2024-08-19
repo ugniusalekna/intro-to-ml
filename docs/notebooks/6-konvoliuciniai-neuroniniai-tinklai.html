@@ -392,7 +392,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-koreliacijos-operacija">Konvoliucijos (koreliacijos) operacija</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-ir-koreliacijos-operacijos">Konvoliucijos ir koreliacijos operacijos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vaizdo-kaip-funkcijos-apibrezimas">Vaizdo kaip funkcijos apibrėžimas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#koreliacijos-operacija-taikoma-vaizdui">Koreliacijos operacija taikoma vaizdui</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#koreliacijos-operacijos-pavyzdys">Koreliacijos operacijos pavyzdys</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrai-ir-ju-poveikis">Filtrai ir jų poveikis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isvada">Išvada</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucinis-sluoksnis">Konvoliucinis sluoksnis</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nuliu-pridejimas-angl-zero-padding">Nulių pridėjimas (angl. zero-padding)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-filtro-zingsnis-angl-stride">Konvoliucijos filtro žingsnis (angl. stride)</a></li>
@@ -418,25 +425,160 @@ document.write(`
 <li><p>Jie taip pat pastebėjo, kad kai kurie neuronai turi didesnius recepcinius laukus ir reaguoja į sudėtingesnius raštus, kurie yra žemesnio lygio raštų deriniai.</p></li>
 <li><p>Visa tai lėmė konvoliucinio neuroninio tinklo architektūros išradimą.</p></li>
 </ul>
-<section id="konvoliucijos-koreliacijos-operacija">
-<h2>Konvoliucijos (koreliacijos) operacija<a class="headerlink" href="#konvoliucijos-koreliacijos-operacija" title="Link to this heading">#</a></h2>
+<section id="konvoliucijos-ir-koreliacijos-operacijos">
+<h2>Konvoliucijos ir koreliacijos operacijos<a class="headerlink" href="#konvoliucijos-ir-koreliacijos-operacijos" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Konvoliucija – operatorius, kuris kaip argumentus paima dvi funkcijas $f$ ir $g$ ir grąžina trečią, kuri, tam tikra prasme, parodo $f$ ir $g$ persidengimo kiekį.</p></li>
+<li><p>Kryžminė koreliacija (angl. cross-correlation) yra dviejų sekų/funkcijų panašumo matas. Koreliacija kaip argumentus paima dvi funkcijas $f$ ir $g$, ir grąžina trečią, kuri, tam tikra prasme, parodo $f$ ir $g$ panašumo lygį.</p></li>
 <li><p>Dažniausiai viena funkcija imama kaip fiksuotas filtras, dar vadinamas branduoliu (angl. kernel).</p></li>
-<li><p>Diskrečioms vieno kintamojo funkcijoms konvoliucijos operacija apibrėžiama kaip:
-$$
-(f * g)(m) = \sum_{n} f(n) \cdot g(m - n)
-$$</p></li>
+<li><p>Diskrečioms vieno kintamojo funkcijoms kryžminės koreliacijos operacija apibrėžiama kaip:</p></li>
 </ul>
+<p>$$
+(f * g)(m) = \sum_{n} f(n) \cdot g(m + n)
+$$</p>
 <div style="text-align: center;">
-<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/convolution.gif" alt="convolution" width="65%">
-<p><strong>1.12 pav., Konvoliucijos operacija </strong></p>
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/convolution.gif" alt="correlation" width="65%">
+<p><strong>1.12 pav., Koreliacijos operacija </strong></p>
 </div>
 <ul class="simple">
 <li><p>Šiek tiek painu: konvoliucija ir koreliacija yra labai panašios operacijos; konvoliucija yra koreliacija su filtru, pasuktu 180 laipsnių.</p></li>
-<li><p>Kadangi filtro svoriai yra išmokstami, nėra svarbu, ar atliekant operaciją filtrą apversime, ar ne, todėl skaičiavimų prasme, lengviau atlikti koreliacijos operaciją.</p></li>
-<li><p>Taigi, konvoliuciniai neuroniniai tinklai iš tiesų naudoja koreliaciją (angl. cross-correlation).</p></li>
+<li><p>Kadangi filtro svoriai nėra fiksuoti, nėra svarbu, ar atliekant operaciją filtrą apversime, ar ne, todėl skaičiavimų prasme, lengviau atlikti koreliacijos operaciją.</p></li>
+<li><p>Taigi, konvoliuciniai neuroniniai tinklai iš tiesų naudoja kryžminę koreliaciją!</p></li>
 </ul>
+<section id="vaizdo-kaip-funkcijos-apibrezimas">
+<h3>Vaizdo kaip funkcijos apibrėžimas<a class="headerlink" href="#vaizdo-kaip-funkcijos-apibrezimas" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Vaizdą galima apibrėžti kaip dviejų kintamųjų funkciją $I(x, y)$ – pikselio intensyvumo reikšmė koordinatėse $(x, y)$. Vieno kanalo atveju (nespalvotas vaizdas) $I$ įgyja reikšmes nuo 0 iki 255 (arba kitas normalizuotas diapazonas, pvz., [0, 1]).</p></li>
+</ul>
+</section>
+<section id="koreliacijos-operacija-taikoma-vaizdui">
+<h3>Koreliacijos operacija taikoma vaizdui<a class="headerlink" href="#koreliacijos-operacija-taikoma-vaizdui" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Koreliacija vaizdo apdorojime taikoma naudojant nedidelį filtrą (branduolį) $\mathbf{K}$, kuris slysta per visą vaizdą $ I(x, y) $. Kiekviename žingsnyje atliekama skaliarinė sandauga tarp filtro ir atitinkamos vaizdo dalies:</p></li>
+</ul>
+<p>$$
+(I * K)(x, y) = \sum_{i=0}^{f_h-1} \sum_{j=0}^{f_w-1} I(x+i, y+j) \cdot K(i, j)
+$$</p>
+<ul class="simple">
+<li><p>Čia:</p>
+<ul>
+<li><p>$ I(x+i, y+j) $ yra įvesties vaizdo reikšmė pozicijoje $ (x+i, y+j) $,</p></li>
+<li><p>$ K(i, j) $ yra filtro (branduolio) reikšmė pozicijoje $ (i, j) $,</p></li>
+<li><p>$ (I * K)(x, y) $ yra išvesties reikšmė pozicijoje $ (x, y) $.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="koreliacijos-operacijos-pavyzdys">
+<h3>Koreliacijos operacijos pavyzdys<a class="headerlink" href="#koreliacijos-operacijos-pavyzdys" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Tarkime, turime 3x3 dydžio filtrą (branduolį) $ K $ ir 6x6 dydžio vaizdą $ I $:</p></li>
+</ul>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/conv_dotprod.gif" alt="correlation dot product" width="65%">
+<p><strong>1.12 pav., Skaliarinė sandauga tarp vaizdo dalies ir filtro  </strong></p>
+</div>
+<ul class="simple">
+<li><p>Koreliacijos operacija atliekama pasirinktoje pozicijoje, pavyzdžiui, kai filtro viršutinis kairysis kampas sutampa su vaizdo tašku (1, 1) (antra eilutė, antra stulpelis):</p></li>
+</ul>
+<p>$$
+\text{Output}(2, 2) = (1 \times 0) + (5 \times 1) + (8 \times 0) + (7 \times 1) + (2 \times -4) + (2 \times 1) + (3 \times 0) + (1 \times 1) + (5 \times 0) = 10
+$$</p>
+<ul class="simple">
+<li><p>Šis skaičiavimas kartojamas kiekvienam pikseliui, ir gauname naują išvesties vaizdą, kur kiekviena reikšmė yra koreliacijos rezultatas.</p></li>
+</ul>
+</section>
+<section id="filtrai-ir-ju-poveikis">
+<h3>Filtrai ir jų poveikis<a class="headerlink" href="#filtrai-ir-ju-poveikis" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Gaussiškas Filtras</strong>:</p>
+<ul>
+<li><p>Šis filtras naudojamas vaizdams išlyginti (smooth). Gaussiškas filtras turi aukštą vidurio koeficientą, kuris palaipsniui mažėja į šonus:</p></li>
+</ul>
+</li>
+</ul>
+<p>$$
+G = \frac{1}{16}\begin{bmatrix}
+1 &amp; 2 &amp; 1 \
+2 &amp; 4 &amp; 2 \
+1 &amp; 2 &amp; 1
+\end{bmatrix}
+$$</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- Taikant tokį filtrą, vaizdas tampa mažiau triukšmingas ir švelnesnis.
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Kraštų Aptikimo Filtras</strong> (Sobelio filtras):</p>
+<ul>
+<li><p>Šis filtras naudojamas aptikti kraštus vaizde:</p></li>
+</ul>
+</li>
+</ul>
+<p>$$
+S_x = \begin{bmatrix}
+-1 &amp; 0 &amp; 1 \
+-2 &amp; 0 &amp; 2 \
+-1 &amp; 0 &amp; 1
+\end{bmatrix}, \quad
+S_y = \begin{bmatrix}
+-1 &amp; -2 &amp; -1 \
+0 &amp; 0 &amp; 0 \
+1 &amp; 2 &amp; 1
+\end{bmatrix}
+$$</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- Pirmas filtras aptinka vertikalius kraštus, o antras – horizontalius. Jų derinys gali būti naudojamas aptikti visus kraštus vaizde.
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Laplaciano Filtras</strong>:</p>
+<ul>
+<li><p>Tai antrosios išvestinės filtras, kuris pabrėžia kraštus, bet kartu paryškina triukšmą:</p></li>
+</ul>
+</li>
+</ul>
+<p>$$
+L = \begin{bmatrix}
+0 &amp; 1 &amp; 0 \
+1 &amp; -4 &amp; 1 \
+0 &amp; 1 &amp; 0
+\end{bmatrix}
+$$</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- Taikant šį filtrą, paryškinami kraštai ir kontūrai, kurie yra staigūs perėjimai vaizde.
+</pre></div>
+</div>
+</section>
+<section id="isvada">
+<h3>Išvada<a class="headerlink" href="#isvada" title="Link to this heading">#</a></h3>
+<p>Koreliacijos ir konvoliucijos operacijos yra esminės vaizdo apdorojimo technikos, leidžiančios išgauti ir analizuoti įvairias vaizdo ypatybes. Pasitelkiant skirtingus filtrus, galima atlikti įvairius veiksmus, tokius kaip triukšmo mažinimas, kraštų aptikimas ar tekstūrų paryškinimas. Šie metodai yra plačiai naudojami kompiuterinėje regos sistemoje ir kitose srityse, kur svarbu analizuoti vizualinę informaciją.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">correlation</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="nb">filter</span><span class="p">):</span>
+
+    <span class="n">output_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    
+    <span class="n">image_width</span><span class="p">,</span> <span class="n">image_length</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">filter_width</span><span class="p">,</span> <span class="n">filter_length</span> <span class="o">=</span> <span class="nb">filter</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">image_width</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">image_length</span><span class="p">):</span>
+    
+            <span class="n">image_region</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">filter_width</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span><span class="n">j</span><span class="o">+</span><span class="n">filter_length</span><span class="p">]</span>
+    
+            <span class="k">if</span> <span class="n">image_region</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="nb">filter</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+                <span class="n">correlation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">image_region</span> <span class="o">*</span> <span class="nb">filter</span><span class="p">)</span>
+                <span class="n">output_image</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="p">(</span><span class="n">filter_width</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="p">(</span><span class="n">filter_length</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">correlation</span>
+
+    <span class="k">return</span> <span class="n">output_image</span>
+
+
+<span class="k">def</span> <span class="nf">apply_filter</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="nb">filter</span><span class="p">):</span>    
+    <span class="k">return</span> <span class="n">correlation</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="nb">filter</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="konvoliucinis-sluoksnis">
 <h2>Konvoliucinis sluoksnis<a class="headerlink" href="#konvoliucinis-sluoksnis" title="Link to this heading">#</a></h2>
@@ -462,7 +604,8 @@ $$</p></li>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/stride.png" alt="stride" width="65%">
 <p><strong>1.14 pav., Konvoliucijos filtro žingsnis </strong></p>
-</div></section>
+</div><p>Puiki vizualizacija: <a class="reference external" href="https://poloclub.github.io/cnn-explainer/">CNN Explainer</a></p>
+</section>
 </section>
 </section>
 
@@ -530,7 +673,14 @@ $$</p></li>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-koreliacijos-operacija">Konvoliucijos (koreliacijos) operacija</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-ir-koreliacijos-operacijos">Konvoliucijos ir koreliacijos operacijos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vaizdo-kaip-funkcijos-apibrezimas">Vaizdo kaip funkcijos apibrėžimas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#koreliacijos-operacija-taikoma-vaizdui">Koreliacijos operacija taikoma vaizdui</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#koreliacijos-operacijos-pavyzdys">Koreliacijos operacijos pavyzdys</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrai-ir-ju-poveikis">Filtrai ir jų poveikis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isvada">Išvada</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucinis-sluoksnis">Konvoliucinis sluoksnis</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nuliu-pridejimas-angl-zero-padding">Nulių pridėjimas (angl. zero-padding)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-filtro-zingsnis-angl-stride">Konvoliucijos filtro žingsnis (angl. stride)</a></li>
