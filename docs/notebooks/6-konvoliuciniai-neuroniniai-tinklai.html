@@ -393,7 +393,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-operacija">Konvoliucijos operacija</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucinis-sluoksnis">Konvoliucinis sluoksnis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucinis-sluoksnis">Konvoliucinis sluoksnis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nuliu-pridejimas">Nulių pridėjimas</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -419,11 +422,23 @@ document.write(`
 </section>
 <section id="konvoliucinis-sluoksnis">
 <h2>Konvoliucinis sluoksnis<a class="headerlink" href="#konvoliucinis-sluoksnis" title="Link to this heading">#</a></h2>
-<p>Svarbiausias struktūrinis blokas yra konvoliucinis sluoksnis – pirmojo konvoliucinio sluoksnio neuronai prijungiami ne prie kiekvieno įvesties vaizdo pikselio (kaip ankstesniuose skyriuose), o tik prie pikselių, esančių jų recepciniame lauke. Savo ruožtu kiekvienas antrojo konvoliucinio sluoksnio neuronas yra sujungtas tik su neuronais, esančiais nedideliame stačiakampyje pirmajame sluoksnyje. Tokia architektūra leidžia tinklui pirmajame paslėptajame sluoksnyje sutelkti dėmesį į žemo lygio požymius, tada kitame paslėptajame sluoksnyje juos surinkti į aukštesnio lygio požymius ir t. t. Tokia hierarchinė struktūra būdinga realaus pasaulio vaizdams, ir tai yra viena iš priežasčių, kodėl CNN taip gerai veikia atpažįstant vaizdus.</p>
+<ul class="simple">
+<li><p>Svarbiausias struktūrinis blokas yra konvoliucinis sluoksnis – pirmojo konvoliucinio sluoksnio neuronai prijungiami ne prie kiekvieno įvesties vaizdo pikselio (kaip ankstesniuose skyriuose), o tik prie pikselių, esančių jų recepciniame lauke.</p></li>
+<li><p>Savo ruožtu kiekvienas antrojo konvoliucinio sluoksnio neuronas yra sujungtas tik su neuronais, esančiais nedideliame stačiakampyje pirmajame sluoksnyje.</p></li>
+<li><p>Tokia architektūra leidžia tinklui pirmajame paslėptajame sluoksnyje sutelkti dėmesį į žemo lygio požymius, tada kitame paslėptajame sluoksnyje juos surinkti į aukštesnio lygio požymius ir t.t.</p></li>
+<li><p>Tokia hierarchinė struktūra būdinga vaizdo apdorojimui gyvūnų smegenyse.</p></li>
+</ul>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/receptive_field.png" alt="receptive-field" width="65%">
 <p><strong>1.12 pav., Konvoliucinių sluoksnių receptinis laukas </strong></p>
+</div><section id="nuliu-pridejimas">
+<h3>Nulių pridėjimas<a class="headerlink" href="#nuliu-pridejimas" title="Link to this heading">#</a></h3>
+<p>Tam tikro sluoksnio $i$ eilutėje, $j$ stulpelyje esantis neuronas yra sujungtas su ankstesnio sluoksnio neuronų, esančių nuo $i$ iki $i + f_h - 1$, nuo $j$ iki $j + f_w - 1$ eilutėse, išėjimais, kur $f_h$ ir $f_w$ yra recepcinio lauko aukštis ir plotis. Kad sluoksnis būtų tokio paties aukščio ir pločio kaip ankstesnis sluoksnis, aplink įvesties matricą reikia pridėti nulius. Ši operacija angl. vadinama zero-padding.</p>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/zero_padding.png" alt="zero-padding" width="65%">
+<p><strong>1.13 pav., Nulių pridėjimo operacija </strong></p>
 </div></section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -491,7 +506,10 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-operacija">Konvoliucijos operacija</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucinis-sluoksnis">Konvoliucinis sluoksnis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucinis-sluoksnis">Konvoliucinis sluoksnis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nuliu-pridejimas">Nulių pridėjimas</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
