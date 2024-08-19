@@ -614,8 +614,24 @@ $$</p></li>
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/multiple_feature_maps.png" alt="feature-maps" width="65%">
 <p><strong>1.14 pav., Konvoliuciniai sluoksniai su keliais požymių žemėlapiais </strong></p>
 </div>
-<p>Viename požymių žemėlapyje visi neuronai turi tuos pačius parametrus (svorius ir šališkumo narį), tačiau skirtingi požymių žemėlapiai gali turėti skirtingus parametrus. Neurono recepcinis laukas yra toks pat, kaip aprašyta anksčiau, tačiau jis apima visų ankstesnių sluoksnių požymių žemėlapius. Trumpai tariant, konvoliucinis sluoksnis savo įėjimams vienu metu taiko kelis filtrus, todėl jis gali aptikti kelis požymius bet kurioje įėjimo vietoje.</p>
-<p>Puiki vizualizacija: <a class="reference external" href="https://poloclub.github.io/cnn-explainer/">CNN Explainer</a></p>
+<ul class="simple">
+<li><p>Viename požymių žemėlapyje visi neuronai turi tuos pačius parametrus, tačiau skirtingi požymių žemėlapiai gali turėti skirtingus parametrus.</p></li>
+<li><p>Neurono recepcinis laukas apima visų ankstesnių sluoksnių požymių žemėlapius.</p></li>
+<li><p>Konvoliucinis sluoksnis savo įvestims vienu metu taiko kelis filtrus, todėl jis gali aptikti kelis požymius bet kurioje įvesties vietoje.</p></li>
+<li><p>Tai, kad visi neuronai požymių žemėlapyje turi tuos pačius parametrus, labai sumažina modelio parametrų skaičių. Svarbiausia tai, kad konvoliucinis neuroninis tinklas, išmokęs atpažinti tam tikrą požymį vienoje vietoje, gali jį atpažinti bet kurioje kitoje vietoje.</p></li>
+</ul>
+<p>Tokiu atveju, konvoliucinio sluoksnio neurono išvestis $I$ taške $(x, y)$ apibrėžiama lygtimi:</p>
+<p>$$
+(I \star K)(x, y) = b + \sum_{i=0}^{f_h-1} \sum_{j=0}^{f_w-1} \sum_{c=0}^{C-1} I(x + i, y + j, c) \cdot K(i, j, c),
+$$</p>
+<p>kur $b$ yra laisvasis narys, $C$ – kanalų (požymių žemėlapių gilesniuose sluoksniuose) skaičius.</p>
+<ul class="simple">
+<li><p>Sulyg kiekvienu tinklo sluoksniu, įvesties rezoliucija yra mažinama (naudojant stride), o kanalų skaičius (feature maps) platinamas. Konvoliucinio neuroninio tinklo architektūrą įprasta žymėti tokia schema:</p></li>
+</ul>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/convnet.png" alt="convolutional-network" width="65%">
+<p><strong>1.14 pav., Konvoliucinio neuroninio tinklo architektūra </strong></p>
+</div><p>Puiki vizualizacija: <a class="reference external" href="https://poloclub.github.io/cnn-explainer/">CNN Explainer</a></p>
 </section>
 </section>
 </section>
