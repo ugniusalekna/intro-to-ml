@@ -607,7 +607,15 @@ $$</p></li>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/stride.png" alt="stride" width="65%">
 <p><strong>1.14 pav., Konvoliucijos filtro žingsnis </strong></p>
-</div><p>Puiki vizualizacija: <a class="reference external" href="https://poloclub.github.io/cnn-explainer/">CNN Explainer</a></p>
+</div><ul class="simple">
+<li><p>Iki šiol kiekvieną konvoliucinį sluoksnį vaizdavome kaip ploną 2D sluoksnį, tačiau iš tikrųjų jį sudaro keli vienodo dydžio požymių žemėlapiai (angl. feature maps), todėl tiksliau yra jį vaizduoti 3D formatu.</p></li>
+</ul>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/multiple_feature_maps.png" alt="feature-maps" width="65%">
+<p><strong>1.14 pav., Konvoliuciniai sluoksniai su keliais požymių žemėlapiais </strong></p>
+</div>
+<p>Viename požymių žemėlapyje visi neuronai turi tuos pačius parametrus (svorius ir šališkumo narį), tačiau skirtingi požymių žemėlapiai gali turėti skirtingus parametrus. Neurono recepcinis laukas yra toks pat, kaip aprašyta anksčiau, tačiau jis apima visų ankstesnių sluoksnių požymių žemėlapius. Trumpai tariant, konvoliucinis sluoksnis savo įėjimams vienu metu taiko kelis filtrus, todėl jis gali aptikti kelis požymius bet kurioje įėjimo vietoje.</p>
+<p>Puiki vizualizacija: <a class="reference external" href="https://poloclub.github.io/cnn-explainer/">CNN Explainer</a></p>
 </section>
 </section>
 </section>
