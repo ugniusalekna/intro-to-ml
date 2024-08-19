@@ -664,12 +664,26 @@ $$</p>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
 <span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
-<span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="k">as</span> <span class="nn">transforms</span>
+<span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="k">as</span> <span class="nn">T</span>
+
 <span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span><span class="p">,</span> <span class="n">Subset</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
 <span class="kn">from</span> <span class="nn">torchvision.datasets</span> <span class="kn">import</span> <span class="n">CIFAR10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AddGaussianNoise</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mf">1.</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean</span> <span class="o">=</span> <span class="n">mean</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">std</span> <span class="o">=</span> <span class="n">std</span>
+    
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">):</span>
+        <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">size</span><span class="p">())</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">std</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -699,6 +713,7 @@ $$</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CIFAR10Dataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_tensor</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transform</span>
 
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -706,6 +721,7 @@ $$</p>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
         <span class="n">image</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_tensor</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
         
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">:</span>
             <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
@@ -717,22 +733,95 @@ $$</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CNN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">*</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import torch</span>
+<span class="c1"># import torch.nn as nn</span>
+<span class="c1"># import torch.nn.functional as F</span>
+
+<span class="c1"># class CNN(nn.Module):</span>
+<span class="c1">#     def __init__(self, num_classes=10):</span>
+<span class="c1">#         super().__init__()</span>
         
+<span class="c1">#         self.conv_layers = nn.Sequential(</span>
+<span class="c1">#             nn.Conv2d(3, 64, kernel_size=3, padding=1),</span>
+<span class="c1">#             nn.MaxPool2d(kernel_size=2, stride=2),</span>
+<span class="c1">#             nn.ReLU(),</span>
+<span class="c1">#             nn.Dropout(0.25),</span>
+            
+<span class="c1">#             nn.Conv2d(64, 64, kernel_size=3, padding=1),</span>
+<span class="c1">#             nn.ReLU(),</span>
+<span class="c1">#             nn.Dropout(0.25),</span>
+            
+<span class="c1">#             nn.Conv2d(64, 32, kernel_size=3, padding=1),</span>
+<span class="c1">#             nn.ReLU(),</span>
+<span class="c1">#             nn.Dropout(0.25),</span>
+            
+<span class="c1">#             nn.Conv2d(32, 32, kernel_size=3, padding=1),</span>
+<span class="c1">#             nn.ReLU(),</span>
+<span class="c1">#             nn.MaxPool2d(kernel_size=2, stride=2),</span>
+<span class="c1">#             nn.Dropout(0.15)</span>
+<span class="c1">#         )</span>
+        
+<span class="c1">#         self.fc_layers = nn.Sequential(</span>
+<span class="c1">#             nn.Flatten(),</span>
+<span class="c1">#             nn.Linear(32 * 8 * 8, 64),</span>
+<span class="c1">#             nn.ReLU(),</span>
+<span class="c1">#             nn.Dropout(0.25),</span>
+            
+<span class="c1">#             nn.Linear(64, 64),</span>
+<span class="c1">#             nn.Tanh(),</span>
+<span class="c1">#             nn.Dropout(0.25),</span>
+            
+<span class="c1">#             nn.Linear(64, num_classes)</span>
+<span class="c1">#         )</span>
+    
+<span class="c1">#     def forward(self, x):</span>
+<span class="c1">#         x = self.conv_layers(x)</span>
+<span class="c1">#         x = self.fc_layers(x)</span>
+<span class="c1">#         return x</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+
+<span class="k">class</span> <span class="nc">CNN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv_layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.25</span><span class="p">),</span>
+            
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.25</span><span class="p">),</span>
+            
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.25</span><span class="p">),</span>
+            
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span>
+        <span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc_layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">32</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">*</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">64</span><span class="p">),</span>  <span class="c1"># Adjusted based on the CIFAR-10 input size</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.25</span><span class="p">),</span>
+            
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.25</span><span class="p">),</span>
+            
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+        <span class="p">)</span>
+    
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv_layers</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_layers</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">x</span>
 </pre></div>
 </div>
@@ -758,14 +847,14 @@ $$</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_data</span><span class="p">,</span> <span class="n">val_data</span> <span class="o">=</span> <span class="n">get_CIFAR10</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_data</span><span class="p">,</span> <span class="n">val_data</span> <span class="o">=</span> <span class="n">get_CIFAR10</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 
-<span class="n">transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
-    <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+    <span class="n">AddGaussianNoise</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">),</span>
 <span class="p">])</span>
 
 <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">CIFAR10Dataset</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
-<span class="n">val_dataset</span> <span class="o">=</span> <span class="n">CIFAR10Dataset</span><span class="p">(</span><span class="n">val_data</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+<span class="n">val_dataset</span> <span class="o">=</span> <span class="n">CIFAR10Dataset</span><span class="p">(</span><span class="n">val_data</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
 <span class="n">visualize_data</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">)</span>
 </pre></div>
@@ -776,7 +865,7 @@ $$</p>
 Files already downloaded and verified
 </pre></div>
 </div>
-<img alt="../_images/192e1f5d6a11ea141aee8b301f96605aee1a673306816852d281ce6c8066485b.png" src="../_images/192e1f5d6a11ea141aee8b301f96605aee1a673306816852d281ce6c8066485b.png" />
+<img alt="../_images/8823b2047b977d9f1675694942cc91239f9c36a293bf78b434fddb89143373c6.png" src="../_images/8823b2047b977d9f1675694942cc91239f9c36a293bf78b434fddb89143373c6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -856,7 +945,7 @@ Files already downloaded and verified
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training Progress:   4%|▍         | 4/100 [00:07&lt;02:52,  1.79s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training Progress: 100%|██████████| 100/100 [27:47&lt;00:00, 16.67s/it]
 </pre></div>
 </div>
 </div>
@@ -887,7 +976,49 @@ Files already downloaded and verified
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ffbc57fd13a914b04cb1207ac8e0204eaa8459bb18e70f6d7d85c0e268b84a64.png" src="../_images/ffbc57fd13a914b04cb1207ac8e0204eaa8459bb18e70f6d7d85c0e268b84a64.png" />
+<img alt="../_images/b2119aaa75a02a25473534870c63b3ed3d14764199d6904f1abb8cbdf7440c79.png" src="../_images/b2119aaa75a02a25473534870c63b3ed3d14764199d6904f1abb8cbdf7440c79.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+
+<span class="k">def</span> <span class="nf">visualize_predictions</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    
+    <span class="n">data_iter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">data_loader</span><span class="p">)</span>
+    <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">data_iter</span><span class="p">)</span>
+    <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">labels</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+    
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">),</span> <span class="mi">16</span><span class="p">)):</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+        
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pred: </span><span class="si">{</span><span class="n">classes</span><span class="p">[</span><span class="n">preds</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="si">}</span><span class="se">\n</span><span class="s2">Actual: </span><span class="si">{</span><span class="n">classes</span><span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> 
+                     <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;green&quot;</span> <span class="k">if</span> <span class="n">preds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;red&quot;</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+<span class="n">classes</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">classes</span>
+<span class="n">visualize_predictions</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">val_loader</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d3c3cbcf2aa3d0c7e9fb8381c68e09d6436d8f0713a5fbaefed21a0da5a30999.png" src="../_images/d3c3cbcf2aa3d0c7e9fb8381c68e09d6436d8f0713a5fbaefed21a0da5a30999.png" />
 </div>
 </div>
 </section>
