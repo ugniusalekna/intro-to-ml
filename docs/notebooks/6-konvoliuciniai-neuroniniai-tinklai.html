@@ -369,7 +369,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -385,6 +387,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-operacija">Konvoliucijos operacija</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucinis-sluoksnis">Konvoliucinis sluoksnis</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -396,6 +407,23 @@ document.write(`
                   
   <section id="konvoliuciniai-neuroniniai-tinklai">
 <h1>Konvoliuciniai neuroniniai tinklai<a class="headerlink" href="#konvoliuciniai-neuroniniai-tinklai" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>David H. Hubel ir Torsten Wiesel 1958 m. atliko keletą eksperimentų su katėmis, kurie suteikė esminių įžvalgų apie regos žievės struktūrą.</p></li>
+<li><p>Jie parodė, kad daugelis regos žievės neuronų turi mažą vietinį receptorinį lauką, t. y. jie reaguoja tik į ribotoje regos lauko srityje esančius regimuosius dirgiklius.</p></li>
+<li><p>Be to, autoriai parodė, kad kai kurie neuronai reaguoja tik į horizontalių linijų vaizdus, o kiti - tik į skirtingų orientacijų linijas (du neuronai gali turėti tą patį recepcinį lauką, bet reaguoti į skirtingų orientacijų linijas).</p></li>
+<li><p>Jie taip pat pastebėjo, kad kai kurie neuronai turi didesnius recepcinius laukus ir reaguoja į sudėtingesnius raštus, kurie yra žemesnio lygio raštų deriniai.</p></li>
+<li><p>Visa tai lėmė konvoliucinio neuroninio tinklo architektūros išradimą.</p></li>
+</ul>
+<section id="konvoliucijos-operacija">
+<h2>Konvoliucijos operacija<a class="headerlink" href="#konvoliucijos-operacija" title="Link to this heading">#</a></h2>
+</section>
+<section id="konvoliucinis-sluoksnis">
+<h2>Konvoliucinis sluoksnis<a class="headerlink" href="#konvoliucinis-sluoksnis" title="Link to this heading">#</a></h2>
+<p>Svarbiausias struktūrinis blokas yra konvoliucinis sluoksnis – pirmojo konvoliucinio sluoksnio neuronai prijungiami ne prie kiekvieno įvesties vaizdo pikselio (kaip ankstesniuose skyriuose), o tik prie pikselių, esančių jų recepciniame lauke. Savo ruožtu kiekvienas antrojo konvoliucinio sluoksnio neuronas yra sujungtas tik su neuronais, esančiais nedideliame stačiakampyje pirmajame sluoksnyje. Tokia architektūra leidžia tinklui pirmajame paslėptajame sluoksnyje sutelkti dėmesį į žemo lygio požymius, tada kitame paslėptajame sluoksnyje juos surinkti į aukštesnio lygio požymius ir t. t. Tokia hierarchinė struktūra būdinga realaus pasaulio vaizdams, ir tai yra viena iš priežasčių, kodėl CNN taip gerai veikia atpažįstant vaizdus.</p>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/receptive_field.png" alt="receptive-field" width="65%">
+<p><strong>1.12 pav., Konvoliucinių sluoksnių receptinis laukas </strong></p>
+</div></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -452,6 +480,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-operacija">Konvoliucijos operacija</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucinis-sluoksnis">Konvoliucinis sluoksnis</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
