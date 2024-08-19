@@ -392,7 +392,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-operacija">Konvoliucijos operacija</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-koreliacijos-operacija">Konvoliucijos (koreliacijos) operacija</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucinis-sluoksnis">Konvoliucinis sluoksnis</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nuliu-pridejimas-angl-zero-padding">Nulių pridėjimas (angl. zero-padding)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-filtro-zingsnis-angl-stride">Konvoliucijos filtro žingsnis (angl. stride)</a></li>
@@ -418,8 +418,25 @@ document.write(`
 <li><p>Jie taip pat pastebėjo, kad kai kurie neuronai turi didesnius recepcinius laukus ir reaguoja į sudėtingesnius raštus, kurie yra žemesnio lygio raštų deriniai.</p></li>
 <li><p>Visa tai lėmė konvoliucinio neuroninio tinklo architektūros išradimą.</p></li>
 </ul>
-<section id="konvoliucijos-operacija">
-<h2>Konvoliucijos operacija<a class="headerlink" href="#konvoliucijos-operacija" title="Link to this heading">#</a></h2>
+<section id="konvoliucijos-koreliacijos-operacija">
+<h2>Konvoliucijos (koreliacijos) operacija<a class="headerlink" href="#konvoliucijos-koreliacijos-operacija" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Konvoliucija – operatorius, kuris kaip argumentus paima dvi funkcijas $f$ ir $g$ ir grąžina trečią, kuri, tam tikra prasme, parodo $f$ ir $g$ persidengimo kiekį.</p></li>
+<li><p>Dažniausiai viena funkcija imama kaip fiksuotas filtras, dar vadinamas branduoliu (angl. kernel).</p></li>
+<li><p>Diskrečioms vieno kintamojo funkcijoms konvoliucijos operacija apibrėžiama kaip:
+$$
+(f * g)(m) = \sum_{n} f(n) \cdot g(m - n)
+$$</p></li>
+</ul>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/convolution.gif" alt="convolution" width="65%">
+<p><strong>1.12 pav., Konvoliucijos operacija </strong></p>
+</div>
+<ul class="simple">
+<li><p>Šiek tiek painu: konvoliucija ir koreliacija yra labai panašios operacijos; konvoliucija yra koreliacija su filtru, pasuktu 180 laipsnių.</p></li>
+<li><p>Kadangi filtro svoriai yra išmokstami, nėra svarbu, ar atliekant operaciją filtrą apversime, ar ne, todėl skaičiavimų prasme, lengviau atlikti koreliacijos operaciją.</p></li>
+<li><p>Taigi, konvoliuciniai neuroniniai tinklai iš tiesų naudoja koreliaciją (angl. cross-correlation).</p></li>
+</ul>
 </section>
 <section id="konvoliucinis-sluoksnis">
 <h2>Konvoliucinis sluoksnis<a class="headerlink" href="#konvoliucinis-sluoksnis" title="Link to this heading">#</a></h2>
@@ -513,7 +530,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-operacija">Konvoliucijos operacija</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-koreliacijos-operacija">Konvoliucijos (koreliacijos) operacija</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucinis-sluoksnis">Konvoliucinis sluoksnis</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nuliu-pridejimas-angl-zero-padding">Nulių pridėjimas (angl. zero-padding)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-filtro-zingsnis-angl-stride">Konvoliucijos filtro žingsnis (angl. stride)</a></li>
