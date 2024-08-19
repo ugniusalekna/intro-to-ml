@@ -402,6 +402,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatinis-diferencijavimas">Automatinis diferencijavimas</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktinis-taikymas-su-pytorch">Praktinis taikymas su PyTorch</a></li>
 </ul>
             </nav>
         </div>
@@ -597,13 +598,107 @@ $$</p>
 <p><strong>1.10 pav., Sklidimo atgal algoritmo pavyzdys </strong></p>
 </div>
 <p>Galime pastebėti, kad atlikę vieną sklidimo į priekį ir vieną atgalinio sklidimo etapą, randame visas funkcijos $f:\mathbb{R}^d \rightarrow \mathbb{R}$ dalines išvestines, nepriklausomai nuo kintamųjų skaičiaus $d$, t.y. algoritmo skaičiavimo sudėtingumas priklauso tik nuo pačios funkcijos sudėtingumo.</p>
-<ul class="simple">
-<li><p>Sklidimo į priekį metu apskaičiuojamos vertės išsaugomos grafe (angl. computational graph),</p></li>
-</ul>
+<p>Sklidimo į priekį metu apskaičiuojamos vertės išsaugomos grafe (angl. computational graph); tuomet, sklidimo atgal metu išsaugomos dalinės išvestinės. Pabaigus vieną skaičiavimo ciklą bei skaičiuojant gradientus naujoje iteracijoje, būtina nunulinti gradientų reikšmes, nes kitaip jos kaupsis.</p>
 <div style="text-align: center;">
-<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/computational_graph.png" alt="computational-graph" width="65%">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/computational_graph.png" alt="computational-graph" width="100%">
 <p><strong>1.11 pav., Automatinio diferencijavimo grafas</strong></p>
 </div></section>
+</section>
+<section id="praktinis-taikymas-su-pytorch">
+<h2>Praktinis taikymas su PyTorch<a class="headerlink" href="#praktinis-taikymas-su-pytorch" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Nuo šiol modeliams kurti naudosime PyTorch. Jis pasirūpins sklidimo atgal algoritmu ir automatiniu diferencijavimu, todėl mums tereiks apibrėžti neuroninio tinklo architektūrą!</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
+
+
+<span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channels_in</span><span class="p">,</span> <span class="n">channels_hidden</span><span class="p">,</span> <span class="n">channels_out</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">channels_in</span><span class="p">,</span> <span class="n">channels_hidden</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">channels_hidden</span><span class="p">,</span> <span class="n">channels_out</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_seq</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">y_seq</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_seq</span><span class="p">)</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.25</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">criterion</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="n">log_interval</span> <span class="o">=</span> <span class="n">num_epochs</span> <span class="o">//</span> <span class="mi">10</span>
+    
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
+
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_seq</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">y_seq</span><span class="p">)</span>
+
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+            
+        <span class="n">avg_epoch_loss</span> <span class="o">=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">epoch</span> <span class="o">%</span> <span class="n">log_interval</span> <span class="ow">or</span> <span class="n">epoch</span><span class="o">+</span><span class="mi">1</span> <span class="o">==</span> <span class="n">num_epochs</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s1"> loss </span><span class="si">{</span><span class="n">avg_epoch_loss</span><span class="si">:</span><span class="s1">.04f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        
+<span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">criterion</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 0 loss 0.4488
+Epoch 50 loss 0.1783
+Epoch 100 loss 0.1278
+Epoch 150 loss 0.1199
+Epoch 200 loss 0.1132
+Epoch 250 loss 0.1069
+Epoch 300 loss 0.1013
+Epoch 350 loss 0.0966
+Epoch 400 loss 0.0930
+Epoch 450 loss 0.0905
+Epoch 499 loss 0.0888
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_seq</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_seq</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">y_seq</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="s1">&#39;bo&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Original data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_seq</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">predictions</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Fitted line&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Model Predictions vs. Original Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Input (x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Output (y)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/84325b38ebe394110574ca64cc8d2d2e0eafc174512b3948553a0862773970cf.png" src="../_images/84325b38ebe394110574ca64cc8d2d2e0eafc174512b3948553a0862773970cf.png" />
+</div>
+</div>
 </section>
 </section>
 
@@ -681,6 +776,7 @@ $$</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatinis-diferencijavimas">Automatinis diferencijavimas</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktinis-taikymas-su-pytorch">Praktinis taikymas su PyTorch</a></li>
 </ul>
   </nav></div>
 
