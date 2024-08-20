@@ -772,10 +772,7 @@ h_w(\textbf{x}) = \sigma(\textbf{x} \cdot v + b) = \frac{1}{1 + e^{-(\textbf{x} 
 $$</p>
 <p>Logistinės regresijos modelis taiko regresiją, rasti optimalią sigmoidės kreivę duomenims (iš to ir pavadinimas). Galutinė kintamojo $\textbf{x}$ klasė nusprendžiama pagal</p>
 <p>$$
-\hat{y} = \begin{cases}
-1, &amp; \text{kai } h_w(\textbf{x}) \geq 0.5, \
-0, &amp; \text{kai } h_w(\textbf{x}) &lt; 0.5.
-\end{cases}
+\hat{y} = \begin{cases} 1, &amp; \text{kai } h_w(\textbf{x}) \geq 0.5, \cr 0, &amp; \text{kai } h_w(\textbf{x}) &lt; 0.5. \end{cases}
 $$</p>
 <p>Mokant logistinę regresiją, naudojama logaritminė nuostolio funkcija, vadinama kryžminės entropijos nuostoliu (angl. binary cross-entropy). Ši funkcija apibrėžiama kaip:</p>
 <p>$$
