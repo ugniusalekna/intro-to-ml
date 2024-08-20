@@ -710,7 +710,7 @@ $$</p>
 </section>
 <section id="tikslumo-metrikos-regresijos-uzduotims">
 <h2>Tikslumo metrikos regresijos užduotims<a class="headerlink" href="#tikslumo-metrikos-regresijos-uzduotims" title="Link to this heading">#</a></h2>
-<p>Pažymėkime $i$-ąją duomenų imties atvejo prognozę $h_w(\textbf{x}^{(i)}) = \hat{y}^{(i)}$</p>
+<p>Pažymėkime $i$-ąją duomenų imties atvejo prognozę $h_w(\textbf{x}^{(i)}) = \hat{y}^{(i)}$.</p>
 <section id="vidutine-absoliuti-paklaida-mae">
 <h3>1. <strong>Vidutinė absoliuti paklaida (MAE)</strong>:<a class="headerlink" href="#vidutine-absoliuti-paklaida-mae" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -736,10 +736,10 @@ $$</p></li>
 <ul>
 <li><p>$R^2$, determinacijos koeficientas – matas iš statistikos.</p>
 <p>$$
-R^2 = 1 - \frac{\sum_{i=1}^{n} (y^{(i)} - \hat{y}^{(i)})^2}{\sum_{i=1}^{n} (y^{(i)} - \hat{y}^{(i)})^2}
+R^2 = 1 - \frac{\sum_{i=1}^{n} (y^{(i)} - \hat{y}^{(i)})^2}{\sum_{i=1}^{n} (y^{(i)} - \bar{y}^{(i)})^2}
 $$</p>
 <p>$$
-R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}^{(i)})^2}{\sum_{i=1}^{n} (y_^{(i)} - \bar{y})^2}
+R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}^{(i)})^2}{\sum_{i=1}^{n} (y^{(i)} - \bar{y})^2}
 $$</p>
 </li>
 <li><p>$R^2$ reikšmės svyruoja nuo 0 iki 1, kur 1 rodo tobulas prognozes.</p></li>
