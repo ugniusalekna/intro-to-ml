@@ -481,16 +481,14 @@ $$</p>
 &amp;\textbf{Require: } n \geq 1, w_0 \in \mathcal{W}, \epsilon &gt; 0, \eta &gt; 0 \cr
 &amp;\quad \text{Inicializuojame maks. iteracijų sk., pradinį artinį, tikslumą, žingsnio dydį} \cr
 &amp;\quad \text{Set } m \leftarrow 0 \cr
-&amp;\quad \text{Set } S \leftarrow 0 \cr
 &amp;\quad \textbf{while } m \leq n \textbf{ do} \cr
 &amp;\quad \quad m \leftarrow m + 1 \cr
 &amp;\quad \quad \text{Perskaičiuojame } w_m = w_{m-1} - \eta \nabla f(w_{m-1}) \cr
-&amp;\quad \quad S \leftarrow S + w_m \cr
 &amp;\quad \quad \textbf{if } \left| f(w_{m-1}) - f(w_m) \right| &lt; \epsilon \textbf{ then} \cr
 &amp;\qquad \quad \text{Nutraukiame ciklą} \cr
 &amp;\quad \quad \textbf{end if} \cr
 &amp;\quad \textbf{end while} \cr
-&amp;\quad \text{return } \bar{w} = \frac{S}{m}
+&amp;\quad \text{return } w_m
 \end{aligned}
 $$</p>
 <hr style="border: none; height: 2px; background-color: black;"><ul class="simple">
