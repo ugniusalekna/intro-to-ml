@@ -671,7 +671,7 @@ $$</p>
 <p>Matome, jog funkcija (funkcionalas) $\ell$ priklauso ne tik nuo vektoriaus $\textbf{x}$, tačiau ir nuo parametrų rinkinio $\boldsymbol{\theta}$. Taigi, $\ell = \ell(\textbf{x}, y; \boldsymbol{\theta})$.</p>
 <p>Anksčiau užrašydami kvadratinės paklaidos lygtį, to net nežinodami apibrėžėme empirinę riziką:</p>
 <p>$$
-R_{emp}(\boldsymbol{\theta}) = \frac{1}{n} \sum_{i=1}^{n}{\ell((\textbf{x}^{(i)}, y^{(i)}), \boldsymbol{\theta}) } = \frac{1}{n} \sum_{i=1}^{n} \left( \theta_0 + \theta_1 \textbf{x}^{(i)} + \theta_2 (\textbf{x}^{(i)})^2 + … + \theta_d (\textbf{x}^{(i)})^d - y \right)^2 = \text{MSE}(\textbf{x}^{(i)}, y^{(i)})
+R_{emp}(\boldsymbol{\theta}) = \frac{1}{n} \sum_{i=1}^{n}{\ell((\textbf{x}^{(i)}, y^{(i)}), \boldsymbol{\theta}) } = \frac{1}{n} \sum_{i=1}^{n} \left( \theta_0 + \theta_1 \textbf{x}^{(i)} + \theta_2 (\textbf{x}^{(i)})^2 + … + \theta_d (\textbf{x}^{(i)})^d - y \right)^2
 $$</p>
 <p>Empirinės rizikos minimizavimo taisyklė siūlo ieškoti optimalios hipotezės minimizuojant $R_{emp}$. Šį minimizavimo uždavinį galime išspręsti ne išreikštiniu būdu, tačiau SGD algoritmo pagalba. Tokiu atveju, optimizuojama funkcija yra $R_{emp}$, jos gradientas apibrėžiamas:</p>
 <p>$$
