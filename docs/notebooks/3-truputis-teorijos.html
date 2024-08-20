@@ -499,7 +499,6 @@ $$</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">w</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">w</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">w</span>
@@ -603,7 +602,7 @@ $$</p></li>
 <p>Iškilos ir neiškilos aibės geometrinė interpretacija:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/87e50d0486bf40e3e7349ea47562021054f580d59b45fea428826da5bb138733.png" src="../_images/87e50d0486bf40e3e7349ea47562021054f580d59b45fea428826da5bb138733.png" />
+<img alt="../_images/411cb89fb739e6e8d50d65b5420cfba9d59c7773dc397ab3977a86be5a8245f9.png" src="../_images/411cb89fb739e6e8d50d65b5420cfba9d59c7773dc397ab3977a86be5a8245f9.png" />
 </div>
 </div>
 <ul class="simple">
@@ -615,7 +614,7 @@ $$</p></li>
 <p>Iškilos ir neiškilos funkcijos geometrinė interpretacija:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/ffe574c294d6d0cdc6471f76f5135959a9e93761d4ebf0ab3536ebce91a0df79.png" src="../_images/ffe574c294d6d0cdc6471f76f5135959a9e93761d4ebf0ab3536ebce91a0df79.png" />
+<img alt="../_images/3c51e85a3c771c2426db4d745712a3e0841d6f3f4d011fb09b50b03fd74990b5.png" src="../_images/3c51e85a3c771c2426db4d745712a3e0841d6f3f4d011fb09b50b03fd74990b5.png" />
 </div>
 </div>
 <ul class="simple">
@@ -697,7 +696,7 @@ $$</p>
 
 <span class="k">def</span> <span class="nf">stochastic_gradient_descent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">num_iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
     <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># polynomial degree</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="n">num_parameters</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">d</span><span class="p">)))</span>
 
     <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">num_parameters</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># random initial_point</span>
@@ -791,7 +790,7 @@ $$</p>
     
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_1$&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_2$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;SGD Path on Empirical Risk Contour&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;SGD Path on Empirical Risk Contour&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
