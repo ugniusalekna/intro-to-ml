@@ -715,7 +715,7 @@ $$</p>
 <ul class="simple">
 <li><p>MAE yra vidutinė absoliučių skirtumų tarp prognozuotų ir tikrųjų reikšmių reikšmė.
 $$
-\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
+\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_^{(i)} - \hat{y}^{(i)}|
 $$</p></li>
 <li><p>MAE suteikiant vienodą svorį visiems nuokrypiams.</p></li>
 </ul>
@@ -725,18 +725,19 @@ $$</p></li>
 <ul class="simple">
 <li><p>MSE yra vidutinė kvadratinių skirtumų tarp prognozuotų ir tikrųjų reikšmių reikšmė.
 $$
-\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
+\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y^{(i)} - \hat{y}^{(i)})^2
 $$</p></li>
 <li><p>MSE yra jautri išskirtinėms reikšmėms, nes didesnės klaidos turės didesnę įtaką.</p></li>
 </ul>
 </section>
 <section id="r-kvadratas-r-2">
 <h3>3. <strong>R kvadratas ($R^2$)</strong>:<a class="headerlink" href="#r-kvadratas-r-2" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>$R^2$, determinacijos koeficientas – matas iš statistikos.
-$$
-R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}<em>i)^2}{\sum</em>{i=1}^{n} (y_i - \bar{y})^2}
-$$</p></li>
+<ul>
+<li><p>$R^2$, determinacijos koeficientas – matas iš statistikos.</p>
+<p>$$
+R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}^{(i)})^2}{\sum_{i=1}^{n} (y_^{(i)} - \bar{y})^2}
+$$</p>
+</li>
 <li><p>$R^2$ reikšmės svyruoja nuo 0 iki 1, kur 1 rodo tobulas prognozes.</p></li>
 </ul>
 </section>
