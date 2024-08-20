@@ -397,6 +397,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netikties-funkcija">Netikties funkcija</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daugdaros-didelio-matmens-erdvese">Daugdaros didelio matmens erdvėse</a></li>
 </ul>
             </nav>
         </div>
@@ -454,8 +455,7 @@ document.write(`
 </ul>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/gans_architecture.png" alt="gans-architecture" width="80%">
-</div>
-<section id="netikties-funkcija">
+</div><section id="netikties-funkcija">
 <h3>Netikties funkcija<a class="headerlink" href="#netikties-funkcija" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Straipsnyje, kuriame pristatyti GANs, netikties funkcija apibrėžiama formule:</p></li>
@@ -470,6 +470,27 @@ $$</p>
 \min_{G} \max_{D} L(G, D)
 $$</p>
 </section>
+</section>
+<section id="daugdaros-didelio-matmens-erdvese">
+<h2>Daugdaros didelio matmens erdvėse<a class="headerlink" href="#daugdaros-didelio-matmens-erdvese" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Kiekvieną vaizdą galime įsivaizduoti kaip tašką didelio matmens erdvėje – kiekvieno pikselio vertė atitinka tašką ant atitinkamos dimensijos ašies. Pvz., turėdami vieno kanalo (<em>grayscale</em>) nuotrauką, susidedančią iš 3 pikselių, šių nuotraukų erdvę galime geometriškai pavaizduoti 3D kubu:</p></li>
+</ul>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/manifold_hypercube.jpg" alt="manifold-hypercube" width="65%">
+</div>
+<ul class="simple">
+<li><p>Tuo tarpu, 256x256 vieno kanalo vaizdą galima pavaizduoti 65 536 matmenų hiperkube.</p></li>
+<li><p>Didžioji dauguma tokio hiperkubo taškų yra triukšmingi, beprasmiai vaizdai. Reikšmingi vaizdai, pavyzdžiui, nuotraukos ar parašyti puslapiai, šioje erdvėje pasitaiko itin retai.</p></li>
+<li><p>Daugdaros – tai mažesnio matavimo poerdviai aukšto matmens erdvėse, turintys mažiau laisvės laipsnių (t.y. gali būti atvaizduoti į mažesnio matavimo erdves).</p></li>
+<li><p>Manoma, jog prasmingi vaizdai yra išsidėstę mažesnio matmens poerdviuose šioje didelio matmens erdvėje (hiperkube). Pavyzdžiui, vaizdų, kuriuose vaizduojamas žmogaus veidas su skirtingomis išraiškomis, rinkinys yra kažkur „veidų daugdaroje“, kadangi visų tokių nuotraukų pikselių pasiskirstymai turėtų būti bent kiek panašūs. Suradus tokias daugdaras bei judant jomis, galime matyti sklandžiai (tolydžiai) besikeičiančių vaizdų animacijas.</p></li>
+</ul>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/manifold_transitions.jpg" alt="manifold-transitions" width="65%">
+</div>
+<p>Local Coordinates and Degrees of Freedom: The idea of local coordinate systems on the manifold is discussed. While the high-dimensional space offers many directions of movement, the manifold constrains movement to fewer degrees of freedom, akin to how an ant moving on a line (one-dimensional manifold) perceives the world.
+Natural Data and Manifolds: The transcript highlights that natural data, like human height and weight, often lie on or near low-dimensional manifolds within high-dimensional spaces, indicating underlying correlations or constraints.
+Generative Models and Manifold Learning: Finally, it discusses how generative models like GANs and VAEs learn to approximate these image manifolds. They map a low-dimensional latent space to the high-dimensional space of images, essentially learning the manifold structure. This mapping is optimized to allow control over image features, which is a key area of ongoing research.</p>
 </section>
 </section>
 
@@ -542,6 +563,7 @@ $$</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netikties-funkcija">Netikties funkcija</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daugdaros-didelio-matmens-erdvese">Daugdaros didelio matmens erdvėse</a></li>
 </ul>
   </nav></div>
 
