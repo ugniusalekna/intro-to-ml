@@ -418,7 +418,7 @@ document.write(`
 <li><p>Pradėsime nuo paprastesnių klasifikavimo uždavinių, kuomet klasių yra <em>dvi</em> (angl. binary classification).</p></li>
 <li><p><em>k-mate hiperplokštuma</em> vadiname aibės $\mathbb{R}^k$ taškų poaibį $H(v, b) = { \textbf{x} \in \mathbb{R}^k \mid \textbf{x} \cdot v + b = 0 }$, kur $v = (v_1, v_2, …, v_k)^T \in \mathbb{R}^k$, $b \in \mathbb{R}$ – fiksuoti dydžiai, nusakantys hiperplokštumą. Pvz., dvimatėje erdvėje ši aibė būtų tiesė, trimatėje – plokštuma.</p></li>
 <li><p>Paprasčiausi klasifikatorių modeliai gaunami bandant atskirti taškus $H(v, b)$ puserdviais $H^{+}(v, b) = { \textbf{x} \in \mathbb{R}^k \mid \textbf{x} \cdot v + b \geq 0 }$ ir $\mathbb{R}^k \setminus H^{+}(v, b)$, atitinkamai. Parametrų rinkinį $(v, b)$ kartais žymėsime $ w = (v, b) \in \mathbb{R}^{k+1}$.</p></li>
-<li><p>Klasių aibė žymėsime $\mathcal{Y} = {-1, 1}$. Tokiu atveju, hipotezė yra laiptinė funkcija, užrašoma:</p></li>
+<li><p>Klasių aibė žymėsime $\mathcal{Y} = \{-1, 1\}$. Tokiu atveju, hipotezė yra laiptinė funkcija, užrašoma:</p></li>
 </ul>
 <p>$$
 h_w(\textbf{x}) = \begin{cases} 1, \text{ kai } \textbf{x} \in H^+(w) \cr -1, \text{ kai } \textbf{x} \in \mathbb{R}^k \setminus H^+(w) = \left(H^+(w)\right)^c \end{cases}
@@ -727,7 +727,7 @@ $$</p>
 </section>
 <section id="logistines-regresijos-klasifikatorius">
 <h2>Logistinės regresijos klasifikatorius<a class="headerlink" href="#logistines-regresijos-klasifikatorius" title="Link to this heading">#</a></h2>
-<p>Paprastumo dėlei, pažymėkime klasių aibę $\mathcal{Y} = {0, 1}$. Tokiu atveju, klasifikavimo uždavinio hipotezė yra laiptinė funkcija, užrašoma:</p>
+<p>Paprastumo dėlei, pažymėkime klasių aibę $\mathcal{Y} = { 0, 1 }$. Tokiu atveju, klasifikavimo uždavinio hipotezė yra laiptinė funkcija, užrašoma:</p>
 <p>$$
 h_w(\textbf{x}) = \begin{cases} 1, \text{ kai } \textbf{x} \in H^+(w) \cr 0, \text{ kai } \textbf{x} \in \mathbb{R}^k \setminus H^+(w) = \left(H^+(w)\right)^c \end{cases}
 $$</p>
