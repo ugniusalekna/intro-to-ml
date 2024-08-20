@@ -369,7 +369,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -385,6 +387,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagrindiniai-komponentai">Pagrindiniai komponentai</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarinio-mokymosi-procesas">Adversarinio mokymosi procesas</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -396,6 +407,52 @@ document.write(`
                   
   <section id="generatyviniai-neuroniniai-tinklai">
 <h1>Generatyviniai neuroniniai tinklai<a class="headerlink" href="#generatyviniai-neuroniniai-tinklai" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Generatyviniai adversariniai tinklai (angl. generative adversarial networks, GANs) yra dar viena dirbtinių neuroninių tinklų architektūra, naudojama naujų duomenų (vaizdo, garso) generavimui.</p></li>
+<li><p>Idėja buvo prisatyta 2014 m. mokslininko Ian Goodfellow ir jo kolegų.</p></li>
+</ul>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/gans_paper.png" alt="gans-paper" width="35%">
+<p><strong>1.14 pav., Straipsnis, kuriame pristatyti GANs </strong></p>
+</div><ul class="simple">
+<li><p>Iki GAN tinklų atsiradimo generatyviniai modeliai nė neegzistavo. Kai kurie eksperimentai buvo atliekami su autokoderiais, dažnai duodančiais neryškius vaizdus, artefaktus.</p></li>
+<li><p>Bet žmonės jau žinojo, kaip sukurti galingus vaizdų klasifikatorius! 2012 m. pasirodęs <em>AlexNet</em> modelis buvo pirmasis modelis, sutriuškinęs savo konkurentus vaizdo klasifikavimo uždaviniuose.</p></li>
+<li><p>Goodfellow idėja buvo, užuot kūrus galingą generatorių, paimti jau egzistuojančio klasifikatoriaus (kurį jis pavadino diskriminatoriumi) architektūrą bei jį panaudoti <em>apmokant kitą modelį</em>, atsakingą už naujų duomenų generavimą.</p></li>
+<li><p>Pagrindinė GAN inovacija – generatoriaus užduotis ne tiesiogiai sukurti duomenis, panašius į apmokymo aibę (labai sunki užduotis), bet sukurti tokius duomenis, kurie galėtų apgauti diskriminatorių, klasifikuojant juos kaip tikrus.</p></li>
+</ul>
+<section id="pagrindiniai-komponentai">
+<h2>Pagrindiniai komponentai<a class="headerlink" href="#pagrindiniai-komponentai" title="Link to this heading">#</a></h2>
+<p><strong>Generatorius (G)</strong>: Generatoriaus tinklo tikslas - sukurti duomenų pavyzdžius, kurie nesiskirtų nuo tikrų duomenų. Jis pradeda su atsitiktiniu triukšmo vektoriumi ir paverčia jį duomenų pavyzdžiu. Generatoriaus tikslas - sukurti išvestį, kuri būtų kuo artimesnė tikrajam duomenų pasiskirstymui.</p>
+<p><strong>Diskriminatorius (D)</strong>: Diskriminatorius yra binarinis klasifikatorius, kuriuo bandoma atskirti tikruosius duomenų pavyzdžius nuo generatoriaus sukurtų pavyzdžių. Jo įvestis tikras arba sugeneruotas duomenų rinkinio pavyzdys, o išvestis – tikimybė, nurodanti, ar pavyzdys yra klasifikuojamsa kaip tikras, ar kaip netikras.</p>
+</section>
+<section id="adversarinio-mokymosi-procesas">
+<h2>Adversarinio mokymosi procesas<a class="headerlink" href="#adversarinio-mokymosi-procesas" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>GAN tinklo apmokymas yra minmax optimizavimo uždavinys tarp generatoriaus ir diskriminatoriaus</p></li>
+<li><p>Mokymosi pradžioje generatorius pateikia akivaizdžiai netikrus duomenis, todėls diskriminatorius greitai išmoksta nustatyti, kad jie yra netikri</p></li>
+</ul>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/gans_0.png" alt="gans-example" width="95%">
+</div>
+<ul class="simple">
+<li><p>Tęsiantis mokymosi procesui, generatorius vis labiau artėja prie sugeneruotų duomenų, galinčių apgauti diskriminatorių.</p></li>
+</ul>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/gans_1.png" alt="gans-example" width="95%">
+</div>
+<ul class="simple">
+<li><p>Galiausiai, jei generatoriaus apmokymas pavyksta, diskriminatorius vis prasčiau atskiria tikrą duomenų atvejį nuo netikro. Jis pradeda klasifikuoti netikrus duomenis kaip tikrus, ir jo tikslumas mažėja.</p></li>
+</ul>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/gans_2.png" alt="gans-example" width="95%">
+</div>
+<ul class="simple">
+<li><p>GAN architektūros schema atrodo daugmaž taip:</p></li>
+</ul>
+<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/gans_architecture.png" alt="gans-architecture" width="95%">
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -452,6 +509,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagrindiniai-komponentai">Pagrindiniai komponentai</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarinio-mokymosi-procesas">Adversarinio mokymosi procesas</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
