@@ -470,6 +470,10 @@ $$</p>
 <p>$$
 \min_{G} \max_{D} L(G, D)
 $$</p>
+<blockquote>
+<div><p>[GAN] is the most exciting in the last 10 years in Machine Learning.</p>
+<p>— <strong>Yann LeCun</strong></p>
+</div></blockquote>
 </section>
 </section>
 <section id="daugdaros-didelio-matmens-erdvese">
@@ -534,7 +538,7 @@ $$</p>
     <span class="s2">&quot;bicycle&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
-<span class="n">train_data</span> <span class="o">=</span> <span class="n">load_quickdraw_data</span><span class="p">(</span><span class="n">CLASSES</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">))</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">load_quickdraw_data</span><span class="p">(</span><span class="n">CLASSES</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="n">max_drawings_per_class</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -834,121 +838,7 @@ torch.Size([1, 1, 64, 64])
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                      
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">31</span><span class="p">],</span> <span class="n">line</span> <span class="mi">10</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">optimizer_D</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">discriminator</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">LEARNING_RATE_D</span><span class="p">,</span> <span class="n">betas</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">optimizer_G</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">generator</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">LEARNING_RATE_G</span><span class="p">,</span> <span class="n">betas</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">))</span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="n">train_gan</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">discriminator</span><span class="p">,</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">optimizer_G</span><span class="p">,</span> <span class="n">optimizer_D</span><span class="p">,</span> 
-<span class="g g-Whitespace">     </span><span class="mi">11</span>           <span class="n">criterion</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">NUM_EPOCHS</span><span class="p">,</span> <span class="n">latent_dim</span><span class="o">=</span><span class="n">LATENT_DIM</span><span class="p">,</span> <span class="n">log_dir</span><span class="o">=</span><span class="n">LOG_DIR</span><span class="p">)</span>
-
-<span class="nn">Cell In[25], line 38,</span> in <span class="ni">train_gan</span><span class="nt">(generator, discriminator, train_loader, optimizer_G, optimizer_D, criterion, device, num_epochs, latent_dim, log_dir)</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span> <span class="n">fake_labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span> <span class="c1"># 1 - real</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span> <span class="n">d_loss_real</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">discriminator</span><span class="p">(</span><span class="n">real_images</span><span class="p">),</span> <span class="n">real_labels</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">38</span> <span class="n">d_loss_fake</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">discriminator</span><span class="p">(</span><span class="n">generator</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()),</span> <span class="n">fake_labels</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">40</span> <span class="n">d_loss</span> <span class="o">=</span> <span class="n">d_loss_real</span> <span class="o">+</span> <span class="n">d_loss_fake</span>
-<span class="g g-Whitespace">     </span><span class="mi">41</span> <span class="n">d_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/torch/nn/modules/module.py:1716,</span> in <span class="ni">Module._wrapped_call_impl</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1714</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compiled_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1715</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1716</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/torch/nn/modules/module.py:1727,</span> in <span class="ni">Module._call_impl</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1722</span> <span class="c1"># If we don&#39;t have any hooks, we want to skip the rest of the logic in</span>
-<span class="g g-Whitespace">   </span><span class="mi">1723</span> <span class="c1"># this function, and just call forward.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1724</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_pre_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_pre_hooks</span>
-<span class="g g-Whitespace">   </span><span class="mi">1725</span>         <span class="ow">or</span> <span class="n">_global_backward_pre_hooks</span> <span class="ow">or</span> <span class="n">_global_backward_hooks</span>
-<span class="g g-Whitespace">   </span><span class="mi">1726</span>         <span class="ow">or</span> <span class="n">_global_forward_hooks</span> <span class="ow">or</span> <span class="n">_global_forward_pre_hooks</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1727</span>     <span class="k">return</span> <span class="n">forward_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1729</span> <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1730</span>     <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
-
-<span class="nn">Cell In[23], line 30,</span> in <span class="ni">Generator.forward</span><span class="nt">(self, x)</span>
-<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">30</span>     <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deconv_blocks</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">31</span>     <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/torch/nn/modules/module.py:1716,</span> in <span class="ni">Module._wrapped_call_impl</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1714</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compiled_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1715</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1716</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/torch/nn/modules/module.py:1727,</span> in <span class="ni">Module._call_impl</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1722</span> <span class="c1"># If we don&#39;t have any hooks, we want to skip the rest of the logic in</span>
-<span class="g g-Whitespace">   </span><span class="mi">1723</span> <span class="c1"># this function, and just call forward.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1724</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_pre_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_pre_hooks</span>
-<span class="g g-Whitespace">   </span><span class="mi">1725</span>         <span class="ow">or</span> <span class="n">_global_backward_pre_hooks</span> <span class="ow">or</span> <span class="n">_global_backward_hooks</span>
-<span class="g g-Whitespace">   </span><span class="mi">1726</span>         <span class="ow">or</span> <span class="n">_global_forward_hooks</span> <span class="ow">or</span> <span class="n">_global_forward_pre_hooks</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1727</span>     <span class="k">return</span> <span class="n">forward_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1729</span> <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1730</span>     <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/torch/nn/modules/container.py:249,</span> in <span class="ni">Sequential.forward</span><span class="nt">(self, input)</span>
-<span class="g g-Whitespace">    </span><span class="mi">247</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">248</span>     <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">249</span>         <span class="nb">input</span> <span class="o">=</span> <span class="n">module</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">250</span>     <span class="k">return</span> <span class="nb">input</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/torch/nn/modules/module.py:1716,</span> in <span class="ni">Module._wrapped_call_impl</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1714</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compiled_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1715</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1716</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/torch/nn/modules/module.py:1727,</span> in <span class="ni">Module._call_impl</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1722</span> <span class="c1"># If we don&#39;t have any hooks, we want to skip the rest of the logic in</span>
-<span class="g g-Whitespace">   </span><span class="mi">1723</span> <span class="c1"># this function, and just call forward.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1724</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_pre_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_pre_hooks</span>
-<span class="g g-Whitespace">   </span><span class="mi">1725</span>         <span class="ow">or</span> <span class="n">_global_backward_pre_hooks</span> <span class="ow">or</span> <span class="n">_global_backward_hooks</span>
-<span class="g g-Whitespace">   </span><span class="mi">1726</span>         <span class="ow">or</span> <span class="n">_global_forward_hooks</span> <span class="ow">or</span> <span class="n">_global_forward_pre_hooks</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1727</span>     <span class="k">return</span> <span class="n">forward_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1729</span> <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1730</span>     <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/torch/nn/modules/container.py:249,</span> in <span class="ni">Sequential.forward</span><span class="nt">(self, input)</span>
-<span class="g g-Whitespace">    </span><span class="mi">247</span> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">248</span>     <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">249</span>         <span class="nb">input</span> <span class="o">=</span> <span class="n">module</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">250</span>     <span class="k">return</span> <span class="nb">input</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/torch/nn/modules/module.py:1716,</span> in <span class="ni">Module._wrapped_call_impl</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1714</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compiled_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1715</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1716</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/torch/nn/modules/module.py:1727,</span> in <span class="ni">Module._call_impl</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1722</span> <span class="c1"># If we don&#39;t have any hooks, we want to skip the rest of the logic in</span>
-<span class="g g-Whitespace">   </span><span class="mi">1723</span> <span class="c1"># this function, and just call forward.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1724</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_pre_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_hooks</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_pre_hooks</span>
-<span class="g g-Whitespace">   </span><span class="mi">1725</span>         <span class="ow">or</span> <span class="n">_global_backward_pre_hooks</span> <span class="ow">or</span> <span class="n">_global_backward_hooks</span>
-<span class="g g-Whitespace">   </span><span class="mi">1726</span>         <span class="ow">or</span> <span class="n">_global_forward_hooks</span> <span class="ow">or</span> <span class="n">_global_forward_pre_hooks</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1727</span>     <span class="k">return</span> <span class="n">forward_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1729</span> <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1730</span>     <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
-
-<span class="nn">File ~/miniconda3/envs/py311/lib/python3.11/site-packages/torch/nn/modules/conv.py:1150,</span> in <span class="ni">ConvTranspose2d.forward</span><span class="nt">(self, input, output_size)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1139</span> <span class="n">num_spatial_dims</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="g g-Whitespace">   </span><span class="mi">1140</span> <span class="n">output_padding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_padding</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1141</span>     <span class="nb">input</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1142</span>     <span class="n">output_size</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1147</span>     <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1148</span> <span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1150</span> <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">conv_transpose2d</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1151</span>     <span class="nb">input</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1152</span>     <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1153</span>     <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1154</span>     <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1155</span>     <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1156</span>     <span class="n">output_padding</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1157</span>     <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1158</span>     <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1159</span> <span class="p">)</span>
-
-<span class="ne">RuntimeError</span>: Expected 3D (unbatched) or 4D (batched) input to conv_transpose2d, but got input of size: [64, 100]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch [1/10]:   8%|▊         | 13/156 [00:02&lt;00:29,  4.83it/s]
 </pre></div>
 </div>
 </div>
