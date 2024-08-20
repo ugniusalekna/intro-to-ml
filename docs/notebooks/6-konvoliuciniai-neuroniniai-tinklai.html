@@ -1229,7 +1229,7 @@ load complete
         <span class="n">conv_output_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_conv_output_size</span><span class="p">(</span><span class="o">*</span><span class="n">image_size</span><span class="p">)</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">fc_blocks</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
-            <span class="n">LinearBlock</span><span class="p">(</span><span class="n">conv_output_size</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
+            <span class="n">LinearBlock</span><span class="p">(</span><span class="n">conv_output_size</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="mf">0.25</span><span class="p">),</span>
             <span class="n">LinearBlock</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="p">)</span>
         
