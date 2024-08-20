@@ -393,7 +393,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagrindiniai-komponentai">Pagrindiniai komponentai</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarinio-mokymosi-procesas">Adversarinio mokymosi procesas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarinio-mokymosi-procesas">Adversarinio mokymosi procesas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netikties-funkcija">Netikties funkcija</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -452,6 +455,21 @@ document.write(`
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/gans_architecture.png" alt="gans-architecture" width="95%">
 </div>
+<section id="netikties-funkcija">
+<h3>Netikties funkcija<a class="headerlink" href="#netikties-funkcija" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Straipsnyje, kuriame pristatyti GANs, netikties funkcija apibrėžiama formule:</p></li>
+</ul>
+<p>$$
+L(G, D) = \frac{1}{m} \sum_{i=1}^{m} [\log D(x^{(i)})] + \frac{1}{m} \sum_{i=1}^{m} [\log(1 - D(G(z^{(i)})))]
+$$</p>
+<ul class="simple">
+<li><p>Generatorius ($G$) stengiasi minimizuoti šią funkciją, o diskriminatorius ($D$) stengiasi ją maksimizuoti (nes norime “apgauti” diskriminatorių). Tai yra kiek kitokia optimizavimo forma, nuo mums įprastos $\min_{w} f(w)$:</p></li>
+</ul>
+<p>$$
+\min_{G} \max_{D} L(G, D)
+$$</p>
+</section>
 </section>
 </section>
 
@@ -520,7 +538,10 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pagrindiniai-komponentai">Pagrindiniai komponentai</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarinio-mokymosi-procesas">Adversarinio mokymosi procesas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarinio-mokymosi-procesas">Adversarinio mokymosi procesas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netikties-funkcija">Netikties funkcija</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
