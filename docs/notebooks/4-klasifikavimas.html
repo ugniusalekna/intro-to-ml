@@ -436,7 +436,7 @@ $$</p>
 <hr style="border: none; height: 2px; background-color: black;">
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/support_vector_machines.png" alt="hyperplane-svm" width="65%">
-<p><strong>1.6 pav., Hiperplokštumų pavyzdys dvimačiu atveju</strong></p>
+<p><strong>4.1 pav., Hiperplokštumų pavyzdys dvimačiu atveju</strong></p>
 </div>
 <hr style="border: none; height: 2px; background-color: black;">
 <ul class="simple">
@@ -463,7 +463,7 @@ $$</p>
 <hr style="border: none; height: 2px; background-color: black;">
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/margin_svm.png" alt="margin-svm" width="65%">
-<p><strong>1.7 pav., Konstantos C poveikis sprendinio paraštės dydžiui </strong></p>
+<p><strong>4.2 pav., Konstantos C poveikis sprendinio paraštės dydžiui </strong></p>
 </div>
 <hr style="border: none; height: 2px; background-color: black;"><div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -639,9 +639,7 @@ Confusion Matrix:
 <h2>Branduolio triukas<a class="headerlink" href="#branduolio-triukas" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Atvejis, kai duomenys nėra separabilūs, reiškia, kad negalime rasti hiperplokštumos, kuri visiškai atskirtų dvi klases. Tokiais atvejais, SVM klasifikatorius gali būti išplėstas naudojant <em>branduolio triuką</em>.</p></li>
-</ul>
-<p>Branduolio triukas leidžia SVM modeliuoti sudėtingesnes klasifikavimo kreives, nei tai būtų galima padaryti tiesiogiai su originaliais požymiais. Šis triukas išplečia erdvę, į kurią projekuojami duomenys, naudojant netiesinę transformaciją, vadinamą <em>branduolio funkcija</em> $\phi(\textbf{x})$.</p>
-<ul class="simple">
+<li><p>Branduolio triukas leidžia SVM modeliuoti sudėtingesnes klasifikavimo kreives, nei tai būtų galima padaryti tiesiogiai su originaliais požymiais. Šis triukas išplečia erdvę, į kurią projekuojami duomenys, naudojant netiesinę transformaciją, vadinamą <em>branduolio funkcija</em> $\phi(\textbf{x})$.</p></li>
 <li><p>Vietoje tiesinio hiperplokštumos ieškojimo originalioje požymių erdvėje $\mathcal{X}$, branduolio funkcija leidžia perkelti duomenis į aukštesnės dimensijos erdvę, kurioje duomenys gali būti būti atskirti hiperplokštuma:</p></li>
 </ul>
 <div style="text-align: center;">
@@ -654,7 +652,9 @@ Confusion Matrix:
 <p>$$
 K(\textbf{x}, \textbf{z}) = \langle \phi(\textbf{x}), \phi(\textbf{z}) \rangle.
 $$</p>
-<p>Tačiau vietoje to, kad apskaičiuotume $ \phi(\textbf{x}) $ ir $ \phi(\textbf{z}) $ atskirai, branduolio funkcija leidžia tiesiogiai apskaičiuoti šią sandaugą originalioje erdvėje, naudojant mažiau skaičiavimo išteklių.</p>
+<ul class="simple">
+<li><p>Tačiau vietoje to, kad apskaičiuotume $ \phi(\textbf{x}) $ ir $ \phi(\textbf{z}) $ atskirai, branduolio funkcija leidžia tiesiogiai apskaičiuoti šią sandaugą originalioje erdvėje, naudojant mažiau skaičiavimo išteklių.</p></li>
+</ul>
 <section id="daznai-naudojamos-branduolio-funkcijos">
 <h3>Dažnai naudojamos branduolio funkcijos<a class="headerlink" href="#daznai-naudojamos-branduolio-funkcijos" title="Link to this heading">#</a></h3>
 <ol class="arabic">
