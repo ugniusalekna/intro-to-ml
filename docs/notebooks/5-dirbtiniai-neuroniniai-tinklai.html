@@ -532,7 +532,7 @@ $$</p>
 </ul>
 <p>Apibrėžkime nesudėtingą dviejų sluoksnių dirbtinį neuroninį tinklą:
 $$
-h_n(x) = \sum_{j=1}^{n} w_{j} \sigma\left(\sum_{i=1}^{d} w_{ij} x_i + b_j\right) + b.
+h_n(\textbf{x}) = \sum_{j=1}^{n} w_{j} \sigma\left(\sum_{i=1}^{d} w_{ij} x_i + b_j\right) + b.
 $$</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -575,7 +575,7 @@ $$</p>
         <iframe
             width="100%"
             height="650"
-            src="http://127.0.0.1:8050/"
+            src="http://127.0.0.1:8054/"
             frameborder="0"
             allowfullscreen
             
@@ -590,7 +590,7 @@ $$</p>
 <p>Algoritmas yra efektyvus, nes tik per du perėjimus per tinklą (vieną pirmyn, kitą atgal) galima apskaičiuoti empirinės rizikos funkcijos gradientą kiekvieno modelio parametro atžvilgiu.</p>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/backprop.png" alt="backprop" width="65%">
-<p><strong>1.9 pav., Sklidimo atgal algoritmas </strong></p>
+<p><strong>5.3 pav., Sklidimo atgal algoritmas </strong></p>
 </div><p>Iki šiol, gradientus apskaičiuodavome apibrėždami juos iš anksto pagal tam tikras formules. Tai veikė gerai, kadangi turimi modeliai buvo stacionarūs (pvz., tiesinės regresijos hipotezė visada tokia pati, todėl galime apibrėžti empirinės rizikos funkcijos gradientą ir ją naudoti optimizavime). Dirbtiniai neuroniniai tinklai, kita vertus, yra labai universalūs, gali būti didinami bei mažinami (plotis, gylis), todėl apibrėžti gradiento negalime.</p>
 <p>Skaitiškai apskaičiuoti funkcijos išvestinę yra daug būdų, pavyzdžiui:</p>
 <div class="cell docutils container">
@@ -641,13 +641,13 @@ $$</p>
 <p>Nagrinėkime dviejų kintamųjų funkciją $f(x_1, x_2) = \frac{3}{1 + \text{e}^{-(2x_1 - 3x_2 + 2)}} - 1$ (<em>pastaba</em>: toks funkcijos pasirinkimas neatsitiktinis – atkreipkite dėmesį į neuroninio tinklo išraišką). Tuomet $f$ galime užrašyti kaip funkcijų $h_1: \mathbb{R}^2 \rightarrow \mathbb{R}, h_2: \mathbb{R} \rightarrow \mathbb{R}, h_3: \mathbb{R} \rightarrow \mathbb{R}$ kompoziciją, $f = h_3 \circ h_2 \circ h_1$, kur $h_1(x, y) = 2x - 3y + 2$, $h_2(x) = \frac{1}{1 + \text{e}^{-x}}$, $h_3(x) = 3x - 1$. Apskaičiuosime funkcijos $f$ dalines išvestines $\frac{\partial f}{\partial x_1}$, $\frac{\partial f}{\partial x_2}$ taške $(x_1, x_2) = (0.5, 1)$:</p>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/backprop_example.png" alt="backprop-example" width="65%">
-<p><strong>1.10 pav., Sklidimo atgal algoritmo pavyzdys </strong></p>
+<p><strong>5.4 pav., Sklidimo atgal algoritmo pavyzdys </strong></p>
 </div>
 <p>Galime pastebėti, kad atlikę vieną sklidimo į priekį ir vieną atgalinio sklidimo etapą, randame visas funkcijos $f:\mathbb{R}^d \rightarrow \mathbb{R}$ dalines išvestines, nepriklausomai nuo kintamųjų skaičiaus $d$, t.y. algoritmo skaičiavimo sudėtingumas priklauso tik nuo pačios funkcijos sudėtingumo.</p>
 <p>Sklidimo į priekį metu apskaičiuojamos vertės išsaugomos grafe (angl. computational graph); tuomet, sklidimo atgal metu išsaugomos dalinės išvestinės. Pabaigus vieną skaičiavimo ciklą bei skaičiuojant gradientus naujoje iteracijoje, būtina nunulinti gradientų reikšmes, nes kitaip jos kaupsis.</p>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/computational_graph.png" alt="computational-graph" width="100%">
-<p><strong>1.11 pav., Automatinio diferencijavimo grafas</strong></p>
+<p><strong>5.5 pav., Automatinio diferencijavimo grafas</strong></p>
 </div></section>
 </section>
 <section id="praktinis-taikymas-su-pytorch">
