@@ -393,12 +393,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matematine-formuluote">Matematinė formuluotė</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netikties-funkcijos">Netikties funkcijos</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kvadratine-netiktis-angl-mean-squared-error-mse">1. <strong>Kvadratinė netiktis (angl. Mean Squared Error, MSE)</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#logaritmine-netiktis-angl-log-loss">2. <strong>Logaritminė netiktis (angl. Log Loss)</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kryzmines-entropijos-netiktis-angl-cross-entropy-loss">3. <strong>Kryžminės entropijos netiktis (angl. Cross-Entropy Loss)</strong></a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netikties-funkcijos">Netikties funkcijos</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aktyvacijos-funkcija">Aktyvacijos funkcija</a><ul class="nav section-nav flex-column">
@@ -470,40 +465,40 @@ $$</p>
 <ul class="simple">
 <li><p>Priklausomai nuo to, kokią netikties (empirinės rizikos) funkciją parinksime, pagal tai bus formuluojamas atitinkamas optimizavimo uždavinys. Netikties funkcijos pasirinkimas priklauso nuo problemos tipo. Pvz., regresijos užduotims dažniausiai naudojama kvadratinė netiktis, o klasifikavimo užduotims – logaritminė arba kryžminės entropijos netiktis.</p></li>
 </ul>
-<section id="kvadratine-netiktis-angl-mean-squared-error-mse">
-<h4>1. <strong>Kvadratinė netiktis (angl. Mean Squared Error, MSE)</strong><a class="headerlink" href="#kvadratine-netiktis-angl-mean-squared-error-mse" title="Link to this heading">#</a></h4>
-<p>Kvadratinė netiktis dažniausiai naudojama regresijos užduotims spręsti. Ši funkcija skaičiuoja skirtumo tarp tikrosios reikšmės $y^i$ ir modelio prognozės $h^L(x^i;\theta)$ kvadratą:</p>
+<ol class="arabic simple">
+<li><p><strong>Kvadratinė netiktis (angl. Mean Squared Error, MSE)</strong></p></li>
+</ol>
+<p>Kvadratinė netiktis dažniausiai naudojama regresijos užduotims spręsti. Ši funkcija skaičiuoja skirtumo tarp tikrosios reikšmės $y$ ir modelio prognozės $h^L(\textbf{x};\theta)$ kvadratą:</p>
 <p>$$
-\ell_{\text{MSE}}\left((x^i, y^i), h^L(x^i;\theta)\right) = \left(y^i - h^L(x^i;\theta)\right)^2.
+\ell_{\text{MSE}}\left((\textbf{x}, y), h^L(\textbf{x};\theta)\right) = \left(y - h^L(\textbf{x};\theta)\right)^2.
 $$</p>
 <p>Empirinė rizika tokiu atveju bus:</p>
 <p>$$
-R_{\text{emp}}(h^L) = \frac{1}{N} \sum_{i=1}^{N} \left(y^i - h^L(x^i;\theta)\right)^2.
+R_{\text{emp}}(h^L) = \frac{1}{N} \sum_{i=1}^{N} \left(y^i - h^L(\textbf{x}^{(i)};\theta)\right)^2.
 $$</p>
-</section>
-<section id="logaritmine-netiktis-angl-log-loss">
-<h4>2. <strong>Logaritminė netiktis (angl. Log Loss)</strong><a class="headerlink" href="#logaritmine-netiktis-angl-log-loss" title="Link to this heading">#</a></h4>
+<ol class="arabic simple" start="2">
+<li><p><strong>Logaritminė netiktis (angl. Log Loss)</strong></p></li>
+</ol>
 <p>Logaritminė netiktis dažniausiai naudojama binarinės klasifikacijos uždaviniuose, kai modelis siekia nustatyti tikimybę, jog pavyzdys priklauso tam tikrai klasei:</p>
 <p>$$
-\ell_{\text{log}}\left((x^i, y^i), h^L(x^i;\theta)\right) = - \left[ y^i \log h^L(x^i;\theta) + (1 - y^i) \log \left(1 - h^L(x^i;\theta)\right) \right].
+\ell_{\text{log}}\left((\textbf{x}, y), h^L(\textbf{x};\theta)\right) = - \left[ y \log h^L(\textbf{x};\theta) + (1 - y) \log \left(1 - h^L(\textbf{x};\theta)\right) \right].
 $$</p>
 <p>Empirinė rizika tokiu atveju bus:</p>
 <p>$$
-R_{\text{emp}}(h^L) = -\frac{1}{N} \sum_{i=1}^{N} \left[ y^i \log h^L(x^i;\theta) + (1 - y^i) \log \left(1 - h^L(x^i;\theta)\right) \right].
+R_{\text{emp}}(h^L) = -\frac{1}{N} \sum_{i=1}^{N} \left[ y^i \log h^L(\textbf{x}^{(i)};\theta) + (1 - y^i) \log \left(1 - h^L(\textbf{x}^{(i)};\theta)\right) \right].
 $$</p>
-</section>
-<section id="kryzmines-entropijos-netiktis-angl-cross-entropy-loss">
-<h4>3. <strong>Kryžminės entropijos netiktis (angl. Cross-Entropy Loss)</strong><a class="headerlink" href="#kryzmines-entropijos-netiktis-angl-cross-entropy-loss" title="Link to this heading">#</a></h4>
+<ol class="arabic simple" start="3">
+<li><p><strong>Kryžminės entropijos netiktis (angl. Cross-Entropy Loss)</strong></p></li>
+</ol>
 <p>Kryžminė entropija yra bendresnis logaritminės netikties atvejis, naudojamas daugiaklasėje klasifikacijoje. Jei turime $K$ klasių, kryžminės entropijos netiktis apibrėžiama taip:</p>
 <p>$$
-\ell_{\text{CE}}\left((x^i, y^i), h^L(x^i;\theta)\right) = - \sum_{k=1}^{K} y_k^i \log h_k^L(x^i;\theta),
+\ell_{\text{CE}}\left((\textbf{x}, y), h^L(\textbf{x};\theta)\right) = - \sum_{k=1}^{K} y_k \log h_k^L(\textbf{x};\theta),
 $$</p>
-<p>kur $y_k^i$ yra reikšmė, nurodanti tikrąją klasę, o $h_k^L(x^i;\theta)$ yra modelio prognozuota tikimybė klasei $k$.</p>
+<p>kur $y_k$ yra reikšmė, nurodanti tikrąją klasę, o $h_k^L(\textbf{x};\theta)$ yra modelio prognozuota tikimybė klasei $k$.</p>
 <p>Empirinė rizika tokiu atveju bus:</p>
 <p>$$
-R_{\text{emp}}(h^L) = -\frac{1}{N} \sum_{i=1}^{N} \sum_{k=1}^{K} y_k^i \log h_k^L(x^i;\theta).
+R_{\text{emp}}(h^L) = -\frac{1}{N} \sum_{i=1}^{N} \sum_{k=1}^{K} y_k^i \log h_k^L(\textbf{x}^{(i)};\theta).
 $$</p>
-</section>
 </section>
 </section>
 <section id="aktyvacijos-funkcija">
@@ -513,7 +508,7 @@ $$</p>
 </ul>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/activation_functions.jpg" alt="activation-functions" width="65%">
-<p><strong>1.11 pav., Dažniausiai naudojamos aktyvacijos funkcijos </strong></p>
+<p><strong>5.2 pav., Dažniausiai naudojamos aktyvacijos funkcijos </strong></p>
 </div>
 <ul class="simple">
 <li><p>Puikus puslapis, parodantis aktyvacijos funkcijos svarbą ir daug kitų aspektų: <a class="reference external" href="https://playground.tensorflow.org/#activation=tanh&amp;amp;batchSize=10&amp;amp;dataset=circle&amp;amp;regDataset=reg-plane&amp;amp;learningRate=0.03&amp;amp;regularizationRate=0&amp;amp;noise=0&amp;amp;networkShape=4,2&amp;amp;seed=0.13358&amp;amp;showTestData=false&amp;amp;discretize=false&amp;amp;percTrainData=50&amp;amp;x=true&amp;amp;y=true&amp;amp;xTimesY=false&amp;amp;xSquared=false&amp;amp;ySquared=false&amp;amp;cosX=false&amp;amp;sinX=false&amp;amp;cosY=false&amp;amp;sinY=false&amp;amp;collectStats=false&amp;amp;problem=classification&amp;amp;initZero=false&amp;amp;hideText=false">Tensorflow Playground</a></p></li>
@@ -1033,12 +1028,7 @@ Epoch [100/100]; Train Loss: 0.0704; Validation Loss: 0.0660
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matematine-formuluote">Matematinė formuluotė</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netikties-funkcijos">Netikties funkcijos</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kvadratine-netiktis-angl-mean-squared-error-mse">1. <strong>Kvadratinė netiktis (angl. Mean Squared Error, MSE)</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#logaritmine-netiktis-angl-log-loss">2. <strong>Logaritminė netiktis (angl. Log Loss)</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kryzmines-entropijos-netiktis-angl-cross-entropy-loss">3. <strong>Kryžminės entropijos netiktis (angl. Cross-Entropy Loss)</strong></a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netikties-funkcijos">Netikties funkcijos</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aktyvacijos-funkcija">Aktyvacijos funkcija</a><ul class="nav section-nav flex-column">
