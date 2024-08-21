@@ -399,6 +399,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistines-regresijos-klasifikatorius">Logistinės regresijos klasifikatorius</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktine-uzduotis">Praktinė užduotis</a></li>
 </ul>
             </nav>
         </div>
@@ -1097,7 +1098,7 @@ $$</p>
 </section>
 <section id="logistines-regresijos-klasifikatorius">
 <h2>Logistinės regresijos klasifikatorius<a class="headerlink" href="#logistines-regresijos-klasifikatorius" title="Link to this heading">#</a></h2>
-<p>Paprastumo dėlei, pažymėkime klasių aibę $\mathcal{Y} = \{0, 1\}$. Tokiu atveju, klasifikavimo uždavinio hipotezė yra laiptinė funkcija, užrašoma:</p>
+<p>Paprastumo dėlei, pažymėkime klasių aibę $\mathcal{Y}=\{0, 1\}$. Tokiu atveju, klasifikavimo uždavinio hipotezė yra laiptinė funkcija, užrašoma:</p>
 <p>$$
 h_w(\textbf{x}) = \begin{cases} 1, \text{ kai } \textbf{x} \in H^+(w) \cr 0, \text{ kai } \textbf{x} \in \mathbb{R}^k \setminus H^+(w) = \left(H^+(w)\right)^c \end{cases}
 $$</p>
@@ -1204,6 +1205,24 @@ weighted avg       0.89      0.88      0.88       300
 </div>
 </div>
 </section>
+<section id="praktine-uzduotis">
+<h2>Praktinė užduotis<a class="headerlink" href="#praktine-uzduotis" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Pabandykite implementuoti logistinės regresijos klasifikatorių rankiniu būdu.</p></li>
+<li><p>Idėja: Logistinės regresijos modelis randa optimalią tiesę, geriausiai optimizuotą duomenims, ir tuomet atlieka sigmoidės transformaciją tai tiesei, siekiant gauti klasę.</p></li>
+<li><p>Galite naudoti išreikštinį tiesinės regresijos pavidalą arba pabandyti optimizuoti modelį taikant gradientinio nusileidimo algoritmą.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                           <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">flip_y</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">class_sep</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1277,6 +1296,7 @@ weighted avg       0.89      0.88      0.88       300
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistines-regresijos-klasifikatorius">Logistinės regresijos klasifikatorius</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktine-uzduotis">Praktinė užduotis</a></li>
 </ul>
   </nav></div>
 
