@@ -441,7 +441,7 @@ document.write(`
 $$</p>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/convolution.gif" alt="correlation" width="65%">
-<p><strong>1.12 pav., Koreliacijos operacija </strong></p>
+<p><strong>6.1 pav., Koreliacijos operacija </strong></p>
 </div>
 <ul class="simple">
 <li><p>Šiek tiek painu: konvoliucija ir koreliacija yra labai panašios operacijos; konvoliucija yra koreliacija su filtru, pasuktu 180 laipsnių.</p></li>
@@ -474,7 +474,7 @@ $$</p>
 </ul>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/conv_dotprod.png" alt="correlation dot product" width="65%">
-<p><strong>1.12 pav., Skaliarinė sandauga tarp vaizdo dalies ir filtro  </strong></p>
+<p><strong>6.2 pav., Skaliarinė sandauga tarp vaizdo dalies ir filtro  </strong></p>
 </div>
 <ul class="simple">
 <li><p>Koreliacijos operacija pradedama nuo kairiojo viršutinio kampo:</p></li>
@@ -599,20 +599,20 @@ $$</p></li>
 </ul>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/receptive_field.png" alt="receptive-field" width="65%">
-<p><strong>1.12 pav., Konvoliucinių sluoksnių receptinis laukas </strong></p>
+<p><strong>6.3 pav., Konvoliucinių sluoksnių receptinis laukas </strong></p>
 </div><section id="nuliu-pridejimas-angl-zero-padding">
 <h3>Nulių pridėjimas (angl. zero-padding)<a class="headerlink" href="#nuliu-pridejimas-angl-zero-padding" title="Link to this heading">#</a></h3>
 <p>Tam tikro sluoksnio $i$ eilutėje, $j$ stulpelyje esantis neuronas yra sujungtas su ankstesnio sluoksnio neuronų, esančių nuo $i$ iki $i + f_h - 1$, nuo $j$ iki $j + f_w - 1$ eilutėse, išėjimais, kur $f_h$ ir $f_w$ yra recepcinio lauko aukštis ir plotis. Kad sluoksnis būtų tokio paties aukščio ir pločio kaip ankstesnis sluoksnis, aplink įvesties matricą reikia pridėti nulius. 1.13 pav., $5 \times 7$ įvesties dydžio įvesties sluoksnis papildomas nulių paraštėmis iš visų pusių, kad tolimesnis sluoksnis taip pat būtų $5 \times 7$ dydžio.</p>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/zero_padding.png" alt="zero-padding" width="65%">
-<p><strong>1.13 pav., Nulių pridėjimo operacija </strong></p>
+<p><strong>6.4 pav., Nulių pridėjimo operacija </strong></p>
 </div></section>
 <section id="konvoliucijos-filtro-zingsnis-angl-stride">
 <h3>Konvoliucijos filtro žingsnis (angl. stride)<a class="headerlink" href="#konvoliucijos-filtro-zingsnis-angl-stride" title="Link to this heading">#</a></h3>
 <p>Didelės rezoliucijos įvesties sluoksniai gali būti sujungti su daug mažesnės rezoliucijos sluoksniu, išdėstant receptorinius laukus su didesniais tarpais tarp jų. Atstumas tarp dviejų vienas po kito einančių recepcinių laukų vadinamas konvoliucijos filtro žingsniu. 1.14 pav. $5 \times 7$ įvesties sluoksnis (plius zero-pad) sujungtas su $3 \times 4$ sluoksniu, naudojant $3 \times 3$ recepcinius laukus ir žingsnį lygų $2$. Viršutinio sluoksnio $i$ eilutėje, $j$ stulpelyje esantis neuronas yra sujungtas su ankstesnio sluoksnio neuronų, esančių nuo $i \times s_h$ iki $i \times s_h + f_h - 1$ eilutėse, $j \times s_w + f_w - 1$ stulpeliuose, išėjimais, kur $s_h$ ir $s_w$ yra žingsnių dydžiai vertikalia ir horizontalia kryptimi.</p>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/stride.png" alt="stride" width="65%">
-<p><strong>1.14 pav., Konvoliucijos filtro žingsnis </strong></p>
+<p><strong>6.5 pav., Konvoliucijos filtro žingsnis </strong></p>
 </div></section>
 <section id="sutelkimo-sluoksnis-angl-max-pooling">
 <h3>Sutelkimo sluoksnis (angl. max pooling)<a class="headerlink" href="#sutelkimo-sluoksnis-angl-max-pooling" title="Link to this heading">#</a></h3>
@@ -623,7 +623,7 @@ $$</p></li>
 </ul>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/max_pooling.png" alt="max-pooling" width="65%">
-<p><strong>1.14 pav., Sutelkimo pagal maksimalią reikšmę sluoksnis </strong></p>
+<p><strong>6.6 pav., Sutelkimo pagal maksimalią reikšmę sluoksnis </strong></p>
 </div>
 </section>
 <section id="pozymiu-zemelapiai">
@@ -633,7 +633,7 @@ $$</p></li>
 </ul>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/multiple_feature_maps.png" alt="feature-maps" width="65%">
-<p><strong>1.14 pav., Konvoliuciniai sluoksniai su keliais požymių žemėlapiais </strong></p>
+<p><strong>6.7 pav., Konvoliuciniai sluoksniai su keliais požymių žemėlapiais </strong></p>
 </div>
 <ul class="simple">
 <li><p>Viename požymių žemėlapyje visi neuronai turi tuos pačius parametrus, tačiau skirtingi požymių žemėlapiai gali turėti skirtingus parametrus.</p></li>
@@ -651,7 +651,7 @@ $$</p>
 </ul>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/convnet.png" alt="convolutional-network" width="65%">
-<p><strong>1.14 pav., Konvoliucinio neuroninio tinklo architektūra </strong></p>
+<p><strong>6.8 pav., Konvoliucinio neuroninio tinklo architektūra </strong></p>
 </div>
 <ul class="simple">
 <li><p>Matome, jog tinklo pabaigoje yra įprastas dirbtinis neuroninis tinklas, žymimas <em>dense</em> jungtimis.</p></li>
@@ -670,21 +670,21 @@ $$</p>
 </ul>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/kernels_on_images.png" alt="kernels-on-images" width="65%">
-<p><strong>1.14 pav., Nuotraukos, apdorotos pirmo sluoksnio filtrais </strong></p>
+<p><strong>6.9 pav., Nuotraukos, apdorotos pirmo sluoksnio filtrais </strong></p>
 </div>
 <ul class="simple">
 <li><p>Požymių žemėlapiai yra didelės dimensijos tensoriai, tačiau galime vizualizuoti kiekvieno požymių žemėlapio kanalą.</p></li>
 </ul>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/kernels_visualized.gif" alt="kernels-visualized" width="65%">
-<p><strong>1.14 pav., Požymių žemėlapio vizualizacija </strong></p>
+<p><strong>6.10 pav., Požymių žemėlapio vizualizacija </strong></p>
 </div>
 <ul class="simple">
 <li><p>Įdomus būdas pamatyti kaip veikia konvoliuciniai neuroniniai tinklai yra generuojant nuotraukas, kurios maksimizuoja tam tikrą aktyvaciją. Šios vizualizacijos leidžia suprasti, ko tam tikri filtai “ieško” nuotraukose (tiksliau, nuotraukų požymių žemėlapiuose).</p></li>
 </ul>
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/feature_visualization.png" alt="feature-visualization" width="65%">
-<p><strong>1.14 pav., Nuotraukos, maksimizuojančios tam tikrus filtrus </strong></p>
+<p><strong>6.11 pav., Nuotraukos, maksimizuojančios tam tikrus filtrus </strong></p>
 </div>
 <ul class="simple">
 <li><p>Pora interaktyvių puslapių, pateikiančių šias vizualizacijas:</p>
