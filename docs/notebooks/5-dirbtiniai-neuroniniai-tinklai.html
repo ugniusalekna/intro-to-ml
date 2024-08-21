@@ -474,7 +474,7 @@ $$</p>
 $$</p>
 <p>Empirinė rizika tokiu atveju bus:</p>
 <p>$$
-R_{\text{emp}}(h^L) = \frac{1}{N} \sum_{i=1}^{N} \left(y^i - h^L(\textbf{x}^{(i)};\theta)\right)^2.
+R_{\text{emp}}(h^L) = \frac{1}{N} \sum_{i=1}^{N} \left(y^{(i)} - h^L(\textbf{x}^{(i)};\theta)\right)^2.
 $$</p>
 <ol class="arabic simple" start="2">
 <li><p><strong>Logaritminė netiktis (angl. Log Loss)</strong></p></li>
@@ -485,7 +485,7 @@ $$</p>
 $$</p>
 <p>Empirinė rizika tokiu atveju bus:</p>
 <p>$$
-R_{\text{emp}}(h^L) = -\frac{1}{N} \sum_{i=1}^{N} \left[ y^i \log h^L(\textbf{x}^{(i)};\theta) + (1 - y^i) \log \left(1 - h^L(\textbf{x}^{(i)};\theta)\right) \right].
+R_{\text{emp}}(h^L) = -\frac{1}{N} \sum_{i=1}^{N} \left[ y^{(i)} \log h^L(\textbf{x}^{(i)};\theta) + (1 - y^{(i)}) \log \left(1 - h^L(\textbf{x}^{(i)};\theta)\right) \right].
 $$</p>
 <ol class="arabic simple" start="3">
 <li><p><strong>Kryžminės entropijos netiktis (angl. Cross-Entropy Loss)</strong></p></li>
@@ -497,7 +497,7 @@ $$</p>
 <p>kur $y_k$ yra reikšmė, nurodanti tikrąją klasę, o $h_k^L(\textbf{x};\theta)$ yra modelio prognozuota tikimybė klasei $k$.</p>
 <p>Empirinė rizika tokiu atveju bus:</p>
 <p>$$
-R_{\text{emp}}(h^L) = -\frac{1}{N} \sum_{i=1}^{N} \sum_{k=1}^{K} y_k^i \log h_k^L(\textbf{x}^{(i)};\theta).
+R_{\text{emp}}(h^L) = -\frac{1}{N} \sum_{i=1}^{N} \sum_{k=1}^{K} y_k^{(i)} \log h_k^L(\textbf{x}^{(i)};\theta).
 $$</p>
 </section>
 </section>
