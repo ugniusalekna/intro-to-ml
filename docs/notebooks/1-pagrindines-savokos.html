@@ -568,7 +568,6 @@ Turėti vien daug duomenų neužtenka; šį iššūkį galime panagrinėti pavyz
 <span class="n">y</span> <span class="o">=</span> <span class="n">lifesat</span><span class="p">[[</span><span class="s2">&quot;Life satisfaction&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
-
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -626,7 +625,7 @@ Turėti vien daug duomenų neužtenka; šį iššūkį galime panagrinėti pavyz
 <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_adt</span><span class="p">,</span> <span class="n">y_adt</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_full</span><span class="p">,</span> <span class="n">model_new</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_full</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;New model predictions&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_full</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_full</span><span class="p">),</span> <span class="s1">&#39;c:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Old model predictions&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_full</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_full</span><span class="p">),</span> <span class="s1">&#39;c--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Old model predictions&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">115000</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;GDP per capita (USD)&#39;</span><span class="p">)</span>
@@ -638,7 +637,7 @@ Turėti vien daug duomenų neužtenka; šį iššūkį galime panagrinėti pavyz
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9d9d013870e5e35800f116301353201fbefb0b050b2848c89475c2978244fb9f.png" src="../_images/9d9d013870e5e35800f116301353201fbefb0b050b2848c89475c2978244fb9f.png" />
+<img alt="../_images/e60f7be804ffc3a88b4c72793e148abb235aed59278ebf49f9073d9809c885c5.png" src="../_images/e60f7be804ffc3a88b4c72793e148abb235aed59278ebf49f9073d9809c885c5.png" />
 </div>
 </div>
 <p>Labai svarbu naudoti mokymosi duomenų aibę, kuri būtų reprezentatyvi tikram duomenų pasiskristymui. Tai dažnai yra sunkiau, nei atrodo: jei imtis yra per maža, atsiras imties triukšmas (t. y. nereprezentatyvūs duomenys dėl atsitiktinumo), tačiau net ir labai didelės imtys gali būti nereprezentatyvios, jei imties atrankos metodas yra blogas. Tai vadinama atrankos šališkumu (angl. sampling bias).</p>
@@ -690,7 +689,6 @@ Akivaizdu, kad jei mokymosi duomenyse yra daug klaidų, nukrypimų ir triukšmo 
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-
 
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">21</span><span class="p">)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
@@ -795,7 +793,7 @@ Degree 4: Mean validation accuracy = 0.8881
 Degree 5: Mean validation accuracy = 0.8616
 </pre></div>
 </div>
-<img alt="../_images/10d63f49b56f816ff9ecebfe442694f930cf3f4d507a3ff2e2dd8d9a08783a5f.png" src="../_images/10d63f49b56f816ff9ecebfe442694f930cf3f4d507a3ff2e2dd8d9a08783a5f.png" />
+<img alt="../_images/66999a74c4181de9a60ef03a62857aae200295d00cfd7303ca90b7806f2e0b66.png" src="../_images/66999a74c4181de9a60ef03a62857aae200295d00cfd7303ca90b7806f2e0b66.png" />
 </div>
 </div>
 </section>
