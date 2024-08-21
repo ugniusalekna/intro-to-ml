@@ -502,9 +502,11 @@ $$</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="c1"># return w ** 2</span>
     <span class="k">return</span> <span class="n">w</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">w</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">w</span>
 
 <span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="c1"># return 2 * w</span>
     <span class="k">return</span> <span class="mi">4</span><span class="o">*</span><span class="n">w</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">9</span><span class="o">*</span><span class="n">w</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span>
 </pre></div>
 </div>
@@ -829,7 +831,7 @@ $$</p>
 &amp;\quad \quad \hat{v_k} \leftarrow \frac{v_k}{1 - \beta^k_2} \cr</p>
 <p>&amp;\quad \quad \text{Perskaičiuojame } w_k = w_{k-1} - \eta \frac{\hat{m_k}}{\sqrt{\hat{v_k}} + \varepsilon} \cr
 &amp;\quad \quad \textbf{if } \left| f(w_{k-1}) - f(w_k) \right| &lt; \epsilon \textbf{ then} \cr
-&amp;\qquad \quad \text{Nutraukiame ciklą} \cr
+&amp;\quad \quad \text{Nutraukiame ciklą} \cr
 &amp;\quad \quad \textbf{end if} \cr
 &amp;\quad \textbf{end while} \cr
 &amp;\quad \text{return } w_k
