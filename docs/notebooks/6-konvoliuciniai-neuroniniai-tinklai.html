@@ -665,7 +665,7 @@ $$</p>
 <section id="konvoliuciniu-neuroniniu-tinklu-magija">
 <h2>Konvoliucinių neuroninių tinklų magija<a class="headerlink" href="#konvoliuciniu-neuroniniu-tinklu-magija" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Kokias abstrakcijas iš tiesų išmoksta konvoliuciniai neuroniniai tinklai pasakyti yra sunku. K</p></li>
+<li><p>Kokias abstrakcijas iš tiesų išmoksta konvoliuciniai neuroniniai tinklai pasakyti yra sunku.</p></li>
 <li><p>Pirmųjų sluoksnių požymius pavaizduoti nesunku, kadangi jie apdoroja pradinę įvesties nuotrauką.</p></li>
 </ul>
 <div style="text-align: center;">
@@ -818,6 +818,7 @@ $$</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
 
 <span class="k">def</span> <span class="nf">train_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">val_loader</span><span class="p">,</span> <span class="n">criterion</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
     <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
@@ -843,7 +844,8 @@ $$</p>
             
             <span class="n">running_loss_train</span> <span class="o">+=</span> <span class="n">loss_train</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
             
-            <span class="n">_</span><span class="p">,</span> <span class="n">predicted_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">outputs_train</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">probs_train</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">outputs_train</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">predicted_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">probs_train</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="n">total_train</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_train</span><span class="p">)</span>
             <span class="n">correct_train</span> <span class="o">+=</span> <span class="p">(</span><span class="n">predicted_train</span> <span class="o">==</span> <span class="n">labels_train</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
                 
@@ -860,7 +862,8 @@ $$</p>
                 
                 <span class="n">running_loss_val</span> <span class="o">+=</span> <span class="n">loss_val</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
         
-                <span class="n">_</span><span class="p">,</span> <span class="n">predicted_val</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">outputs_val</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">probs_val</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">outputs_val</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">predicted_val</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">probs_val</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                 <span class="n">total_val</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_val</span><span class="p">)</span>
                 <span class="n">correct_val</span> <span class="o">+=</span> <span class="p">(</span><span class="n">predicted_val</span> <span class="o">==</span> <span class="n">labels_val</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 
@@ -1034,8 +1037,8 @@ $$</p>
     <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">data_loader</span><span class="p">:</span>
             <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">labels</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-            <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
-            <span class="n">probs</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+            <span class="n">probs</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             
             <span class="n">misclassified_idx</span> <span class="o">=</span> <span class="n">preds</span> <span class="o">!=</span> <span class="n">labels</span>
@@ -1310,7 +1313,7 @@ torch.Size([1, 3])
     
     <span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
     <span class="n">train_accuracies</span><span class="p">,</span> <span class="n">val_accuracies</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
-        
+    
     <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
         <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
         <span class="n">running_loss_train</span> <span class="o">=</span> <span class="n">running_loss_val</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -1332,11 +1335,11 @@ torch.Size([1, 3])
             <span class="n">probs_train</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">outputs_train</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="n">predicted_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">probs_train</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-            <span class="n">total_train</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_train</span><span class="p">)</span>
+            <span class="c1"># total_train += len(labels_train)</span>
             <span class="n">correct_train</span> <span class="o">+=</span> <span class="p">(</span><span class="n">predicted_train</span> <span class="o">==</span> <span class="n">labels_train</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
                 
         <span class="n">train_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">running_loss_train</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">))</span>
-        <span class="n">train_accuracies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">correct_train</span> <span class="o">/</span> <span class="n">total_train</span><span class="p">)</span>
+        <span class="n">train_accuracies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">correct_train</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">))</span>
         
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
             <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
