@@ -482,12 +482,7 @@ $$
 $$</p>
 <p>Jei $\xi_i &gt; 0$, tai atitinkamą stebinį vadiname išskirtimi. Atmetus visas išskirtis, redukuota mokymosi aibė bus separabili ir jos taškus jau galima atskirti panaudojant anksčiau paminėtą optimizavimo būdą.</p>
 <p><code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> tokių kintamųjų parinkimą galima valdyti naudojant $C$ hiperparametrą: mažesnė C reikšmė lemia platesnę paraštę, t.y. daugiau stebinių bus atmesti. Naudojant didelę $C$ reikšmę, klasifikatorius atmeta mažiau stebinių, bet gauna mažesnę paraštę.</p>
-<hr style="border: none; height: 2px; background-color: black;">
-<div style="text-align: center;">
-<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/margin_svm.png" alt="margin-svm" width="65%">
-<p><strong>4.2 pav., Konstantos C poveikis sprendinio paraštės dydžiui </strong></p>
-</div>
-<hr style="border: none; height: 2px; background-color: black;"><p>Modelio implementacija <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> aplinkoje yra labai nesudėtinga:</p>
+<iframe src="https://support-vector-machines-f826b40cadc9.herokuapp.com/" width="100%" height="600px"></iframe><p>Modelio implementacija <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> aplinkoje yra labai nesudėtinga:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
@@ -910,19 +905,6 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 <div class="cell tag_remove-input docutils container">
 </div>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<div class="output text_html">
-        <iframe
-            width="100%"
-            height="650"
-            src="http://127.0.0.1:8053/"
-            frameborder="0"
-            allowfullscreen
-            
-        ></iframe>
-        </div></div>
-</div>
 <ul class="simple">
 <li><p>Norint parinkti geriausią hiperparametro $C$ reikšmę, galima naudoti kryžminę validaciją. Norint palyginti modelius, reikia apsibrėžti tikslumo metrikas.</p></li>
 </ul>
@@ -979,9 +961,10 @@ $$</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span><span class="p">,</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+
 
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
