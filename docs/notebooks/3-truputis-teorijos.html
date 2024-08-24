@@ -532,18 +532,16 @@ $$</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gradient_descent</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">grad</span><span class="p">,</span> <span class="n">initial_point</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">num_iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">initial_point</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="p">]</span>
     
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iterations</span><span class="p">):</span>
         <span class="n">new_w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">grad</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_w</span><span class="p">)</span>
         
         <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">new_w</span><span class="p">)</span> <span class="o">-</span> <span class="n">func</span><span class="p">(</span><span class="n">w</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
             <span class="k">break</span>
             
         <span class="n">w</span> <span class="o">=</span> <span class="n">new_w</span>
     
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_w</span>
 </pre></div>
 </div>
 </div>
@@ -561,20 +559,18 @@ $$</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gradient_descent_with_momentum</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">grad</span><span class="p">,</span> <span class="n">initial_point</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> 
                                    <span class="n">num_iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">initial_point</span>
-    <span class="n">w_diff</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="p">]</span>
+    <span class="n">delta_w</span> <span class="o">=</span> <span class="mi">0</span>
     
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iterations</span><span class="p">):</span>
-        <span class="n">new_w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">grad</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="n">momentum</span> <span class="o">*</span> <span class="n">w_diff</span>
-        <span class="n">w_diff</span> <span class="o">=</span> <span class="n">new_w</span> <span class="o">-</span> <span class="n">w</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_w</span><span class="p">)</span>
+        <span class="n">new_w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">grad</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="n">momentum</span> <span class="o">*</span> <span class="n">delta_w</span>
+        <span class="n">delta_w</span> <span class="o">=</span> <span class="n">new_w</span> <span class="o">-</span> <span class="n">w</span>
         
         <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">new_w</span><span class="p">)</span> <span class="o">-</span> <span class="n">func</span><span class="p">(</span><span class="n">w</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
             <span class="k">break</span>
             
         <span class="n">w</span> <span class="o">=</span> <span class="n">new_w</span>
     
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_w</span>
 </pre></div>
 </div>
 </div>
