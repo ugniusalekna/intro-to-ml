@@ -5,12 +5,14 @@ execute:
   execute_notebooks: 'off'
 
 launch_buttons:
+  binderhub_url: "https://mybinder.org"
   colab_url: https://colab.research.google.com
   thebe: true
+  notebook_interface: "jupyterlab"
 
 repository:
   url: https://github.com/ugniusalekna/intro-to-ml
-  path_to_book: "docs"
+  path_to_book: ""
   branch: main
 
 parse:
@@ -25,4 +27,4 @@ sphinx:
     thebe_config:
       repository_url: "https://github.com/ugniusalekna/intro-to-ml"
       branch: "main"
-      path_to_docs: "docs"
+      path_to_docs: "notebooks"
