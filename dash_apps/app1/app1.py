@@ -104,30 +104,32 @@ def plot_gradient_descent(initial_point, learning_rate):
     return figure
 
 
-app = Dash(__name__)
-
-app.layout = html.Div(
-    style={'backgroundColor': '#f9f9f9', 'padding': '20px', 'max-width': '1200px', 'margin': '0 auto', 'font-family': 'Arial, sans-serif'}, children=[
-
-        dcc.Graph(id='gd-graph', style={'height': '450px', 'width': '100%'}),
-
-        html.Div(style={'display': 'flex', 'justify-content': 'space-around', 'margin-bottom': '10px'}, children=[
-            html.Div(style={'border': '2px solid #ddd', 'padding': '10px', 'border-radius': '10px', 'width': '45%'}, children=[
-                html.H4('Gradient Descent Parameters', style={'text-align': 'center', 'font-size': '16px', 'margin-top': '0px', 'margin-bottom': '0px'}),
-                html.Label('Initial Point', style={'font-size': '12px', 'margin-bottom': '5px'}),
-                dcc.Slider(id='initial-point', min=-1.5, max=3, step=0.1, value=1.0, marks={i: str(i) for i in range(-2, 6, 1)}, tooltip={"placement": "bottom", "always_visible": True}),
-                html.Label('Learning Rate', style={'font-size': '12px', 'margin-bottom': '5px'}),
-                dcc.Slider(id='learning-rate', min=0.001, max=0.1, step=0.001, value=0.1,  marks={i/100: f"{i/100:.2f}" for i in range(2, 10, 2)}, tooltip={"placement": "bottom", "always_visible": True}),
-            ])
-        ]),
-])
-
-@app.callback(
-    Output('gd-graph', 'figure'),
-    Input('initial-point', 'value'),
-    Input('learning-rate', 'value'))
-def update_graph_gd(initial_point, learning_rate):
-    return plot_gradient_descent(initial_point, learning_rate)
-
 if __name__ == '__main__':
+    app = Dash(__name__)
+
+    app.layout = html.Div(
+        style={'backgroundColor': '#f9f9f9', 'padding': '20px', 'max-width': '1200px', 'margin': '0 auto', 'font-family': 'Arial, sans-serif'}, children=[
+
+            dcc.Graph(id='gd-graph', style={'height': '450px', 'width': '100%'}),
+
+            html.Div(style={'display': 'flex', 'justify-content': 'space-around', 'margin-bottom': '10px'}, children=[
+                html.Div(style={'border': '2px solid #ddd', 'padding': '10px', 'border-radius': '10px', 'width': '45%'}, children=[
+                    html.H4('Gradient Descent Parameters', style={'text-align': 'center', 'font-size': '16px', 'margin-top': '0px', 'margin-bottom': '0px'}),
+                    html.Label('Initial Point', style={'font-size': '12px', 'margin-bottom': '5px'}),
+                    dcc.Slider(id='initial-point', min=-1.5, max=3, step=0.1, value=1.0, marks={i: str(i) for i in range(-2, 6, 1)}, tooltip={"placement": "bottom", "always_visible": True}),
+                    html.Label('Learning Rate', style={'font-size': '12px', 'margin-bottom': '5px'}),
+                    dcc.Slider(id='learning-rate', min=0.001, max=0.1, step=0.001, value=0.1,  marks={i/100: f"{i/100:.2f}" for i in range(2, 10, 2)}, tooltip={"placement": "bottom", "always_visible": True}),
+                ])
+            ]),
+    ])
+
+    @app.callback(
+        Output('gd-graph', 'figure'),
+        Input('initial-point', 'value'),
+        Input('learning-rate', 'value')
+    )
+    
+    def update_graph_gd(initial_point, learning_rate):
+        return plot_gradient_descent(initial_point, learning_rate)
+
     app.run_server(debug=True, port=int(os.environ.get('PORT', 8050)))
