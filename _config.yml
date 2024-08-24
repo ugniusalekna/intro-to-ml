@@ -26,6 +26,3 @@ sphinx:
       repository_url: "https://github.com/ugniusalekna/intro-to-ml"
       branch: "main"
       path_to_docs: "docs"
-
-launch_buttons:
-  thebe: true
