@@ -249,24 +249,6 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/ugniusalekna/intro-to-ml/blob/main/notebooks/6-konvoliuciniai-neuroniniai-tinklai.ipynb" target="_blank"
-   class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
-  </span>
-<span class="btn__text-container">Colab</span>
-</a>
-</li>
-      
-      
-      
-      
       <li>
 <button onclick="initThebeSBT()"
   class="btn btn-sm btn-launch-thebe dropdown-item"
@@ -1231,7 +1213,7 @@ load complete
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/356e2648e00520ffebad018c05912da82d457af05c85769b96a649392d676a1a.png" src="../_images/356e2648e00520ffebad018c05912da82d457af05c85769b96a649392d676a1a.png" />
+<img alt="../_images/854f918558ae1dfa7b3e37cf60ac338800b0091e4aff27447975ff9fea6fd801.png" src="../_images/854f918558ae1dfa7b3e37cf60ac338800b0091e4aff27447975ff9fea6fd801.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1422,7 +1404,7 @@ torch.Size([1, 3])
 <span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">64</span>
 
 <span class="n">LEARNING_RATE</span> <span class="o">=</span> <span class="mf">3e-4</span>
-<span class="n">NUM_EPOCHS</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">NUM_EPOCHS</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">DEVICE</span> <span class="o">=</span> <span class="s1">&#39;mps&#39;</span>
 </pre></div>
 </div>
@@ -1447,7 +1429,7 @@ torch.Size([1, 3])
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transform</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
     <span class="n">T</span><span class="o">.</span><span class="n">RandomHorizontalFlip</span><span class="p">(),</span>
     <span class="n">T</span><span class="o">.</span><span class="n">RandomAffine</span><span class="p">(</span><span class="n">degrees</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">translate</span><span class="o">=</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)),</span>
-    <span class="n">T</span><span class="o">.</span><span class="n">RandomErasing</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)),</span>
+    <span class="n">T</span><span class="o">.</span><span class="n">RandomErasing</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">)),</span>
     <span class="n">AddGaussianNoise</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
 <span class="p">])</span>
 
@@ -1467,7 +1449,7 @@ torch.Size([1, 3])
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7d5e5190c53057c65295391e0fd5751814da0e91c14103e2f125c2ba7b78543a.png" src="../_images/7d5e5190c53057c65295391e0fd5751814da0e91c14103e2f125c2ba7b78543a.png" />
+<img alt="../_images/fd1e247cc95a378d0cbcc28d1f56b6ad454680eca1f5b8f7da43e904587fc9dd.png" src="../_images/fd1e247cc95a378d0cbcc28d1f56b6ad454680eca1f5b8f7da43e904587fc9dd.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1490,10 +1472,10 @@ torch.Size([1, 3])
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                  
 </pre></div>
 </div>
-<img alt="../_images/08312bca0aa894dbe889405c9e81fcb88adb6d2c71b38399f1d1f428c0d9c803.png" src="../_images/08312bca0aa894dbe889405c9e81fcb88adb6d2c71b38399f1d1f428c0d9c803.png" />
+<img alt="../_images/0410d2e595814c32fbb2ba764263779aa7fd77dda99f0efe5aa0bd2829d4aa6e.png" src="../_images/0410d2e595814c32fbb2ba764263779aa7fd77dda99f0efe5aa0bd2829d4aa6e.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1531,7 +1513,7 @@ torch.Size([1, 3])
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e2290f64fe5c0fa4ef2503ca8ffa640a696a83382db053ff5713c21fd8caab4a.png" src="../_images/e2290f64fe5c0fa4ef2503ca8ffa640a696a83382db053ff5713c21fd8caab4a.png" />
+<img alt="../_images/89624992b48171637edb9bedfa8aede266f0dda73775218a0a3a9a6d4cd63009.png" src="../_images/89624992b48171637edb9bedfa8aede266f0dda73775218a0a3a9a6d4cd63009.png" />
 </div>
 </div>
 </section>
@@ -1683,7 +1665,7 @@ torch.Size([1, 3])
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f72c81dd624e494da16c9dfc7c53169e", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "28460ae1dfed4b1eb77c697f0df782cd", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 </section>
@@ -1702,7 +1684,7 @@ torch.Size([1, 3])
         },
         kernelOptions: {
             name: "python3",
-            path: "./notebooks"
+            path: "docs/notebooks"
         },
         predefinedOutput: true
     }

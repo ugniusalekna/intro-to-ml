@@ -10,7 +10,7 @@ launch_buttons:
 
 repository:
   url: https://github.com/ugniusalekna/intro-to-ml
-  path_to_book: ""
+  path_to_book: "docs"
   branch: main
 
 parse:
@@ -22,3 +22,10 @@ sphinx:
   config:
     templates_path: ["_templates"]
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+    thebe_config:
+      repository_url: "https://github.com/ugniusalekna/intro-to-ml"
+      branch: "main"
+      path_to_docs: "docs"
+
+launch_buttons:
+  thebe: true
