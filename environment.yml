@@ -16,7 +16,6 @@ dependencies:
   - jupyterlab=4.2.4
   - pytorch
   - torchvision
-  - torchaudio
   - pip:
       - jupyter-dash==0.4.2
       - plotly==5.23.0
