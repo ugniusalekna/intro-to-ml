@@ -398,7 +398,10 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daugdaros-didelio-matmens-erdvese">Daugdaros didelio matmens erdvėse</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacija-pytorch">Implementacija PyTorch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacija-pytorch">Implementacija PyTorch</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#esminiai-aspektai">Esminiai aspektai:</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -524,6 +527,48 @@ $$</p>
 <hr style="border: none; height: 2px; background-color: black;"></section>
 <section id="implementacija-pytorch">
 <h2>Implementacija PyTorch<a class="headerlink" href="#implementacija-pytorch" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Kadangi jau žinote, kaip sukurti puikiai veikiantį klasifikatorių, tereikia jį adaptuoti taip, kad jis atliktų binarinio klasifikavimo uždavinį – prognozuotų, ar duotasis vaizdas yra tikras, ar ne.</p></li>
+<li><p>Telieka aprašyti modelį, kuris bus atsakingas už naujų paveikslėlių generavimą.</p></li>
+<li><p>Sukursime generatyvinį–adversarinį tinklą (GAN), kuris išmoks generuoti pasirinktos klasės vaizdus. Pritaikysime jį siekiant sugeneruoti dirbtinius skaitmenis iš <code class="docutils literal notranslate"><span class="pre">MNIST</span></code> duomenų rinkinio bei dirbtinius piešinėlius iš <code class="docutils literal notranslate"><span class="pre">QuickDraw</span></code> duomenų rinkinio.</p></li>
+<li><p>Progreso saugojimui ir rezultatų vizualizavimui pasinaudosime įrankiu <code class="docutils literal notranslate"><span class="pre">SummaryWriter</span></code> iš <code class="docutils literal notranslate"><span class="pre">torch.utils.tensorboard</span></code>.</p></li>
+<li><p>Treniruoti GAN architektūros modelius labai sudėtinga, dažnai susiduriama su modelio nestabilumais, todėl mūsų implementacija bus paremta straipsniu, kuriame ši architektūra buvo pristatyta <a class="reference external" href="https://arxiv.org/pdf/1511.06434">Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks</a>. Visi hiperparametrai yra paremti straipsnio autorių nustatytomis vertėmis.</p></li>
+</ul>
+<section id="esminiai-aspektai">
+<h3>Esminiai aspektai:<a class="headerlink" href="#esminiai-aspektai" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Duomenų apdorojimas</strong></p>
+<ul class="simple">
+<li><p>Kuomet duomenys paverčiami į tenzorius, vertes reikia normalizuoti tarp intervalo [-1, 1] reikšmių (įprastas normalizavimas yra tarp [0, 1] reišmių) (pagal straipsio implementaciją).</p></li>
+</ul>
+</li>
+<li><p><strong>GAN Architektūra:</strong></p>
+<ul class="simple">
+<li><p><strong>Generatorius:</strong> Jis bus atsakingas už naujų vaizdų generavimą. Architektūra susideda iš kelių dekonvoliucijos (angl. transposed convolution) sluoksnių (<code class="docutils literal notranslate"><span class="pre">torch.nn.ConvTranspose2d</span></code>), kad iš mažos dimensijos pradinio paveikslėlio (triukšmo) galėtume generuoti vaizdus didindami rezoliuciją, normalizavimo sluoksnių (<code class="docutils literal notranslate"><span class="pre">torch.nn.BatchNorm2d</span></code>), aktyvacijos funkcijos (<code class="docutils literal notranslate"><span class="pre">torch.nn.ReLU</span></code>). <em>pastaba:</em> paskutinyje sluoksnyje <em>batchnorm</em> nėra naudojama, o aktyvacijos funkcija <em>relu</em> pakeičiama į <em>tanh</em> (pagal straipsnio implementaciją).</p></li>
+<li><p><strong>Diskriminatorius:</strong> Jis bus naudojamas nustatyti, ar vaizdas yra tikras, ar ne. Architektūra susideda iš kelių konvoliucinių sluoksnių (<code class="docutils literal notranslate"><span class="pre">torch.nn.Conv2d</span></code>), normalizavimo sluoksnių (<code class="docutils literal notranslate"><span class="pre">torch.nn.BatchNorm2d</span></code>), aktyvacijos funkcijos (<code class="docutils literal notranslate"><span class="pre">torch.nn.LeakyReLU</span></code>). <em>pastaba:</em> <em>batchnorm</em> pirmame sluoksnyje nėra naudojamas; <em>leaky relu</em> aktyvacijos funkcijos argumentas 0.2 (pagal straipsnio implementaciją).</p></li>
+<li><p><strong>Modelių inicializavimas</strong>. Visi modelio svoriai pradžioje inicializuojami iš normalaus pasiskirstymo (su vidurkiu 0 ir standartiniu nuokrypiu 0.02) (pagal straipsnio implementaciją).</p></li>
+</ul>
+</li>
+<li><p><strong>Hiperparametrai ir Mokymosi Strategija:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.optim.Adam</span></code> optimizatorius bus naudojamas tiek generatoriaus, tiek diskriminatoriaus apmokymui. <em>pastaba</em>: optimizatoriaus <em>learning rate</em> lygus 0.0002, parametro <em>beta_1</em> reikšmė – 0.5 (pagal straipsnio implementaciją).</p></li>
+</ul>
+</li>
+<li><p><strong>Mokymo Ciklas:</strong></p>
+<ul class="simple">
+<li><p>Kiekvieno mokymo iteracijoje, generatorius generuos vaizdus, kuriuos diskriminatorius įvertins. Generatoriaus tikslas - apgauti diskriminatorių klasifikuojant netikrus vaizdus kaip tikrus.</p></li>
+<li><p>Anksčiau apibrėžtas optimizavimo uždavinys $\min_{G} \max_{D} L(G, D)$ treniravimo žingsnyje atliekamas du kartus – vieną kartą minimizuojant diskriminatoriaus netiktį ir kitą kartą maksimizuojant generatoriaus netikį. Kadangi funkcijos $L(G, D)$ antrasis dėmuo nepriklauso nuo diskriminatoriaus išvesties, šis dėmuo gali būti ignoruojamas. Praktikoje ši netiktis implementuojama atiliekant minimizavimo uždavinį abiem atvejais, pasinaudojant <em>binary cross entropy</em> netiktimi. Visa tai užrašoma kaip</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">L_d</span> <span class="o">=</span> <span class="n">BCELoss</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">BCELoss</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">G</span><span class="p">(</span><span class="n">z</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">L_g</span> <span class="o">=</span> <span class="n">BCELoss</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">G</span><span class="p">(</span><span class="n">z</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>kintamasis <code class="docutils literal notranslate"><span class="pre">x</span></code> simbolizuoja tikrą vaizdą, kintamasis <code class="docutils literal notranslate"><span class="pre">z</span></code> – atisitiktinai sugeneruotą triukšmo tenzorių, kurį generatorius panaudoja netikro vaizdo sugeneravimui. Treniravimo metu siekiama minimizuoti reikšmes <code class="docutils literal notranslate"><span class="pre">L_d</span></code> ir <code class="docutils literal notranslate"><span class="pre">L_g</span></code>.</p></li>
+</ul>
+</li>
+</ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
@@ -539,9 +584,25 @@ $$</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install quickdraw</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">import</span> <span class="nn">torchvision.datasets</span> <span class="k">as</span> <span class="nn">datasets</span>
 <span class="kn">from</span> <span class="nn">quickdraw</span> <span class="kn">import</span> <span class="n">QuickDrawDataGroup</span>
+
+
+<span class="k">def</span> <span class="nf">get_MNIST_data</span><span class="p">():</span>
+    <span class="n">MNIST_train</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;../data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">MNIST_val</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;../data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">MNIST_train</span><span class="p">,</span> <span class="n">MNIST_val</span>
+
 
 <span class="k">def</span> <span class="nf">load_quickdraw_data</span><span class="p">(</span><span class="n">classes</span><span class="p">,</span> <span class="n">image_size</span><span class="p">,</span> <span class="n">val_split</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_drawings_per_class</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
@@ -572,8 +633,6 @@ $$</p>
 <span class="n">CLASSES</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;cat&quot;</span><span class="p">,</span>
 <span class="p">]</span>
-
-<span class="n">train_data</span> <span class="o">=</span> <span class="n">load_quickdraw_data</span><span class="p">(</span><span class="n">CLASSES</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="n">max_drawings_per_class</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -586,7 +645,10 @@ load complete
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+
 
 <span class="k">def</span> <span class="nf">weights_init</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
     <span class="n">classname</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
@@ -595,16 +657,7 @@ load complete
     <span class="k">elif</span> <span class="n">classname</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;BatchNorm2d&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
         <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">)</span>
         <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">constant_</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
-<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
-
+        
 
 <span class="k">class</span> <span class="nc">ConvBlock</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channels_in</span><span class="p">,</span> <span class="n">channels_out</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">batch_norm</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -738,7 +791,7 @@ torch.Size([1, 1, 64, 64])
         <span class="k">for</span> <span class="n">real_images</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">train_loader</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Epoch [</span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">num_epochs</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">,</span> <span class="n">leave</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
             <span class="n">real_images</span> <span class="o">=</span> <span class="n">real_images</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 
-            <span class="c1"># Train Discriminator max log(D(z)) + log(1 - D(G(z)))</span>
+            <span class="c1"># Train Discriminator</span>
 
             <span class="n">noise</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">real_images</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">latent_dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
             
@@ -757,7 +810,7 @@ torch.Size([1, 1, 64, 64])
 
             <span class="n">running_loss_D</span> <span class="o">+=</span> <span class="n">d_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 
-            <span class="c1"># Train Generator min log(1 - D(G(z))) &lt;-&gt; max log(D(G(z)))</span>
+            <span class="c1"># Train Generator</span>
 
             <span class="n">output</span> <span class="o">=</span> <span class="n">discriminator</span><span class="p">(</span><span class="n">fake_images</span><span class="p">)</span>
             <span class="n">g_loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
@@ -780,6 +833,14 @@ torch.Size([1, 1, 64, 64])
             <span class="n">writer</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="s1">&#39;Generated vs Real&#39;</span><span class="p">,</span> <span class="n">img_grid</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
     
     <span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    
+    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">({</span>
+        <span class="s1">&#39;generator_state_dict&#39;</span><span class="p">:</span> <span class="n">generator</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+        <span class="s1">&#39;discriminator_state_dict&#39;</span><span class="p">:</span> <span class="n">discriminator</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+        <span class="s1">&#39;optimizer_G_state_dict&#39;</span><span class="p">:</span> <span class="n">optimizer_G</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+        <span class="s1">&#39;optimizer_D_state_dict&#39;</span><span class="p">:</span> <span class="n">optimizer_D</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+        <span class="s1">&#39;epoch&#39;</span><span class="p">:</span> <span class="n">num_epochs</span><span class="p">,</span>
+    <span class="p">},</span> <span class="n">log_dir</span> <span class="o">+</span> <span class="n">timestamp</span> <span class="o">+</span> <span class="s2">&quot;/gan_state_dict.pth&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -821,15 +882,7 @@ torch.Size([1, 1, 64, 64])
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torchvision.datasets</span> <span class="k">as</span> <span class="nn">datasets</span>
-<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
-
-
-<span class="k">def</span> <span class="nf">get_MNIST_data</span><span class="p">():</span>
-    <span class="n">MNIST_train</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;../data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">MNIST_val</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;../data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">MNIST_train</span><span class="p">,</span> <span class="n">MNIST_val</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
 
 
 <span class="k">class</span> <span class="nc">MNISTDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
@@ -851,8 +904,6 @@ torch.Size([1, 1, 64, 64])
             <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
         
         <span class="k">return</span> <span class="n">image</span><span class="p">,</span> <span class="n">label</span>
-    
-<span class="c1"># train_data, val_data = get_MNIST_data()</span>
 </pre></div>
 </div>
 </div>
@@ -884,14 +935,30 @@ torch.Size([1, 1, 64, 64])
 <span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
 
 <span class="n">transform</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
-    <span class="c1"># T.RandomHorizontalFlip(),</span>
-    <span class="c1"># T.RandomAffine(degrees=20, translate=(0.1, 0.1), scale=(0.9, 1.1)),</span>
     <span class="n">T</span><span class="o">.</span><span class="n">Normalize</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,))</span>
 <span class="p">])</span>
 
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">load_quickdraw_data</span><span class="p">(</span><span class="n">CLASSES</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">))</span>
+<span class="c1"># train_data, _ = get_MNIST_data()</span>
+
 <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">DoodlesDataset</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="n">IMAGE_SIZE</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
 <span class="c1"># train_dataset = MNISTDataset(train_data, size=IMAGE_SIZE, transform=transform)</span>
+
 <span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">BATCH_SIZE</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop_last</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> tensorboard
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">tensorboard</span> --logdir ../logs/
 </pre></div>
 </div>
 </div>
@@ -921,21 +988,7 @@ torch.Size([1, 1, 64, 64])
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">checkpoint_path</span> <span class="o">=</span> <span class="s1">&#39;../logs/08-22_01-36-57/gan_state_dict.pth&#39;</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">({</span>
-    <span class="s1">&#39;generator_state_dict&#39;</span><span class="p">:</span> <span class="n">generator</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
-    <span class="s1">&#39;discriminator_state_dict&#39;</span><span class="p">:</span> <span class="n">discriminator</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
-    <span class="s1">&#39;optimizer_G_state_dict&#39;</span><span class="p">:</span> <span class="n">optimizer_G</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
-    <span class="s1">&#39;optimizer_D_state_dict&#39;</span><span class="p">:</span> <span class="n">optimizer_D</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
-    <span class="s1">&#39;epoch&#39;</span><span class="p">:</span> <span class="n">NUM_EPOCHS</span><span class="p">,</span>
-<span class="p">},</span> <span class="n">checkpoint_path</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
+</section>
 </section>
 </section>
 
@@ -1009,7 +1062,10 @@ torch.Size([1, 1, 64, 64])
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daugdaros-didelio-matmens-erdvese">Daugdaros didelio matmens erdvėse</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacija-pytorch">Implementacija PyTorch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacija-pytorch">Implementacija PyTorch</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#esminiai-aspektai">Esminiai aspektai:</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

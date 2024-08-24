@@ -502,11 +502,9 @@ $$</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
-    <span class="c1"># return w ** 2</span>
     <span class="k">return</span> <span class="n">w</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">w</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">w</span>
 
 <span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
-    <span class="c1"># return 2 * w</span>
     <span class="k">return</span> <span class="mi">4</span><span class="o">*</span><span class="n">w</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">9</span><span class="o">*</span><span class="n">w</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span>
 </pre></div>
 </div>
@@ -630,7 +628,7 @@ $$</p></li>
 <section id="stochastinis-gradientinis-nusileidimas-angl-sgd">
 <h3>Stochastinis gradientinis nusileidimas (angl. SGD)<a class="headerlink" href="#stochastinis-gradientinis-nusileidimas-angl-sgd" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Pagrindinė gradientinio nusileidimo problema yra ta, kad kiekviename žingsnyje gradientai apskaičiuojami pagal visus funkcijos argumentus/parametrus/dėmenis; kuomet funkcija yra nesudėtinga ir vieno kintamojo, problemų tai nekelia, tačiau kuomet $w \in \mathbb{R}^k, k \gg 1$ arba funkcijoje dėmenų yra labai daug, jis veikia labai lėtai.</p></li>
+<li><p>Pagrindinė gradientinio nusileidimo problema yra ta, kad kiekviename žingsnyje gradientai apskaičiuojami naudojant norimą optimizuoti funkciją, nepriklausomai nuo to, kiek argumentų/parametrų ji turi ar iš kiek dėmenų susideda; kuomet funkcija yra nesudėtinga ir vieno kintamojo, problemų tai nekelia, tačiau kuomet $w \in \mathbb{R}^k, k \gg 1$ arba funkcijoje dėmenų yra labai daug, jis veikia labai lėtai.</p></li>
 <li><p>Stochastinis gradientinis nusileidimas kiekviename žingsnyje perskaičiuojant $w_{m}$ vietoje gradiento $\nabla f(w_{m-1})$ reikšmės naudoja atsitiktinę reikšmę $v_{m-1}$. Sekos $v_0, v_1, … $ nariams keliama viena sąlyga – atsitiktinio dydžio $v_m$ vidurkis turi būti lygus funkcijos gradientui taške $w_m$.</p></li>
 <li><p>Dėl savo stochastinio pobūdžio šis algoritmas yra daug mažiau pastovus nei gradientinis nusileidimas: vietoje to, kad funkcijos reikšmės nuosekliai mažėtų link minimumo, mažėja tik jų vidurkis. Laikui bėgant reikšmės priartės prie minimumo, tačiau net ir pasiekus jį, vertės ir toliau svyruos, niekada nekonverguodamos į vieną tašką. Todėl, sustabdžius algoritmą, galutinės parametrų vertės bus geros, bet ne optimalios.</p></li>
 </ul>
@@ -812,7 +810,7 @@ $$</p>
 <section id="praktine-uzduotis">
 <h2>Praktinė užduotis<a class="headerlink" href="#praktine-uzduotis" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Šiuo metu pats populiariausia gradientinio nusileidimo adaptacija yra <em>Adam</em> - Adaptive Moment Estimation method, pristatyta 2014 metais. Šio algoritmo pseudokodas atrodo taip:</p></li>
+<li><p>Šiuo metu pati populiariausia gradientinio nusileidimo adaptacija yra <em>Adam</em> - Adaptive Moment Estimation method, pristatyta 2014 metais. Dėl savo efektyvumo MM srityje, metodą pristatantis straipsnis “<em>Adam: A Method for Stochastic Optimization</em>” yra vienas daugiausiai cituojamų straipsnių istorijoje. Šiuo metu, jis turi kiek daugiau negu 188400 citatų. Šio algoritmo pseudokodas atrodo taip:</p></li>
 </ul>
 <hr style="border: none; height: 2px; background-color: black;">
 <p>$$
@@ -839,9 +837,13 @@ $$</p>
 $$</p>
 <hr style="border: none; height: 2px; background-color: black;">
 <ul class="simple">
+<li><p>Algoritme naudojami hiperparametrai:</p>
+<ul>
 <li><p>Kintamieji $m$ ir $v$ yra pirmasis ir antrasis gradientų momentai;</p></li>
-<li><p>$\beta_1, \beta_2$ yra šių momentų nykimo tempai, atitinkamai</p></li>
-<li><p>$\varepsilon$ - mažas skaičius, kad būtų išvengta dalyba iš nulio (paprastai 1e-8).</p></li>
+<li><p>$\beta_1, \beta_2$ yra šių momentų nykimo tempai, atitinkamai;</p></li>
+<li><p>$\varepsilon$ - mažas skaičius, kad būtų išvengta dalyba iš nulio (paprastai 1e-8);</p></li>
+</ul>
+</li>
 <li><p>Implementuokite <em>Adam</em> algoritmą bei pritaikykite jį funkcijos $f(x) = x^{4}+2x^{3}-2x$ minimumo taško radimui.</p></li>
 </ul>
 </section>

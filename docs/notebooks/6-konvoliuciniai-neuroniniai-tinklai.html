@@ -403,12 +403,15 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-filtro-zingsnis-angl-stride">Konvoliucijos filtro žingsnis (angl. stride)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sutelkimo-sluoksnis-angl-max-pooling">Sutelkimo sluoksnis (angl. max pooling)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pozymiu-zemelapiai">Požymių žemėlapiai</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netikties-funkcijos">Netikties funkcijos</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliuciniu-neuroniniu-tinklu-magija">Konvoliucinių neuroninių tinklų magija</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacija-naudojant-pytorch">Implementacija naudojant PyTorch</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktine-uzduotis">Praktinė užduotis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktine-uzduotis">Praktinė užduotis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sprendimas">Sprendimas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apmokyto-neuroninio-tinklo-modelio-pritaikymas">Apmokyto neuroninio tinklo modelio pritaikymas</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -658,9 +661,6 @@ $$</p>
 </ul>
 <p>Puiki vizualizacija: <a class="reference external" href="https://poloclub.github.io/cnn-explainer/">CNN Explainer</a></p>
 </section>
-<section id="netikties-funkcijos">
-<h3>Netikties funkcijos<a class="headerlink" href="#netikties-funkcijos" title="Link to this heading">#</a></h3>
-</section>
 </section>
 <section id="konvoliuciniu-neuroniniu-tinklu-magija">
 <h2>Konvoliucinių neuroninių tinklų magija<a class="headerlink" href="#konvoliuciniu-neuroniniu-tinklu-magija" title="Link to this heading">#</a></h2>
@@ -699,21 +699,9 @@ $$</p>
 <h2>Implementacija naudojant PyTorch<a class="headerlink" href="#implementacija-naudojant-pytorch" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
-<span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="k">as</span> <span class="nn">T</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">datasets</span>
 
-<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">datasets</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_MNIST_data</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">get_MNIST_data</span><span class="p">():</span>
     <span class="n">MNIST_train</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;../data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">MNIST_val</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;../data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -724,7 +712,11 @@ $$</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MNISTDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
+<span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="k">as</span> <span class="nn">T</span>
+
+
+<span class="k">class</span> <span class="nc">MNISTDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">transform</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">to_tensor</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">()</span>
@@ -751,7 +743,6 @@ $$</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
-
 
 <span class="k">class</span> <span class="nc">ConvBlock</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channels_in</span><span class="p">,</span> <span class="n">channels_out</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">batch_norm</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -957,12 +948,14 @@ $$</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Batch of images: torch.Size([256, 1, 32, 32]); Batch of labels: torch.Size([256])
 </pre></div>
 </div>
-<img alt="../_images/ad24c65d75a7d47365487e8e9aacd3863d7a18c371365d484d8ae3f6ded2487b.png" src="../_images/ad24c65d75a7d47365487e8e9aacd3863d7a18c371365d484d8ae3f6ded2487b.png" />
+<img alt="../_images/62142c6d3fb5a4622d40e6e8b96e24a6f6a13ec68e574b3d8995223ba13c977e.png" src="../_images/62142c6d3fb5a4622d40e6e8b96e24a6f6a13ec68e574b3d8995223ba13c977e.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
+
+<span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">CNN</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="n">NUM_CLASSES</span><span class="p">)</span>
 
@@ -981,7 +974,7 @@ $$</p>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                
 </pre></div>
 </div>
-<img alt="../_images/d618f73ef6fe890b64c844d251866cd076036a3285698517dfa3968e8e9afa8c.png" src="../_images/d618f73ef6fe890b64c844d251866cd076036a3285698517dfa3968e8e9afa8c.png" />
+<img alt="../_images/482762bb2f07211f5c2c60cded6086e9b51ffed8bd477b2cadccb9d77bae9423.png" src="../_images/482762bb2f07211f5c2c60cded6086e9b51ffed8bd477b2cadccb9d77bae9423.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1076,8 +1069,8 @@ $$</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7f721f7e7e15d470dfae5304e8135d18c13bed783e26fba488881d08466d704a.png" src="../_images/7f721f7e7e15d470dfae5304e8135d18c13bed783e26fba488881d08466d704a.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total number of misclassified examples: 56
+<img alt="../_images/d1943ec08e19d402c493953b0e9d51ad9f408e90995a89dae78b4769b8d7fdb9.png" src="../_images/d1943ec08e19d402c493953b0e9d51ad9f408e90995a89dae78b4769b8d7fdb9.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total number of misclassified examples: 62
 </pre></div>
 </div>
 </div>
@@ -1085,6 +1078,25 @@ $$</p>
 </section>
 <section id="praktine-uzduotis">
 <h2>Praktinė užduotis<a class="headerlink" href="#praktine-uzduotis" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Sukurkite konvoliuciniu neuroniniu tinklu pagrįstą klasifikatorių, naudodamiesi <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> biblioteka. Konvoliucinio neuroninio tinklo tikslas – suskirstyti (klasifikuoti) vaizdus iš <em>QuickDraw</em> duomenų rinkinio į vieną iš dešimties kategorijų: <code class="docutils literal notranslate"><span class="pre">[&quot;cat&quot;,</span> <span class="pre">&quot;dog&quot;,</span> <span class="pre">&quot;bicycle&quot;,</span> <span class="pre">&quot;airplane&quot;,</span> <span class="pre">&quot;tree&quot;,</span> <span class="pre">&quot;house&quot;,</span> <span class="pre">&quot;flower&quot;,</span> <span class="pre">&quot;fish&quot;,</span> <span class="pre">&quot;car&quot;,</span> <span class="pre">&quot;apple&quot;]</span></code>.</p></li>
+<li><p>Duomenų rinkinį sudaro kiekvienos iš dešimties klasių ranka piešti vaizdai. Kiekvienoje klasėje yra iki 1000 <em>grayscale</em> paveikslėlių, kurių rezoliucija 128x128. Duomenims įkelti yra paruoša funkcija <code class="docutils literal notranslate"><span class="pre">load_quickdraw_data</span></code>.</p></li>
+<li><p>Esminiai aspektai:</p>
+<ul>
+<li><p>Pasinaudodami <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> klase iš <code class="docutils literal notranslate"><span class="pre">torch.utils.data</span></code> apsibrėžkite nagrinėjamų duomenų rinkinį, bei atitinkamas vaizdo apdorojimo operacijas – vaizdo pavertimą į tenzorių, rezoliucijos pakeitimą (greitesniam modelio veikimui), bei papildomas augmentacijas.</p></li>
+<li><p>Aprašykite konvoliucinio neuroninio tinklo architektūrą, naudodami <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code> arba <code class="docutils literal notranslate"><span class="pre">torch.nn.Sequential</span></code>. Tinkle turėtų būti keli konvoliuciniai sluoksniai (<code class="docutils literal notranslate"><span class="pre">torch.nn.Conv2d</span></code>), normalizavimo sluoksniai (<code class="docutils literal notranslate"><span class="pre">torch.nn.BatchNorm2d</span></code>), aktyvacijos funkcijos (<code class="docutils literal notranslate"><span class="pre">torch.nn.ReLU</span></code>) ir bent vienas įprastas dirbtinio neuroninio tinklo sluoksnis pabaigoje (<code class="docutils literal notranslate"><span class="pre">torch.nn.Linear</span></code>).</p></li>
+<li><p>Parašykite apmokymo ciklo funkciją. Naudokite tinkamą nuostolių funkciją (<code class="docutils literal notranslate"><span class="pre">torch.nn.CrossEntropyLoss</span></code>) ir optimizatorių (<code class="docutils literal notranslate"><span class="pre">torch.optim.Adam</span></code>). Kiekvienos epochos pabaigoje atlikite validavimą, kad galėtumėte stebėti modelio generalizaciją nematytiems duomenims ir išvengtumėte persimokymo.</p></li>
+<li><p>Po apmokymo įvertinkite modelio veikimą su validacijos (arba naujai sukurta testavimo) aibe.</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install quickdraw</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -1157,6 +1169,8 @@ load complete
 </div>
 </div>
 </div>
+<section id="sprendimas">
+<h3>Sprendimas<a class="headerlink" href="#sprendimas" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> 
@@ -1178,8 +1192,7 @@ load complete
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
 <span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="k">as</span> <span class="nn">T</span>
 
 
@@ -1196,7 +1209,10 @@ load complete
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        
         <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        
         <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_tensor</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
         
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">:</span>
@@ -1204,8 +1220,6 @@ load complete
             
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">:</span>
             <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-        
-        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
         
         <span class="k">return</span> <span class="n">image</span><span class="p">,</span> <span class="n">label</span>
 
@@ -1217,7 +1231,7 @@ load complete
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/797731a2624d49e57a6ac02cb0b047886d7b06ea34b9777f8aa4085760692dbf.png" src="../_images/797731a2624d49e57a6ac02cb0b047886d7b06ea34b9777f8aa4085760692dbf.png" />
+<img alt="../_images/356e2648e00520ffebad018c05912da82d457af05c85769b96a649392d676a1a.png" src="../_images/356e2648e00520ffebad018c05912da82d457af05c85769b96a649392d676a1a.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1313,7 +1327,7 @@ torch.Size([1, 3])
     
     <span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
     <span class="n">train_accuracies</span><span class="p">,</span> <span class="n">val_accuracies</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
-    
+        
     <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
         <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
         <span class="n">running_loss_train</span> <span class="o">=</span> <span class="n">running_loss_val</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -1335,11 +1349,11 @@ torch.Size([1, 3])
             <span class="n">probs_train</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">outputs_train</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="n">predicted_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">probs_train</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-            <span class="c1"># total_train += len(labels_train)</span>
+            <span class="n">total_train</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_train</span><span class="p">)</span>
             <span class="n">correct_train</span> <span class="o">+=</span> <span class="p">(</span><span class="n">predicted_train</span> <span class="o">==</span> <span class="n">labels_train</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
                 
         <span class="n">train_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">running_loss_train</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">))</span>
-        <span class="n">train_accuracies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">correct_train</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">))</span>
+        <span class="n">train_accuracies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">correct_train</span> <span class="o">/</span> <span class="n">total_train</span><span class="p">)</span>
         
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
             <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
@@ -1367,7 +1381,10 @@ torch.Size([1, 3])
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_metrics</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">losses</span><span class="p">,</span> <span class="n">accuracies</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<span class="k">def</span> <span class="nf">plot_metrics</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">losses</span><span class="p">,</span> <span class="n">accuracies</span><span class="p">):</span>
     <span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span> <span class="o">=</span> <span class="n">losses</span>
     <span class="n">train_accuracies</span><span class="p">,</span> <span class="n">val_accuracies</span> <span class="o">=</span> <span class="n">accuracies</span>
     
@@ -1450,7 +1467,7 @@ torch.Size([1, 3])
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0fb09356ade15213be57f1ff85131a2dc69d004ff5130d5f0dc0195723231631.png" src="../_images/0fb09356ade15213be57f1ff85131a2dc69d004ff5130d5f0dc0195723231631.png" />
+<img alt="../_images/7d5e5190c53057c65295391e0fd5751814da0e91c14103e2f125c2ba7b78543a.png" src="../_images/7d5e5190c53057c65295391e0fd5751814da0e91c14103e2f125c2ba7b78543a.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1476,7 +1493,7 @@ torch.Size([1, 3])
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                
 </pre></div>
 </div>
-<img alt="../_images/8d53f708fb6a47ca12abb0d0723c58d0b1e74f07bf3022f72b0b97884ad323ea.png" src="../_images/8d53f708fb6a47ca12abb0d0723c58d0b1e74f07bf3022f72b0b97884ad323ea.png" />
+<img alt="../_images/08312bca0aa894dbe889405c9e81fcb88adb6d2c71b38399f1d1f428c0d9c803.png" src="../_images/08312bca0aa894dbe889405c9e81fcb88adb6d2c71b38399f1d1f428c0d9c803.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1514,7 +1531,27 @@ torch.Size([1, 3])
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/87cdec9dd05c305c7d6c829aab1589c9b9f52dac884aecc98e8540ef4de33ac2.png" src="../_images/87cdec9dd05c305c7d6c829aab1589c9b9f52dac884aecc98e8540ef4de33ac2.png" />
+<img alt="../_images/e2290f64fe5c0fa4ef2503ca8ffa640a696a83382db053ff5713c21fd8caab4a.png" src="../_images/e2290f64fe5c0fa4ef2503ca8ffa640a696a83382db053ff5713c21fd8caab4a.png" />
+</div>
+</div>
+</section>
+<section id="apmokyto-neuroninio-tinklo-modelio-pritaikymas">
+<h3>Apmokyto neuroninio tinklo modelio pritaikymas<a class="headerlink" href="#apmokyto-neuroninio-tinklo-modelio-pritaikymas" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Turėdami apmokytą modelį, galime jį panaudoti realioje praktinėje situacijoje, siekiant atpažinti, kas yra nupiešta vaizde.</p></li>
+<li><p>Naudojant <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> biblioteką, modelio implementacija labai nesudėtinga, tereikia atlikti modelio <em>forward pass</em> vaizdui, paverstam į atitinkamą tenzorių bei apskaičiuoti klasifikavimo tikimybes naudojant <code class="docutils literal notranslate"><span class="pre">softmax</span></code> funkciją.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">image_tensor</span><span class="p">)</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install ipycanvas</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="cell docutils container">
@@ -1645,7 +1682,10 @@ torch.Size([1, 3])
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f72c81dd624e494da16c9dfc7c53169e", "version_major": 2, "version_minor": 0}</script></div>
 </div>
+</section>
 </section>
 </section>
 
@@ -1724,12 +1764,15 @@ torch.Size([1, 3])
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliucijos-filtro-zingsnis-angl-stride">Konvoliucijos filtro žingsnis (angl. stride)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sutelkimo-sluoksnis-angl-max-pooling">Sutelkimo sluoksnis (angl. max pooling)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pozymiu-zemelapiai">Požymių žemėlapiai</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netikties-funkcijos">Netikties funkcijos</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konvoliuciniu-neuroniniu-tinklu-magija">Konvoliucinių neuroninių tinklų magija</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacija-naudojant-pytorch">Implementacija naudojant PyTorch</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktine-uzduotis">Praktinė užduotis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktine-uzduotis">Praktinė užduotis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sprendimas">Sprendimas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apmokyto-neuroninio-tinklo-modelio-pritaikymas">Apmokyto neuroninio tinklo modelio pritaikymas</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

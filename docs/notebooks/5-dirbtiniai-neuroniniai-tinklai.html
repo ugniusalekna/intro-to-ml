@@ -405,8 +405,9 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatinis-diferencijavimas">Automatinis diferencijavimas</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktinis-taikymas-su-pytorch">Praktinis taikymas su PyTorch</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#realus-end-to-end-pavyzdys">Realus end-to-end pavyzdys</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktinis-taikymas-su-pytorch">Praktinis taikymas su PyTorch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktine-uzduotis">Praktinė užduotis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sprendimas">Sprendimas</a></li>
 </ul>
 </li>
 </ul>
@@ -580,35 +581,7 @@ $$</p>
             allowfullscreen
             
         ></iframe>
-        </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>---------------------------------------------------------------------------
-KeyError                                  Traceback (most recent call last)
-Cell In[3], line 70, in update_graph(
-    W1_0=-1.72,
-    W1_1=-1.22,
-    b1_0=-0.48,
-    b1_1=0.38,
-    W2_0=-1.53,
-    W2_1=-0.62,
-    b2=0.99,
-    activation_func=None
-)
-     67 b1 = np.array([b1_0, b1_1])
-     68 W2 = np.array([W2_0, W2_1])
----&gt; 70 activation = {&#39;sigmoid&#39;: sigmoid, &#39;relu&#39;: relu, &#39;identity&#39;: identity, &#39;tanh&#39;: tanh}[activation_func]
-        {&#39;sigmoid&#39;: sigmoid, &#39;relu&#39;: relu, &#39;identity&#39;: identity, &#39;tanh&#39;: tanh} = {&#39;sigmoid&#39;: &lt;function sigmoid at 0x10d2e6a20&gt;, &#39;relu&#39;: &lt;function relu at 0x10d2e6980&gt;, &#39;identity&#39;: &lt;function identity at 0x10d2e68e0&gt;, &#39;tanh&#39;: &lt;function tanh at 0x10d2e6ac0&gt;}
-        activation_func = None
-     72 out_seq = two_layer_nn(x_seq, W1, b1, W2, b2, activation)
-     74 return {
-     75     &#39;data&#39;: [
-     76         go.Scatter(x=x_seq.flatten(), y=y_seq.flatten(), mode=&#39;markers&#39;, name=&#39;Data&#39;),
-   (...)
-     89     )
-     90 }
-
-KeyError: None
-</pre></div>
-</div>
-</div>
+        </div></div>
 </div>
 </section>
 <section id="sklidimo-atgal-algoritmas">
@@ -737,31 +710,33 @@ KeyError: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 0 loss 0.6798
-Epoch 50 loss 0.3379
-Epoch 100 loss 0.1741
-Epoch 150 loss 0.1191
-Epoch 200 loss 0.1081
-Epoch 250 loss 0.1022
-Epoch 300 loss 0.0974
-Epoch 350 loss 0.0934
-Epoch 400 loss 0.0901
-Epoch 450 loss 0.0873
-Epoch 499 loss 0.0850
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 0 loss 0.6411
+Epoch 50 loss 0.2323
+Epoch 100 loss 0.1460
+Epoch 150 loss 0.1269
+Epoch 200 loss 0.1220
+Epoch 250 loss 0.1194
+Epoch 300 loss 0.1174
+Epoch 350 loss 0.1157
+Epoch 400 loss 0.1139
+Epoch 450 loss 0.1119
+Epoch 499 loss 0.1097
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
     <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_seq</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_seq</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">y_seq</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Original data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_seq</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">y_seq</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Data samples&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_seq</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">predictions</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF5B00&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Network prediction&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Model Predictions vs. Original Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Simple network predictions&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Input (x)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Output (y)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
@@ -771,15 +746,27 @@ Epoch 499 loss 0.0850
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d7b6e8bb64b9f68c73f1e52173b442e4f0a853140fecf65bb7fcc7479adeab00.png" src="../_images/d7b6e8bb64b9f68c73f1e52173b442e4f0a853140fecf65bb7fcc7479adeab00.png" />
+<img alt="../_images/a964552cfe72c049be024d5b495b3003112760849611199b82c66c1fe1982f85.png" src="../_images/a964552cfe72c049be024d5b495b3003112760849611199b82c66c1fe1982f85.png" />
 </div>
 </div>
-<section id="realus-end-to-end-pavyzdys">
-<h3>Realus end-to-end pavyzdys<a class="headerlink" href="#realus-end-to-end-pavyzdys" title="Link to this heading">#</a></h3>
+</section>
+<section id="praktine-uzduotis">
+<h2>Praktinė užduotis<a class="headerlink" href="#praktine-uzduotis" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Naudodamiesi paskaitos žiniomis, sukurkite paprastą dirbtinį neuroninį tinklą naudojant <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code> biblioteką.</p></li>
+<li><p>Duomenų aibę sudaro $(\textbf{X}, y) \in \mathbb{R}^2 \times \{ 0, 1 \} $, taigi, dirbtinis neuroninis tinklas bus hipotezė, skirta klasifikavimo uždaviniui spręsti.</p></li>
+<li><p>Esminiai aspektai:</p>
+<ul>
+<li><p>Sukurkite <code class="docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code> klasę duomenų įkėlimui ir paruošimui.</p></li>
+<li><p>Apibrėžkite dirbtinio neuroninio tinklo architektūrą pasinaudoję <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code> klase. Modelyje turi būti keli tiesiniai sluoksniai (<code class="docutils literal notranslate"><span class="pre">torch.nn.Linear</span></code>), aktyvacijos funkcija (<code class="docutils literal notranslate"><span class="pre">torch.nn.ReLU</span></code>).</p></li>
+<li><p>Parašykite tinko apmokymo ciklo funkciją. Naudokite tinkamą nuostolių funkciją (<code class="docutils literal notranslate"><span class="pre">torch.nn.CrossEntropyLoss</span></code>) ir optimizatorių (<code class="docutils literal notranslate"><span class="pre">torch.optim.Adam</span></code>). Kiekvienos epochos pabaigoje atlikite validavimą, kad galėtumėte stebėti modelio generalizaciją nematytiems duomenims ir išvengtumėte persimokymo.</p></li>
+<li><p>Įvertinkite modelio efektyvumą naudojant validacijos rinkinį ir pasirinktą tikslumo metriką.</p></li>
+</ul>
+</li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_moons</span>
 
 <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_moons</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -795,28 +782,32 @@ Epoch 499 loss 0.0850
 <img alt="../_images/fcc4ade66731b3d463fbef58c90dc07a19e79c47d6e963f41c385600ebe092a8.png" src="../_images/fcc4ade66731b3d463fbef58c90dc07a19e79c47d6e963f41c385600ebe092a8.png" />
 </div>
 </div>
+<section id="sprendimas">
+<h3>Sprendimas<a class="headerlink" href="#sprendimas" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
 
-<span class="c1"># Split data to train and val sets using train_test_split function</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
-<span class="c1"># Create the dataset class</span>
 <span class="k">class</span> <span class="nc">MoonsDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
         
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Implement len logic</span>
-        <span class="k">return</span> <span class="mi">0</span>
-        
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+    
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
-        <span class="c1"># Implement getitem logic</span>
-        <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">MoonsDataset</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">val_dataset</span> <span class="o">=</span> <span class="n">MoonsDataset</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span>
+
+<span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">val_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">val_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -827,24 +818,36 @@ Epoch 499 loss 0.0850
 <span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
 
 <span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">output_size</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="c1"># Define layers of the neural network</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">output_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="c1"># Implement forward pass logic</span>
-        <span class="c1"># Dont forget the activation function!</span>
-        <span class="k">return</span> <span class="mi">0</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+<span class="n">input_size</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">hidden_size</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">output_size</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.001</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">output_size</span><span class="p">)</span>
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Implement the training logic</span>
-
-<span class="k">def</span> <span class="nf">train_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">val_loader</span><span class="p">,</span> <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="n">log_interval</span> <span class="o">=</span> <span class="mi">10</span>
 
 <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
     <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
@@ -879,16 +882,16 @@ Epoch 499 loss 0.0850
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch [10/100]; Train Loss: 0.2687; Validation Loss: 0.2380
-Epoch [20/100]; Train Loss: 0.1601; Validation Loss: 0.1384
-Epoch [30/100]; Train Loss: 0.1132; Validation Loss: 0.0998
-Epoch [40/100]; Train Loss: 0.0958; Validation Loss: 0.0826
-Epoch [50/100]; Train Loss: 0.0844; Validation Loss: 0.0756
-Epoch [60/100]; Train Loss: 0.0792; Validation Loss: 0.0693
-Epoch [70/100]; Train Loss: 0.0749; Validation Loss: 0.0675
-Epoch [80/100]; Train Loss: 0.0726; Validation Loss: 0.0659
-Epoch [90/100]; Train Loss: 0.0709; Validation Loss: 0.0607
-Epoch [100/100]; Train Loss: 0.0694; Validation Loss: 0.0621
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch [10/100]; Train Loss: 0.3067; Validation Loss: 0.2824
+Epoch [20/100]; Train Loss: 0.2345; Validation Loss: 0.2072
+Epoch [30/100]; Train Loss: 0.1824; Validation Loss: 0.1581
+Epoch [40/100]; Train Loss: 0.1427; Validation Loss: 0.1214
+Epoch [50/100]; Train Loss: 0.1163; Validation Loss: 0.1011
+Epoch [60/100]; Train Loss: 0.1010; Validation Loss: 0.0880
+Epoch [70/100]; Train Loss: 0.0927; Validation Loss: 0.0802
+Epoch [80/100]; Train Loss: 0.0881; Validation Loss: 0.0776
+Epoch [90/100]; Train Loss: 0.0842; Validation Loss: 0.0744
+Epoch [100/100]; Train Loss: 0.0837; Validation Loss: 0.0714
 </pre></div>
 </div>
 </div>
@@ -911,7 +914,7 @@ Epoch [100/100]; Train Loss: 0.0694; Validation Loss: 0.0621
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/140c309e1ebe61ac59bb98c858e5ea2b42301a785d0ad6ab8fcc8032bd8ebdee.png" src="../_images/140c309e1ebe61ac59bb98c858e5ea2b42301a785d0ad6ab8fcc8032bd8ebdee.png" />
+<img alt="../_images/ea6cfef0909ec582628558bebb3bde023d014bec16576f6bc5dd1fd9177c212e.png" src="../_images/ea6cfef0909ec582628558bebb3bde023d014bec16576f6bc5dd1fd9177c212e.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -923,10 +926,8 @@ Epoch [100/100]; Train Loss: 0.0694; Validation Loss: 0.0621
 
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
     <span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">val_loader</span><span class="p">:</span>
-        <span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-        <span class="n">probs</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">predicted</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">predicted</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">all_preds</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">predicted</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
 
 
@@ -936,7 +937,7 @@ Epoch [100/100]; Train Loss: 0.0694; Validation Loss: 0.0621
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Final Validation Accuracy: 97.33%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Final Validation Accuracy: 98.00%
 </pre></div>
 </div>
 </div>
@@ -952,10 +953,7 @@ Epoch [100/100]; Train Loss: 0.0694; Validation Loss: 0.0621
 
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
     <span class="n">Z</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">grid_tensor</span><span class="p">)</span>
-    <span class="n">Z</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">Z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="c1"># _, Z = torch.max(Z, 1)</span>
-
+    <span class="n">_</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
@@ -975,7 +973,7 @@ Epoch [100/100]; Train Loss: 0.0694; Validation Loss: 0.0621
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/094957fe5756d7930973717883cc4704c5218006dff1104a4829e2ee505a8aeb.png" src="../_images/094957fe5756d7930973717883cc4704c5218006dff1104a4829e2ee505a8aeb.png" />
+<img alt="../_images/9edd5c41b9bd5e395bb6e063000d5cbb25f166c744351053550a10e647045bf5.png" src="../_images/9edd5c41b9bd5e395bb6e063000d5cbb25f166c744351053550a10e647045bf5.png" />
 </div>
 </div>
 </section>
@@ -1059,8 +1057,9 @@ Epoch [100/100]; Train Loss: 0.0694; Validation Loss: 0.0621
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatinis-diferencijavimas">Automatinis diferencijavimas</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktinis-taikymas-su-pytorch">Praktinis taikymas su PyTorch</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#realus-end-to-end-pavyzdys">Realus end-to-end pavyzdys</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktinis-taikymas-su-pytorch">Praktinis taikymas su PyTorch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#praktine-uzduotis">Praktinė užduotis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sprendimas">Sprendimas</a></li>
 </ul>
 </li>
 </ul>
