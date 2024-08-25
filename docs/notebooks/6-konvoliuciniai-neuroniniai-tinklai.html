@@ -1110,13 +1110,6 @@ $$</p>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install quickdraw</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">quickdraw</span> <span class="kn">import</span> <span class="n">QuickDrawDataGroup</span>
@@ -1249,7 +1242,7 @@ load complete
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/854f918558ae1dfa7b3e37cf60ac338800b0091e4aff27447975ff9fea6fd801.png" src="../_images/854f918558ae1dfa7b3e37cf60ac338800b0091e4aff27447975ff9fea6fd801.png" />
+<img alt="../_images/7711be4fedc61f1285d611e602c00ddfaa2655a3b7eef57fbeb547e56c95f235.png" src="../_images/7711be4fedc61f1285d611e602c00ddfaa2655a3b7eef57fbeb547e56c95f235.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1391,7 +1384,9 @@ torch.Size([1, 3])
 
             <span class="n">val_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">running_loss_val</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">val_loader</span><span class="p">))</span>
             <span class="n">val_accuracies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">correct_val</span> <span class="o">/</span> <span class="n">total_val</span><span class="p">)</span>
-        
+                
+    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="s2">&quot;/Users/ugniusalekna/Documents/NMA/intro-to-ml/logs&quot;</span> <span class="o">+</span> <span class="s2">&quot;/model_state_dict.pth&quot;</span><span class="p">)</span>
+    
     <span class="k">return</span> <span class="p">[</span><span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span><span class="p">],</span> <span class="p">[</span><span class="n">train_accuracies</span><span class="p">,</span> <span class="n">val_accuracies</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -1440,7 +1435,7 @@ torch.Size([1, 3])
 <span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">64</span>
 
 <span class="n">LEARNING_RATE</span> <span class="o">=</span> <span class="mf">3e-4</span>
-<span class="n">NUM_EPOCHS</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">NUM_EPOCHS</span> <span class="o">=</span> <span class="mi">150</span>
 </pre></div>
 </div>
 </div>
@@ -1463,8 +1458,8 @@ torch.Size([1, 3])
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transform</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
     <span class="n">T</span><span class="o">.</span><span class="n">RandomHorizontalFlip</span><span class="p">(),</span>
-    <span class="n">T</span><span class="o">.</span><span class="n">RandomAffine</span><span class="p">(</span><span class="n">degrees</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">translate</span><span class="o">=</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)),</span>
-    <span class="n">T</span><span class="o">.</span><span class="n">RandomErasing</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">)),</span>
+    <span class="n">T</span><span class="o">.</span><span class="n">RandomAffine</span><span class="p">(</span><span class="n">degrees</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">translate</span><span class="o">=</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">)),</span>
+    <span class="n">T</span><span class="o">.</span><span class="n">RandomErasing</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)),</span>
     <span class="n">AddGaussianNoise</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
 <span class="p">])</span>
 
@@ -1484,7 +1479,7 @@ torch.Size([1, 3])
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/fd1e247cc95a378d0cbcc28d1f56b6ad454680eca1f5b8f7da43e904587fc9dd.png" src="../_images/fd1e247cc95a378d0cbcc28d1f56b6ad454680eca1f5b8f7da43e904587fc9dd.png" />
+<img alt="../_images/086046e5923f6b68a3d5148756422919198b4a5c65c51ad70305794d6f018c95.png" src="../_images/086046e5923f6b68a3d5148756422919198b4a5c65c51ad70305794d6f018c95.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1518,7 +1513,7 @@ torch.Size([1, 3])
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                  
 </pre></div>
 </div>
-<img alt="../_images/0410d2e595814c32fbb2ba764263779aa7fd77dda99f0efe5aa0bd2829d4aa6e.png" src="../_images/0410d2e595814c32fbb2ba764263779aa7fd77dda99f0efe5aa0bd2829d4aa6e.png" />
+<img alt="../_images/1bdcc312fa2114383314b5f4fb21780ac9dedefba4a9c67a7a19bd57d0c80e69.png" src="../_images/1bdcc312fa2114383314b5f4fb21780ac9dedefba4a9c67a7a19bd57d0c80e69.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1571,13 +1566,6 @@ torch.Size([1, 3])
         <span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">image_tensor</span><span class="p">)</span>
         <span class="n">probs</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install ipycanvas</span>
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
