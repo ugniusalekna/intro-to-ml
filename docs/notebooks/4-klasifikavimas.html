@@ -455,12 +455,10 @@ $$</p>
 <li><p>Pagrindinė SVM idėja – surasti hiperplokštumą, kuri atskirtų dvi turimas klases. Tačiau erdvėje tokių hiperplokštumų galime nubrėžti be galo daug. SVM modelis parenka optimalią hiperplokštumą siekdamas maksimizuoti paraštę tarp artimiausių skirtingų klasių taškų. Šį algoritmą galime įsivaizduoti kaip plačiausios įmanomos gatvės tarp dviejų klasių suradimą.</p></li>
 <li><p>Daugiau apmokymo aibės atvejų, esančių už paraštės ribų, neturės jokios įtakos hiperplokštumos parinkimui – ją visiškai nustato (angl. supports) ruožo pakraštyje esantys atvejai. Šie duomenų atvejai vadinami atraminiais vektoriais.</p></li>
 </ul>
-<hr style="border: none; height: 2px; background-color: black;">
-<div style="text-align: center;">
-<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/support_vector_machines.png" alt="hyperplane-svm" width="65%">
-<p><strong>4.1 pav., Hiperplokštumų pavyzdys dvimačiu atveju</strong></p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
 </div>
-<hr style="border: none; height: 2px; background-color: black;">
+</div>
 <ul class="simple">
 <li><p>Atvejis, kuomet duomenis galime pilnai atskirti hiperplokštuma, vadinamas <em>separabiliu</em>. Formaliai, jis gali būti užrašytas taip:</p></li>
 </ul>
@@ -1018,9 +1016,9 @@ Confusion Matrix:
 <li><p>Branduolio triukas leidžia SVM modeliuoti sudėtingesnes klasifikavimo kreives, nei tai būtų galima padaryti tiesiogiai su originaliais požymiais. Šis triukas išplečia erdvę, į kurią projekuojami duomenys, naudojant netiesinę transformaciją, vadinamą <em>branduolio funkcija</em> $\phi(\textbf{x})$.</p></li>
 <li><p>Vietoje tiesinio hiperplokštumos ieškojimo originalioje požymių erdvėje $\mathcal{X}$, branduolio funkcija leidžia perkelti duomenis į aukštesnės dimensijos erdvę, kurioje duomenys gali būti būti atskirti hiperplokštuma:</p></li>
 </ul>
-<div style="text-align: center;">
-<img src="https://raw.githubusercontent.com/ugniusalekna/intro-to-ml/main/images/kernel_trick.png" alt="kernel-trick" width="70%">
-<p><strong>4.3 pav., Branduolio triukas </strong></p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+</div>
 </div>
 <ul class="simple">
 <li><p>Branduolio funkcija $ K(\textbf{x}, \textbf{z}) $ yra apibrėžiama kaip dviejų taškų skaliarinės sandaugos rezultatas aukštesnės dimensijos erdvėje:</p></li>
