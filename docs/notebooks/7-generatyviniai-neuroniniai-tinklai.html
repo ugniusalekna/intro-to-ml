@@ -935,12 +935,11 @@ load complete
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> tensorboard
-<span class="o">%</span><span class="k">tensorboard</span> --logdir ../logs/
 </pre></div>
 </div>
 </div>
 </div>
-<iframe src="https://render-apps-h1wm.onrender.com/tensorboard-view/tensorboard" width="100%" height="800px"></iframe><div class="cell docutils container">
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">select_device</span><span class="p">():</span>
     <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
@@ -973,7 +972,14 @@ load complete
 </div>
 </div>
 </div>
-</section>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">tensorboard</span> --logdir ../logs/
+</pre></div>
+</div>
+</div>
+</div>
+<iframe src="https://render-apps-h1wm.onrender.com/tensorboard-view/tensorboard" width="100%" height="800px"></iframe></section>
 </section>
 </section>
 
