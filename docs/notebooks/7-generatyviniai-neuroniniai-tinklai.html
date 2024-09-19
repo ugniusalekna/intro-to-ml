@@ -971,12 +971,12 @@ load complete
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 
-<span class="n">plot_loss_curves</span><span class="p">(</span><span class="s1">&#39;../logs/09-18_22-38-49&#39;</span><span class="p">)</span>
+<span class="n">plot_loss_curves</span><span class="p">(</span><span class="s1">&#39;../logs/09-18_23-00-32&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a2f098c4c4d8c180d298d29d60c4fb32009428f58997bbe169b5f7e596ec12eb.png" src="../_images/a2f098c4c4d8c180d298d29d60c4fb32009428f58997bbe169b5f7e596ec12eb.png" />
+<img alt="../_images/23232b33086cedcea0531db33e300102c13c205ca9b72c039cd1c243b2ce72f5.png" src="../_images/23232b33086cedcea0531db33e300102c13c205ca9b72c039cd1c243b2ce72f5.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -988,8 +988,10 @@ load complete
 
     
 <span class="k">def</span> <span class="nf">display_images</span><span class="p">(</span><span class="n">log_dir</span><span class="p">):</span>
-    <span class="n">image_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">log_dir</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.png&#39;</span><span class="p">)])</span>
-
+    <span class="n">image_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">log_dir</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.png&#39;</span><span class="p">)],</span>
+        <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">view_image</span><span class="p">(</span><span class="n">step</span><span class="p">):</span>
         <span class="n">img_file</span> <span class="o">=</span> <span class="n">image_files</span><span class="p">[</span><span class="n">step</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">img_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_dir</span><span class="p">,</span> <span class="n">img_file</span><span class="p">)</span>
@@ -1002,7 +1004,7 @@ load complete
 
     <span class="n">interact</span><span class="p">(</span><span class="n">view_image</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">image_files</span><span class="p">),</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Epoch&#39;</span><span class="p">))</span>
 
-<span class="n">display_images</span><span class="p">(</span><span class="s1">&#39;../logs/09-18_23-13-39/generated_vs_real&#39;</span><span class="p">)</span>
+<span class="n">display_images</span><span class="p">(</span><span class="s1">&#39;../logs/09-18_23-00-32/generated_vs_real&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
